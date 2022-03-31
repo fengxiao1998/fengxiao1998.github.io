@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>node | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Node.Js官网 （扩展了Js的功能，原来在浏览器中运行不了的，可以在node这个平台来运行，具体是v8引擎）特点：1.异步IO  2.事件驱动  3.事件循环  4.单线程(主线程是单线程，由V8引擎执行)一、整体架构分为三大部分Native Modules  当前层内容由JS实现 提供应用程序可以直接调用的库，例如fs、path、http、url等模块 但是JS无法直接操作底层硬件设置，所以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node">
+<meta property="og:url" content="http://example.com/2020/06/30/vue/vue2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Node.Js官网 （扩展了Js的功能，原来在浏览器中运行不了的，可以在node这个平台来运行，具体是v8引擎）特点：1.异步IO  2.事件驱动  3.事件循环  4.单线程(主线程是单线程，由V8引擎执行)一、整体架构分为三大部分Native Modules  当前层内容由JS实现 提供应用程序可以直接调用的库，例如fs、path、http、url等模块 但是JS无法直接操作底层硬件设置，所以">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/e54Lq3EzZX9Ml7Ed/img/f1a4e803-183c-4fd6-a0f7-fe15c307d8c5.png">
+<meta property="og:image" content="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/e54Lq3EzZX9Ml7Ed/img/63d368d7-b415-4b91-83cb-c51a5d8fbdfe.png">
+<meta property="og:image" content="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/e54Lq3EzZX9Ml7Ed/img/eecffff4-ba39-44ce-a460-cfa060d3f549.png">
+<meta property="og:image" content="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/e54Lq3EzZX9Ml7Ed/img/206a109c-9615-4ad7-ba88-790f12843883.png">
+<meta property="og:image" content="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/e54Lq3EzZX9Ml7Ed/img/8341efac-b34a-4841-a782-f8608b0899a6.png">
+<meta property="og:image" content="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/e54Lq3EzZX9Ml7Ed/img/3adfb8dd-5380-4056-80cc-7e6620cbdab2.png">
+<meta property="article:published_time" content="2020-06-30T07:03:18.000Z">
+<meta property="article:modified_time" content="2022-03-30T07:41:14.128Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/e54Lq3EzZX9Ml7Ed/img/f1a4e803-183c-4fd6-a0f7-fe15c307d8c5.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-vue/vue2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/06/30/vue/vue2/" class="article-date">
+  <time class="dt-published" datetime="2020-06-30T07:03:18.000Z" itemprop="datePublished">2020-06-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      node
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Node-Js"><a href="#Node-Js" class="headerlink" title="Node.Js"></a>Node.Js</h1><p><a target="_blank" rel="noopener" href="http://nodejs.cn/">官网</a></p>
+<h4 id="（扩展了Js的功能，原来在浏览器中运行不了的，可以在node这个平台来运行，具体是v8引擎）"><a href="#（扩展了Js的功能，原来在浏览器中运行不了的，可以在node这个平台来运行，具体是v8引擎）" class="headerlink" title="（扩展了Js的功能，原来在浏览器中运行不了的，可以在node这个平台来运行，具体是v8引擎）"></a>（扩展了Js的功能，原来在浏览器中运行不了的，可以在node这个平台来运行，具体是v8引擎）</h4><h4 id="特点：1-异步IO-2-事件驱动-3-事件循环-4-单线程-主线程是单线程，由V8引擎执行"><a href="#特点：1-异步IO-2-事件驱动-3-事件循环-4-单线程-主线程是单线程，由V8引擎执行" class="headerlink" title="特点：1.异步IO  2.事件驱动  3.事件循环  4.单线程(主线程是单线程，由V8引擎执行)"></a>特点：1.异步IO  2.事件驱动  3.事件循环  4.单线程(主线程是单线程，由V8引擎执行)</h4><h2 id="一、整体架构分为三大部分"><a href="#一、整体架构分为三大部分" class="headerlink" title="一、整体架构分为三大部分"></a>一、整体架构分为三大部分</h2><p>Native Modules</p>
+<ol>
+<li>当前层内容由JS实现</li>
+<li>提供应用程序可以直接调用的库，例如fs、path、http、url等模块</li>
+<li>但是JS无法直接操作底层硬件设置，所以需要一个桥梁Builtin Modules桥梁</li>
+</ol>
+<p>Builtin Modules</p>
+<ol>
+<li>在这个桥梁模块中就可以让nodejs核心模块获取到具体的服务支持，从而完成更底层的操作。例如文件的读写行为</li>
+</ol>
+<p>v8引擎、libuv库、http、parser等模块</p>
+<ol>
+<li>v8引擎负责执行js代码、提供桥梁接口（用来实现模块和底层具体实现直接的沟通）</li>
+<li>libuv库中有事件循环、事件队列、异步IO</li>
+<li>第三方模块：http、c-ares等</li>
+</ol>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/e54Lq3EzZX9Ml7Ed/img/f1a4e803-183c-4fd6-a0f7-fe15c307d8c5.png" alt="img"></p>
+<h2 id="二、-NodeJs的异步IO"><a href="#二、-NodeJs的异步IO" class="headerlink" title="二、 NodeJs的异步IO"></a>二、 NodeJs的异步IO</h2><h5 id="libuv库：（相当于一个线程池、可以看作几种不同的异步IO实现方式的封装层）"><a href="#libuv库：（相当于一个线程池、可以看作几种不同的异步IO实现方式的封装层）" class="headerlink" title="libuv库：（相当于一个线程池、可以看作几种不同的异步IO实现方式的封装层）"></a>libuv库：（相当于一个线程池、可以看作几种不同的异步IO实现方式的封装层）</h5><p>​        当我们在node中运行了一段js代码后，最终会走到libuv库中，然后它会对当前平台判断，依据平台调用相应的异步IO处理方法</p>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/e54Lq3EzZX9Ml7Ed/img/63d368d7-b415-4b91-83cb-c51a5d8fbdfe.png" alt="img"></p>
+<p>​        Node当中具体实现异步IO的过程：当遇到异步请求，然后libuv库会进行工作，在其内部存在一个事件循环的机制，对异步请求进行管理，</p>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/e54Lq3EzZX9Ml7Ed/img/eecffff4-ba39-44ce-a460-cfa060d3f549.png" alt="img"></p>
+<p>IO是应用程序的瓶颈所在</p>
+<p>异步IO提高性能无需原地等待结果返回</p>
+<p>IO操作属于操作系统级别，libuv库对其作了封装</p>
+<p>NodeJs单线程配合事件驱动以及libuv实现了异步IO</p>
+<p>当队列中没有等待的任务时候，它就会退出循环</p>
+<h2 id="三、事件驱动"><a href="#三、事件驱动" class="headerlink" title="三、事件驱动"></a>三、事件驱动</h2><ol>
+<li>特征：主体发布消息，其他实例接受消息</li>
+<li>（发布者广播消息，其他的订阅者可以监听到之前所订阅的消息，从而在订阅的事件发生之后再去执行相应的处理程序）</li>
+</ol>
+<p>​    2. 特点：因为NodeJs拥有一套单线程下异步非阻塞的IO机制，因此程序代码在执行过程中，业务层拿到的并不是最终的目标数据，等到同步代码执行完成之后，此时libuv库就会开始工作,只不过也存在很多非IO的异步操作，比如settimeout，当libuv库接收到一个异步操作请求后，多路分解器开始工作，首先它会找到当前平台下可用的IO处理接口，然后等待着IO操作结束后，将相应的事件通过事件循环或者其他方式添加到事件队列当中，然后最后按照一定的顺序从事件队列中取出相应的事件，然后交给主线程进行执行，（ 其中，事件驱动的体现就是有人发布了事件，然后订阅这个事件的人在将来去接收到具体的事件消息发布之后，就会去执行订阅池的所注册的处理程序 ）</p>
+<p>​    3. 顺序：同步代码先执行，等同步代码执行完成后，去执行异步操作，此时会按照注册顺序执行相应的事件处理函数</p>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/e54Lq3EzZX9Ml7Ed/img/206a109c-9615-4ad7-ba88-790f12843883.png" alt="img"> </p>
+<h2 id="四、单线程实现高并发"><a href="#四、单线程实现高并发" class="headerlink" title="四、单线程实现高并发"></a>四、单线程实现高并发</h2><p>​    通过异步非阻塞IO、事件循环加上事件驱动的架构去通过回调通知的方式来实现非阻塞的调用以及做到并发</p>
+<p>​    具体表现为：当遇到多个请求的时候，是无需阻塞的，会由上向下去执行，然后呢去等待着libuv库完成工作之后呢，再按照顺序来通知相应的事件回调去触发                            执行就可以了，这样就完成了多线程的工作</p>
+<h2 id="五、全局对象和全局变量"><a href="#五、全局对象和全局变量" class="headerlink" title="五、全局对象和全局变量"></a>五、全局对象和全局变量</h2><h5 id="1-全局对象"><a href="#1-全局对象" class="headerlink" title="1. 全局对象"></a>1. 全局对象</h5><p>global</p>
+<h5 id="2-全局变量"><a href="#2-全局变量" class="headerlink" title="2. 全局变量"></a>2. 全局变量</h5><p>__filename  -&gt;返回正在执行脚本文件的绝对路径</p>
+<p>__dirname  -&gt;返回正在执行脚本所在的目录</p>
+<p>timer类函数 -&gt;(settimeout、setinterval)</p>
+<p>process    -&gt;提供与当前进程互动的接口</p>
+<p>require    -&gt;模块加载</p>
+<p>module、exports -&gt;模块的导出</p>
+<p>Buffer</p>
+<h6 id="process（无需require）"><a href="#process（无需require）" class="headerlink" title="process（无需require）"></a>process（无需require）</h6><p>process.cwd()  工作目录</p>
+<p>process.version node版本</p>
+<p>process.arch 操作系统位数</p>
+<p>process.env 环境变量</p>
+<p>process.env.NODE_ENV</p>
+<p>process.env.PATH 系统环境变量</p>
+<p>process.platform 操作系统平台</p>
+<p>process.argv  启动参数 （返回数组。但是从数组的第二个下标开始才是输入的数据）</p>
+<p>process.uptime() 从运行到结束整体消耗时间</p>
+<p>process.stdout 标准输出 （返回对象，是一个流）</p>
+<p>​    fs.createReadSteam(‘text.txt’).pipe(process.stdout) 输出文件内容</p>
+<p>process.stdin 标准输入 （返回对象，是一个流）</p>
+<p>  process.stdin.read()</p>
+<p>​    process.stdin.pipe(process.stdout)</p>
+<p>process.stdin.setEncoding(‘utf-8’)</p>
+<h2 id="六、常用（核心）模块"><a href="#六、常用（核心）模块" class="headerlink" title="六、常用（核心）模块"></a>六、常用（核心）模块</h2><h3 id="1-path"><a href="#1-path" class="headerlink" title="1.path"></a>1.path</h3><p>basename(path)  获取基础路径，路径的最后部分</p>
+<p>dirname(path)   获取路径目录名(路径)</p>
+<p>extname</p>
+<p>isAbsolute</p>
+<p>parse  （得到对象）</p>
+<p>format  （对parse后的结果进行序列化）</p>
+<p>normalize (<strong>当含有多个杠或者点的时候可以用这个来处理一下)</strong></p>
+<h5 id="join（只是简单的拼接，遇到-x2F-就按照正常返回上一次进行拼接）"><a href="#join（只是简单的拼接，遇到-x2F-就按照正常返回上一次进行拼接）" class="headerlink" title="join（只是简单的拼接，遇到..&#x2F;就按照正常返回上一次进行拼接）"></a>join（只是简单的拼接，遇到..&#x2F;就按照正常返回上一次进行拼接）</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">path.join(&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;)   // 输出结果为： &#x27;/a/b/c&#x27;</span><br><span class="line">path.join(&#x27;a&#x27;, &#x27;/b&#x27;, &#x27;c&#x27;)  // 输出结果为： &#x27;/a/b/c&#x27;</span><br><span class="line">path.join(&#x27;a/b&#x27;, &#x27;../&#x27;, &#x27;c&#x27;) // 输出结果为： &#x27;/a/c&#x27;</span><br><span class="line">path.join(&#x27;a&#x27;, &#x27;./&#x27;, &#x27;c&#x27;) // 输出结果为：&#x27;/a/c&#x27;</span><br></pre></td></tr></table></figure>
+
+<h5 id="resolve（从后向前，若字符以-x2F-开头，不会拼接到前面的路径；若以-x2F-开头，拼接前面的路径，但是不含前面一节的最后一层路径；若以-x2F-开头-或者没有符号-则拼接前面路径；）"><a href="#resolve（从后向前，若字符以-x2F-开头，不会拼接到前面的路径；若以-x2F-开头，拼接前面的路径，但是不含前面一节的最后一层路径；若以-x2F-开头-或者没有符号-则拼接前面路径；）" class="headerlink" title="resolve（从后向前，若字符以 &#x2F; 开头，不会拼接到前面的路径；若以 ..&#x2F; 开头，拼接前面的路径，但是不含前面一节的最后一层路径；若以 .&#x2F; 开头 或者没有符号 则拼接前面路径；）"></a>resolve（从后向前，若字符以 &#x2F; 开头，不会拼接到前面的路径；若以 ..&#x2F; 开头，拼接前面的路径，但是不含前面一节的最后一层路径；若以 .&#x2F; 开头 或者没有符号 则拼接前面路径；）</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 假设当前绝对路径为/admin/user</span><br><span class="line">path.resolve(&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;) // 输出结果为：&#x27;/admin/user/a/a/c&#x27;</span><br><span class="line">path.resolve(&#x27;a&#x27;, &#x27;/b&#x27;, &#x27;c&#x27;) // 输出结果为： &#x27;/b/c&#x27;</span><br><span class="line">path.resolve(&#x27;a/b&#x27;, &#x27;../&#x27;, &#x27;c&#x27;) // 输出结果为：&#x27;/admin/user/a/c&#x27;</span><br><span class="line">path.resolve(&#x27;a&#x27;, &#x27;./&#x27;, &#x27;c&#x27;) // 输出结果为：&#x27;admin/user/a/c&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Buffer"><a href="#2-Buffer" class="headerlink" title="2.Buffer"></a>2.Buffer</h3><h4 id="1-特点"><a href="#1-特点" class="headerlink" title="(1) 特点"></a>(1) 特点</h4><p>Node.js中多出来几个概念，一个就是二进制数据、流操作以及Buffer，Buffer就是一片内存空间</p>
+<ol>
+<li>无需require的一个全局变量</li>
+<li>实现nodeJs平台下的二进制操作</li>
+<li>不占据v8的内存空间</li>
+<li>内存使用由node来控制，由V8的GC回收</li>
+<li>一般配合Steam流使用，充当数据缓冲区</li>
+</ol>
+<h4 id="2-实例对象"><a href="#2-实例对象" class="headerlink" title="(2) 实例对象"></a>(2) 实例对象</h4><p>​    Buffer类的实例似于整数数组，不过是对应V8堆外的固定大小的原始内存进行分配(堆外内存，不受V8引擎控制)。 缓冲区的大小在创建时已经确定，所以不能调整大小。</p>
+<p>创建实例方法</p>
+<p>alloc 创建指定字节大小的buffer</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const b1 = Buffer.alloc(10) // &lt;Buffer 00 00 00 00 00 00 00 00 00 00&gt;</span><br></pre></td></tr></table></figure>
+
+<p>allocUnsafe 创建指定字节大小的buffer（不安全，可能混有旧数据）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const b2 = Buffer.allocUnsafe(10) // &lt;Buffer ff ff ff ff ff ff ff ff 00 00&gt;</span><br></pre></td></tr></table></figure>
+
+<p>from 接受数据（这个数据可以是创建好的buffer），创建buffer，此时他会生成一个全新的缓冲区，和原来的缓冲区不冲突，所以修改接受的buffer，并不会影响新生成的buffer</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const b1 = Buffer.from(&#x27;中&#x27;)</span><br><span class="line">console.log(b1); // &lt;Buffer e4 b8 ad&gt;</span><br><span class="line">console.log(b1.toString()); // 中</span><br><span class="line"></span><br><span class="line">const b1 = Buffer.alloc(3)</span><br><span class="line">const b2 = Buffer.from(b1)</span><br><span class="line"> </span><br><span class="line">console.log(b1) // &lt;Buffer 00 00 00&gt;</span><br><span class="line">console.log(b2) // &lt;Buffer 00 00 00&gt;</span><br><span class="line"> </span><br><span class="line">// b1 和 b2 是不是共享内存, </span><br><span class="line"> </span><br><span class="line">b1[0] = 1</span><br><span class="line">console.log(b1) // &lt;Buffer 01 00 00&gt;</span><br><span class="line">console.log(b2) // &lt;Buffer 00 00 00&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-实例常用方法"><a href="#3-实例常用方法" class="headerlink" title="(3) 实例常用方法"></a>(3) 实例常用方法</h4><p>fill  使用数据填充buffer，返回填充后的buffer</p>
+<p>write 向buffer中写入数据</p>
+<p>toString 提取buffer的数据</p>
+<p>slice 截取buffer</p>
+<p>indexOf(在buffer中查找数据)</p>
+<p>copy拷贝buffer的数据</p>
+<h4 id="4-Buffer类静态方法"><a href="#4-Buffer类静态方法" class="headerlink" title="(4) Buffer类静态方法"></a>(4) Buffer类静态方法</h4><p>concat 将多个buffer拼接成一个新的buffer</p>
+<p>isBuffer判断当前数据是否是buffer</p>
+<h3 id="3-FS模块"><a href="#3-FS模块" class="headerlink" title="3.FS模块"></a>3.FS模块</h3><h4 id=""><a href="#" class="headerlink" title=""></a><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/e54Lq3EzZX9Ml7Ed/img/8341efac-b34a-4841-a782-f8608b0899a6.png" alt="img"></h4><p>文件权限flag操作符常见有</p>
+<p>r： 可读</p>
+<p>w：可写</p>
+<p>s： 同步</p>
+<ul>
+<li>： 执行</li>
+</ul>
+<p>x： 排他</p>
+<p>a： 追加</p>
+<h4 id="1-实例常用方法"><a href="#1-实例常用方法" class="headerlink" title="(1) 实例常用方法"></a>(1) 实例常用方法</h4><ul>
+<li>fs.open和 fs.close （打开文件和关闭文件）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const fs = require(&#x27;fs&#x27;)</span><br><span class="line">const path = require(&#x27;path&#x27;)</span><br><span class="line"> </span><br><span class="line">// open </span><br><span class="line"> </span><br><span class="line">fs.open(path.resolve(&#x27;data.txt&#x27;), &#x27;r&#x27;, (err, fd) =&gt; &#123;</span><br><span class="line">    console.log(fd);</span><br><span class="line">&#125;)</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">// close</span><br><span class="line">fs.open(&#x27;data.txt&#x27;, &#x27;r&#x27;, (err, fd) =&gt; &#123;</span><br><span class="line">    console.log(fd);</span><br><span class="line">    fs.close(fd, err =&gt; &#123;</span><br><span class="line">        console.log(&#x27;关闭成功&#x27;);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>access：判断文件或目录是否具有操作权限</li>
+<li>stat：获取目录及文件信息</li>
+<li>mkdir：创建目录</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 三、mkdir recursive 递归操作</span><br><span class="line">fs.mkdir(&#x27;a/b/c&#x27;, &#123;recursive: true&#125;, (err) =&gt; &#123;</span><br><span class="line">    if (!err) &#123;</span><br><span class="line">        console.log(&#x27;创建成功&#x27;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        console.log(err);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>rmdir：删除目录 ({recursive: true}和mkdir一样)</li>
+<li>readdir：读取目录中内容</li>
+<li>unlink：删除指定文件</li>
+</ul>
+<h3 id="4-Events模块"><a href="#4-Events模块" class="headerlink" title="4.Events模块"></a>4.Events模块</h3><ul>
+<li>通过 EventEmitter 类实现事件统一管理</li>
+<li>events 与 EventEmitter</li>
+<li>node.js 是基于时间驱动的异步操作架构，内置 events 模块 events 模块提供了 EventEmitter 类 node.js 中很多内置核心模块继承 EventEmitter</li>
+<li>EventEmitter 常见 API</li>
+<li>on：添加当事件被触发时调用的回调函数</li>
+<li>emit：触发事件，按照注册的序同步调用每个事件监听器</li>
+<li>once：添加当事件在注册之后首次被触发时调用的回调函数</li>
+<li>off：移除特定的监听器</li>
+<li>Eventloop事件环</li>
+<li>从上至下执行所有的同步代码</li>
+<li>执行过程中将遇到的宏任务与微任务添加至相应的队列</li>
+<li>同步代码执行完毕后，执行满足条件的微任务回调</li>
+<li>微任务队列执行完毕后执行所有满足需求的宏任务回调</li>
+<li>循环事件环操作</li>
+</ul>
+<p>浏览器中的eventloop</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(() =&gt; &#123;</span><br><span class="line">  console.log(&#x27;s1&#x27;);</span><br><span class="line">  Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">      console.log(&#x27;p1&#x27;);</span><br><span class="line">  &#125;)</span><br><span class="line">  Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">      console.log(&#x27;p2&#x27;);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">setTimeout(() =&gt; &#123;</span><br><span class="line">  console.log(&#x27;s2&#x27;);</span><br><span class="line">  Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">      console.log(&#x27;p3&#x27;);</span><br><span class="line">  &#125;)</span><br><span class="line">  Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">      console.log(&#x27;p4&#x27;);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// s1 p1 p2 s2 p3 p4</span><br><span class="line">setTimeout(() =&gt; &#123;</span><br><span class="line">  console.log(&#x27;s1&#x27;);</span><br><span class="line">  Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">      console.log(&#x27;p2&#x27;);</span><br><span class="line">  &#125;)</span><br><span class="line">  Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">      console.log(&#x27;p3&#x27;);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">  console.log(&#x27;p1&#x27;);</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">      console.log(&#x27;s2&#x27;);</span><br><span class="line">  &#125;)</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">      console.log(&#x27;s3&#x27;);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">// p1 s1 p2 p3  s2 s3</span><br></pre></td></tr></table></figure>
+
+<h4 id="node-js中的eventloop"><a href="#node-js中的eventloop" class="headerlink" title="node.js中的eventloop"></a>node.js中的eventloop</h4><p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/e54Lq3EzZX9Ml7Ed/img/3adfb8dd-5380-4056-80cc-7e6620cbdab2.png" alt="img"> </p>
+<p>timers：执行 setTimeout 与 setInterval 回调</p>
+<p>pengding callbacks：执行系统操作的回调，例如top udp</p>
+<p>idle，prepare：只在系统内部进行使用</p>
+<p>poll：执行与 I&#x2F;O 相关的回调</p>
+<p>check：执行 setImmediate 中的回调</p>
+<p>close callbacks：执行 close 事件的回调</p>
+<p>其中主要关心timers、poll、check这三个事件队列就好</p>
+<p>​    Nodejs 完整事件环</p>
+<ul>
+<li>执行同步代码，将不同的任务添加至相应的队列</li>
+<li>所有同步代码执行后回去执行满足条件微任务</li>
+<li>所有微任务代码执行后会执行timer队列中满足的宏任务</li>
+<li>timer 中的所有宏任务执行完成后就会依次切换队列</li>
+<li>注意：在完成队列的切换之前会先清空微任务代码</li>
+<li>微任务队列中，nexttick执行顺序是高于promise.resolve的</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(() =&gt; &#123;</span><br><span class="line">    console.log(&#x27;s1&#x27;);</span><br><span class="line">    Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">        console.log(&#x27;p1&#x27;);</span><br><span class="line">    &#125;)</span><br><span class="line">    Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">        console.log(&#x27;t1&#x27;);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">    console.log(&#x27;p2&#x27;);</span><br><span class="line">&#125;)</span><br><span class="line"> </span><br><span class="line">console.log(&#x27;start&#x27;);</span><br><span class="line"> </span><br><span class="line">setTimeout(() =&gt; &#123;</span><br><span class="line">    console.log(&#x27;s2&#x27;);   </span><br><span class="line">    Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">        console.log(&#x27;p3&#x27;);</span><br><span class="line">    &#125;)</span><br><span class="line">    Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">        console.log(&#x27;t2&#x27;);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">console.log(&#x27;end&#x27;);</span><br><span class="line"> </span><br><span class="line">// start end p2 s1 p1 t1 s2 p3 t2</span><br></pre></td></tr></table></figure>
+
+<h4 id="Nodejs与浏览器事件环区别"><a href="#Nodejs与浏览器事件环区别" class="headerlink" title="Nodejs与浏览器事件环区别"></a>Nodejs与浏览器事件环区别</h4><p>​    （1）任务队列数不同</p>
+<p>​          浏览器中只有二个任务队列</p>
+<p>​            Nodejs 中有6个事件队列</p>
+<p>​    （2）Nodejs 微任务执行实际不同</p>
+<p>​            二者都会在同步代码执行完毕后执行微任务</p>
+<p>​            浏览器平台下每当一个宏任务执行完毕后就清空微任务</p>
+<p>​            Nodejs 平台在事件队列切换时会去清空微任务</p>
+<p>​    （3）微任务优先级不同</p>
+<p>​            浏览器事件环中，微任务存放于事件队列，先进先出</p>
+<p>​            Nodejs 中 process.nextTick 先于 promise.then</p>
+<h3 id="5-Stream流模块"><a href="#5-Stream流模块" class="headerlink" title="5. Stream流模块"></a>5. Stream流模块</h3><ul>
+<li>Readable：可读流，能够实现数据的读取</li>
+<li>Writeable：可写流，能够实现数据的写操作</li>
+<li>Duplex：双工流，即可读又可写</li>
+<li>Tranform：转换流，可读可写，还能实现数据转换</li>
+</ul>
+<h2 id="七、中间件"><a href="#七、中间件" class="headerlink" title="七、中间件"></a>七、中间件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">1、中间件就是一种功能的封装方式，就是封装在程序中处理http请求的功能，</span><br><span class="line">2、中间件是在管道中执行</span><br><span class="line">3、中间件有一个next()函数，如果不调用next函数，请求就在这个中间件中终止了，</span><br><span class="line">4、中间件和路由处理器的参数中都有回调函数，这个函数有2,3,4个参数</span><br><span class="line">        如果有两个参数就是req和res；</span><br><span class="line">        如果有三个参数就是req,res和next</span><br><span class="line">        如果有四个参数就是err，req，res，next</span><br><span class="line">5、如果不调用next ，管道就会终止，不会再有处理器做后续响应，应该向客户端发送一个响应</span><br><span class="line">6、如果调用了next，不应该发送响应到客户端，如果发送了，则后面发送的响应都会被忽略</span><br><span class="line">7、中间件的第一个参数可以是路径，如果忽略则全部都匹配</span><br><span class="line"></span><br><span class="line">const middleware2 = (req, res, next) =&gt; &#123;</span><br><span class="line">  console.log(&#x27;middleware2 start&#x27;)</span><br><span class="line">  new Promise(resolve =&gt; &#123;</span><br><span class="line">    setTimeout(() =&gt; resolve(), 1000)</span><br><span class="line">  &#125;).then(() =&gt; &#123;</span><br><span class="line">    next()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="八、http"><a href="#八、http" class="headerlink" title="八、http"></a>八、http</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">const http = require(&#x27;http&#x27;)</span><br><span class="line">const url = require(&#x27;url&#x27;)</span><br><span class="line">const path = require(&#x27;path&#x27;)</span><br><span class="line">const fs = require(&#x27;fs&#x27;)</span><br><span class="line">const mime = require(&#x27;mime&#x27;)</span><br><span class="line"> </span><br><span class="line">const server = http.createServer((req, res) =&gt; &#123;</span><br><span class="line">    // 1、路径处理</span><br><span class="line">    // req.query  处理get请求</span><br><span class="line">    // req.body   处理post请求</span><br><span class="line">    // req.params 处理/:xxx这样的请求</span><br><span class="line"></span><br><span class="line">    let &#123;pathname, query&#125; = url.parse(req.url)</span><br><span class="line">    pathname = decodeURIComponent(pathname)</span><br><span class="line">    let absPath = path.join(__dirname, pathname)</span><br><span class="line"> </span><br><span class="line">    // 2、目标资源状态处理</span><br><span class="line">    fs.stat(absPath, (err, statObj) =&gt; &#123;</span><br><span class="line">        if (err) &#123;</span><br><span class="line">            res.statusCode = 404</span><br><span class="line">            res.end(&#x27;Not Found&#x27;)</span><br><span class="line">            return</span><br><span class="line">        &#125;</span><br><span class="line">        if (statObj.isFile()) &#123;</span><br><span class="line">            // 此时说明路径对应的目标是一个文件,可以直接读取然后回写</span><br><span class="line">            fs.readFile(absPath, (err, data) =&gt; &#123;</span><br><span class="line">                res.setHeader(&#x27;Content-type&#x27;, mime.getType(absPath) + &#x27;;charset=utf-8&#x27;)</span><br><span class="line">                res.end(data)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            fs.readFile(path.join(absPath, &#x27;index.html&#x27;), (err ,data) =&gt; &#123;</span><br><span class="line">                res.setHeader(&#x27;Content-type&#x27;, mime.getType(absPath) + &#x27;;charset=utf-8&#x27;)</span><br><span class="line">                res.end(data)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"> </span><br><span class="line">server.listen(1234, () =&gt; &#123;</span><br><span class="line">    console.log(&#x27;server is running&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>项目中有用到了http-proxy来创建代理服务，就是在我们自己的启动服务外层包一层来把接口代理到对应的ip上</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/06/30/vue/vue2/" data-id="cl1d8ebv00001bovn73le7x3f" data-title="node" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/03/30/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/30/vue/1%E3%80%81for%E5%BE%AA%E7%8E%AF%E3%80%81while%E3%80%81do%20while%20%EF%BC%88%E6%95%B0%E7%BB%84%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">node</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/03/30/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/30/vue/vue2/">node</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/30/vue/1%E3%80%81for%E5%BE%AA%E7%8E%AF%E3%80%81while%E3%80%81do%20while%20%EF%BC%88%E6%95%B0%E7%BB%84%EF%BC%89/">node</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/30/vue/Axios%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/">node</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/30/vue/props%20$emit/">node</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>node | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="前言call()、apply()、bind()是Function.prototype上的方法，所有函数都可以调用，它们的第一个参数都是this的指向对象。 举栗子：以“小明学会骑自行车”为例。先声明一个函数，并且执行它 代码块1： 123456789101112&#x2F;&#x2F; 学车方法function myFn (a) &amp;#123;a.info &#x3D; &amp;#x27;学会了骑车&amp;#x27;console.log(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node">
+<meta property="og:url" content="http://example.com/2020/06/30/vue/call/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言call()、apply()、bind()是Function.prototype上的方法，所有函数都可以调用，它们的第一个参数都是this的指向对象。 举栗子：以“小明学会骑自行车”为例。先声明一个函数，并且执行它 代码块1： 123456789101112&#x2F;&#x2F; 学车方法function myFn (a) &amp;#123;a.info &#x3D; &amp;#x27;学会了骑车&amp;#x27;console.log(">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-30T07:03:18.000Z">
+<meta property="article:modified_time" content="2022-03-31T01:15:18.613Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-vue/call" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/06/30/vue/call/" class="article-date">
+  <time class="dt-published" datetime="2020-06-30T07:03:18.000Z" itemprop="datePublished">2020-06-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      node
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h4><p>call()、apply()、bind()是Function.prototype上的方法，所有函数都可以调用，它们的第一个参数都是this的指向对象。</p>
+<h4 id="举栗子：以“小明学会骑自行车”为例。"><a href="#举栗子：以“小明学会骑自行车”为例。" class="headerlink" title="举栗子：以“小明学会骑自行车”为例。"></a><strong>举栗子：以“小明学会骑自行车”为例。</strong></h4><p>先声明一个函数，并且执行它</p>
+<p>代码块1：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 学车方法</span><br><span class="line">function myFn (a) &#123;</span><br><span class="line">a.info = &#x27;学会了骑车&#x27;</span><br><span class="line">console.log(&#x27;this指向&#x27;, this)</span><br><span class="line">&#125;</span><br><span class="line">// 叫小明的一个个体</span><br><span class="line">var obj = &#123;</span><br><span class="line">name: &#x27;小明&#x27;,</span><br><span class="line">info: &#x27;不会骑车&#x27;</span><br><span class="line">&#125;</span><br><span class="line">myFn(obj)</span><br><span class="line">// console.log输出结果为：this指向 Window &#123;postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, parent: Window, …&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到函数里面this 指向是Window</p>
+<h4 id="call"><a href="#call" class="headerlink" title="call()"></a><strong>call()</strong></h4><p>现在，我们想要小明通过这个方法学会骑自行车，那我们可以通过call方法来重定义this指向，将this指向小明这个对象,使他快速学会骑车</p>
+<p>代码块2：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 将上述myFn方法用call执行</span><br><span class="line">// 学车方法</span><br><span class="line">function myFn (a) &#123;</span><br><span class="line">a.info = &#x27;学会了骑车&#x27;</span><br><span class="line">// 输出1</span><br><span class="line">console.log(&#x27;this指向&#x27;, this)</span><br><span class="line">// 输出2</span><br><span class="line">console.log(a.name + a.info)</span><br><span class="line">&#125;</span><br><span class="line">// 叫小明的一个个体</span><br><span class="line">var obj = &#123;</span><br><span class="line">name: &#x27;小明&#x27;,</span><br><span class="line">info: &#x27;不会骑车&#x27;</span><br><span class="line">&#125;</span><br><span class="line">myFn.call(obj,obj)</span><br><span class="line">// 输出1 this指向 &#123;name: &quot;小明&quot;, info: &quot;学会了骑车&quot;&#125;</span><br><span class="line">// 输出2 小明学会了骑车</span><br><span class="line"></span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<p>比如还可以将小明的年龄另外传入</p>
+<p>代码块3：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 先将myFn方法修改下</span><br><span class="line">function myFn (a,b) &#123;</span><br><span class="line">a.info = &#x27;学会了骑车&#x27;</span><br><span class="line">// 输出</span><br><span class="line">console.log(a.name + &#x27;在&#x27; + b + &#x27;岁&#x27; + a.info)</span><br><span class="line">&#125;</span><br><span class="line">// 叫小明的一个个体</span><br><span class="line">var obj = &#123;</span><br><span class="line">name: &#x27;小明&#x27;,</span><br><span class="line">info: &#x27;不会骑车&#x27;</span><br><span class="line">&#125;</span><br><span class="line">myFn.call(obj,obj,&#x27;10&#x27;)</span><br><span class="line">// 输出 小明在10岁学会了骑车</span><br><span class="line"></span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<p>上述结果，我们可以知道，call方法可以将调用函数执行，并将this 指向第一个参数，后续其他参数将会全部传递给调用函数使用</p>
+<p><strong>同样也可以使用apply和bind来实现</strong></p>
+<h4 id="apply"><a href="#apply" class="headerlink" title="apply()"></a><strong>apply()</strong></h4><p>延续代码块3，我们根据官方介绍使用apply方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 只需将最后的调用方式变一下</span><br><span class="line">myFn.apply(obj,[obj,&#x27;10&#x27;])</span><br><span class="line">// 输出 小明在10岁学会了骑车</span><br></pre></td></tr></table></figure>
+
+<p>可见 call()方法的作用和 apply() 方法类似，区别就是call()方法接受的是参数列表，而apply()方法接受的是一个参数数组。</p>
+<p>引申：如果想要从[1,2,5,8,3]中找出最大值，我们就可以想到通过apply借用Math对象中的max来求最大值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var numbers = [1,2,5,8,3]</span><br><span class="line">var max = Math.max.apply(null, numbers)</span><br><span class="line">console.log(max) // 8</span><br></pre></td></tr></table></figure>
+
+<p>在非严格模式下，如果call()和apply()的第一个参数是null或者undefined，那么this的指向就是window全局变量</p>
+<h4 id="bind"><a href="#bind" class="headerlink" title="bind()"></a><strong>bind()</strong></h4><p>言归正传，使用bind看一下</p>
+<p>代码块4：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var newFn1 = myFn.bind(obj,obj,&#x27;10&#x27;)</span><br><span class="line">// 输出1</span><br><span class="line">console.log(newFn1)</span><br><span class="line">var newFn2 = myFn.bind(obj,[obj,&#x27;10&#x27;])</span><br><span class="line">// 输出2</span><br><span class="line">console.log(newFn2)</span><br><span class="line">// newFn1、newFn2输出结果</span><br><span class="line">/* myFn (a,b) &#123;</span><br><span class="line">a.info = &#x27;学会了骑车&#x27;</span><br><span class="line">// 输出</span><br><span class="line">console.log(a.name + &#x27;在&#x27; + b + &#x27;岁&#x27; + a.info)</span><br><span class="line">*/</span><br><span class="line">// 执行newFn2</span><br><span class="line">newFn2()</span><br><span class="line">// s输出 小明在10岁学会了骑车</span><br></pre></td></tr></table></figure>
+
+<p>可见bind返回的是方法，它的参数和 call 一样，所以需要调用才是得到最终结果</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h4><p>1.call()、apply()和bind()都是可以用来改变this指向，可借助它们实现继承；</p>
+<p>2.call()与apply()区别在于参数不一样，如果想一目了然表达形参和实参的对应关系，用call()比较合适；</p>
+<p>3.bind()是返回一个新函数，可供以后调用，而apply()和call()是立即调用，并返回结果</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/06/30/vue/call/" data-id="cl1eaywwn0003gwvn1w54c9pv" data-title="node" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/30/vue/props%20$emit/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          node
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/30/vue/setvue%E5%AE%98%E6%96%B9%E8%A7%A3%E9%87%8A/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">node</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/03/30/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/30/vue/vue2/">node</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/30/vue/1%E3%80%81for%E5%BE%AA%E7%8E%AF%E3%80%81while%E3%80%81do%20while%20%EF%BC%88%E6%95%B0%E7%BB%84%EF%BC%89/">node</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/30/vue/Axios%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/">node</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/30/vue/props%20$emit/">node</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>node | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="源码视频并没有看完，这篇文章只是针对一些新学到的，对以前的疑问解惑做一些记录。 针对vue2.x版本 一、静态类型检查flowvue源码中使用Flow作为它的静态类型检查工具，使用静态类型检查工具非常有利于大型项目的开发和维护。 Flow是facebook出品的js静态类型检查工具。它的工作类似typescript的工作，vue2.x没有使用ts，想要做类型检查，所以使用flow来做这部分工作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node">
+<meta property="og:url" content="http://example.com/2020/06/30/vue/%E6%BA%90%E7%A0%81/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="源码视频并没有看完，这篇文章只是针对一些新学到的，对以前的疑问解惑做一些记录。 针对vue2.x版本 一、静态类型检查flowvue源码中使用Flow作为它的静态类型检查工具，使用静态类型检查工具非常有利于大型项目的开发和维护。 Flow是facebook出品的js静态类型检查工具。它的工作类似typescript的工作，vue2.x没有使用ts，想要做类型检查，所以使用flow来做这部分工作。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-30T07:03:18.000Z">
+<meta property="article:modified_time" content="2022-03-31T01:15:34.965Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-vue/源码" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/06/30/vue/%E6%BA%90%E7%A0%81/" class="article-date">
+  <time class="dt-published" datetime="2020-06-30T07:03:18.000Z" itemprop="datePublished">2020-06-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      node
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>源码视频并没有看完，这篇文章只是针对一些新学到的，对以前的疑问解惑做一些记录。</p>
+<p>针对vue2.x版本</p>
+<h2 id="一、静态类型检查flow"><a href="#一、静态类型检查flow" class="headerlink" title="一、静态类型检查flow"></a>一、静态类型检查flow</h2><p>vue源码中使用Flow作为它的静态类型检查工具，使用静态类型检查工具非常有利于大型项目的开发和维护。</p>
+<p>Flow是facebook出品的js静态类型检查工具。它的工作类似typescript的工作，vue2.x没有使用ts，想要做类型检查，所以使用flow来做这部分工作。</p>
+<p>Flow的类型检查语法和ts的很像，在文件头部增加如下注释即可开启文件类型检查</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/*@flow*/</span><br><span class="line">或者	</span><br><span class="line">// @flow</span><br><span class="line">....</span><br></pre></td></tr></table></figure>
+
+
+
+<p>根目录下有.flowconfig文件，这是flow的配置文件。</p>
+<p>根目录下有个flow文件夹，这是flow的类型定义文件。源码中的自定义类型在这里能找到。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">flow</span><br><span class="line">├── compiler.js        # 编译相关</span><br><span class="line">├── component.js       # 组件数据结构</span><br><span class="line">├── global-api.js      # Global API 结构</span><br><span class="line">├── modules.js         # 第三方库定义</span><br><span class="line">├── options.js         # 选项相关</span><br><span class="line">├── ssr.js             # 服务端渲染相关</span><br><span class="line">├── vnode.js           # 虚拟 node 相关</span><br></pre></td></tr></table></figure>
+
+
+
+<p>对flow感兴趣的同学可以去<a target="_blank" rel="noopener" href="https://flow.org/en/">官网</a>了解更详细的信息。</p>
+<h2 id="二、vue文件分析"><a href="#二、vue文件分析" class="headerlink" title="二、vue文件分析"></a>二、vue文件分析</h2><h4 id="文件目录"><a href="#文件目录" class="headerlink" title="文件目录"></a>文件目录</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">src</span><br><span class="line">├── compiler        # 编译相关 </span><br><span class="line">├── core            # 核心代码 </span><br><span class="line">├── platforms       # 不同平台的支持</span><br><span class="line">├── server          # 服务端渲染</span><br><span class="line">├── sfc             # .vue 文件解析</span><br><span class="line">├── shared          # 共享代码</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="vue版本"><a href="#vue版本" class="headerlink" title="vue版本"></a>vue版本</h4><p>vue2.x最终渲染都是通过render函数，所以最终vue编译都会将代码编译成render函数的形式。</p>
+<p>在我们用vue-cli初始化一个vue项目的时候，会询问我们使用哪个版本的vue，有Runtime-Only 版本和Runtime + Compiler两个版本选项。</p>
+<ul>
+<li>Runtime Only</li>
+</ul>
+<p>我们使用webpack的话，已经使用了vue-loader，在运行前已经预编译好了，使用这个版本的话，里面只包含了运行时的vue代码，代码会更轻量，效率更高。</p>
+<ul>
+<li>Runtime + Compiler版本</li>
+</ul>
+<p>如果我们代码中使用了如下的写法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">new Vue(&#123;</span><br><span class="line">  template: &#x27;&lt;div&gt;&#123;&#123; hi &#125;&#125;&lt;/div&gt;&#x27;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>webpack的vue-loader并不会编译template字符串这部分代码，这时候就需要使用这个版本，里面包含了运行时的vue代码和编译的vue代码，文件会更大，效率会低一些。</p>
+<p>为了降低性能损耗，觉得代码中不使用template的话，使用runtime-only版本的vue更好。</p>
+<h3 id="vue的初始化"><a href="#vue的初始化" class="headerlink" title="vue的初始化"></a>vue的初始化</h3><p>vue的初始化的地方在src&#x2F;core&#x2F;index.js中，文件如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// src/core/index.js</span><br><span class="line">import Vue from &#x27;./instance/index&#x27;</span><br><span class="line">import &#123; initGlobalAPI &#125; from &#x27;./global-api/index&#x27;</span><br><span class="line">initGlobalAPI(Vue)</span><br><span class="line">...</span><br><span class="line">export default Vue</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里主要会初始化全局的api，initGlobalAPI,然后从src&#x2F;core&#x2F;instance&#x2F;index.js中引入vue定义的地方</p>
+<h4 id="vue定义的地方"><a href="#vue定义的地方" class="headerlink" title="vue定义的地方"></a>vue定义的地方</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// src/core/instance/index.js</span><br><span class="line">import &#123; initMixin &#125; from &#x27;./init&#x27;</span><br><span class="line">import &#123; stateMixin &#125; from &#x27;./state&#x27;</span><br><span class="line">import &#123; renderMixin &#125; from &#x27;./render&#x27;</span><br><span class="line">import &#123; eventsMixin &#125; from &#x27;./events&#x27;</span><br><span class="line">import &#123; lifecycleMixin &#125; from &#x27;./lifecycle&#x27;</span><br><span class="line">import &#123; warn &#125; from &#x27;../util/index&#x27;</span><br><span class="line">function Vue (options) &#123;</span><br><span class="line">  if (process.env.NODE_ENV !== &#x27;production&#x27; &amp;&amp;</span><br><span class="line">    !(this instanceof Vue)</span><br><span class="line">  ) &#123;</span><br><span class="line">    warn(&#x27;Vue is a constructor and should be called with the `new` keyword&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line">  this._init(options)</span><br><span class="line">&#125;</span><br><span class="line">initMixin(Vue)</span><br><span class="line">stateMixin(Vue)</span><br><span class="line">eventsMixin(Vue)</span><br><span class="line">lifecycleMixin(Vue)</span><br><span class="line">renderMixin(Vue)</span><br><span class="line">export default Vue</span><br></pre></td></tr></table></figure>
+
+
+
+<p>从上面可以看到，vue是个用Function实现的类，只能通过new Vue去实例化它</p>
+<h4 id="initGlobalAPI"><a href="#initGlobalAPI" class="headerlink" title="initGlobalAPI"></a>initGlobalAPI</h4><p>文件定义在src&#x2F;core&#x2F;global-api&#x2F;index.js中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">export function initGlobalAPI (Vue: GlobalAPI) &#123;</span><br><span class="line"> ...</span><br><span class="line">  Object.defineProperty(Vue, &#x27;config&#x27;, configDef)</span><br><span class="line">  Vue.util = &#123;</span><br><span class="line">    warn,</span><br><span class="line">    extend,</span><br><span class="line">    mergeOptions,</span><br><span class="line">    defineReactive</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Vue.set = set</span><br><span class="line">  Vue.delete = del</span><br><span class="line">  Vue.nextTick = nextTick</span><br><span class="line"></span><br><span class="line">  Vue.options = Object.create(null)</span><br><span class="line">  ASSET_TYPES.forEach(type =&gt; &#123;</span><br><span class="line">    Vue.options[type + &#x27;s&#x27;] = Object.create(null)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  Vue.options._base = Vue</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>vue全局的一些方法定义入口的地方，例如set，delete，nextTick等</p>
+<h3 id="vue一些api实现"><a href="#vue一些api实现" class="headerlink" title="vue一些api实现"></a>vue一些api实现</h3><h4 id="Virtual-DOM"><a href="#Virtual-DOM" class="headerlink" title="Virtual DOM"></a>Virtual DOM</h4><p>浏览器中的真实dom非常庞大，操作它会影响性能。vue中使用Virtual DOM代替真实dom来执行计算和操作。计算和操作完成之后才会把虚拟dom转化成真实dom。</p>
+<p>虚拟dom定义在src&#x2F;core&#x2F;vdom&#x2F;vnode.js文件中,使用一个Class类去描述</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">export default class VNode &#123;</span><br><span class="line">  tag: string | void;</span><br><span class="line">  data: VNodeData | void;</span><br><span class="line">    ...</span><br><span class="line">  constructor (</span><br><span class="line">    tag?: string,</span><br><span class="line">    data?: VNodeData</span><br><span class="line">  ) &#123;</span><br><span class="line">    this.tag = tag</span><br><span class="line">    this.data = data</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  get child (): Component | void &#123;</span><br><span class="line">    return this.componentInstance</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="生命周期钩子"><a href="#生命周期钩子" class="headerlink" title="生命周期钩子"></a>生命周期钩子</h4><p>从上面vue初始化定义的地方有执行initMixin()方法，这个方法定义的文件如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// src/core/instance/init.js</span><br><span class="line">export function initMixin (Vue: Class&lt;Component&gt;) &#123;</span><br><span class="line">    Vue.prototype._init = function (options?: Object) &#123;</span><br><span class="line">        //...</span><br><span class="line">        initLifecycle(vm)</span><br><span class="line">        initEvents(vm)</span><br><span class="line">        initRender(vm)</span><br><span class="line">        callHook(vm, &#x27;beforeCreate&#x27;)</span><br><span class="line">        initInjections(vm)</span><br><span class="line">        initState(vm)</span><br><span class="line">        initProvide(vm)</span><br><span class="line">        callHook(vm, &#x27;created&#x27;)</span><br><span class="line">        // ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>从上面可以看到往Vue原型上增加了_init方法，在new Vue()实例化的时候，会执行this._init(options)初始化。可以看到这时候会执行两个callHook，分别是beforeCreate、created两个钩子函数。</p>
+<p>callHook定义在src&#x2F;core&#x2F;instance&#x2F;lifecycle中,如下所示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">export function callHook (vm: Component, hook: string) &#123;</span><br><span class="line">  const handlers = vm.$options[hook]</span><br><span class="line">  if (handlers) &#123;</span><br><span class="line">    for (let i = 0, j = handlers.length; i &lt; j; i++) &#123;</span><br><span class="line">      try &#123;</span><br><span class="line">        handlers[i].call(vm)</span><br><span class="line">      &#125; catch (e) &#123;</span><br><span class="line">        handleError(e, vm, `$&#123;hook&#125; hook`)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  if (vm._hasHookEvent) &#123;</span><br><span class="line">    vm.$emit(&#x27;hook:&#x27; + hook)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>vm.$options中保存着我们通常写在组件中的data、computed、created、mounted等函数和对象。上面的init中callHook就会调用组件中的钩子。</p>
+<p>可以去看到几点：</p>
+<ol>
+<li>在beforeCreate之后才执行initState()</li>
+<li>inject的初始化在initState()之前，provide的初始化在initState()之后。说明先先接收到值，之后才会往下传递</li>
+</ol>
+<h4 id="nextTick的定义"><a href="#nextTick的定义" class="headerlink" title="nextTick的定义"></a>nextTick的定义</h4><p>js执行是单线程的，它是基于事件循环的，他只有一个主线程，通过异步模拟多线程工作，每个异步结果都是通过任务队列来调度。队列中存放着一个个task，主要分为两类，分别为macro task 和 micro task，并且每个 macro task 结束后，都要清空所有的 micro task。</p>
+<p>在浏览器环境中，</p>
+<ul>
+<li>常见的 macro task 有 setTimeout、MessageChannel、postMessage、setImmediate；</li>
+<li>常见的 micro task 有 MutationObsever 和 Promise.then。</li>
+</ul>
+<p>nextTick就是做这一块的整合。</p>
+<p>nextTick的实现在src&#x2F;core&#x2F;util&#x2F;next-tick.js中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">import &#123; noop &#125; from &#x27;shared/util&#x27;</span><br><span class="line">import &#123; handleError &#125; from &#x27;./error&#x27;</span><br><span class="line">import &#123; isIOS, isNative &#125; from &#x27;./env&#x27;</span><br><span class="line"></span><br><span class="line">const callbacks = []</span><br><span class="line">let pending = false</span><br><span class="line"></span><br><span class="line">function flushCallbacks () &#123;</span><br><span class="line">  pending = false</span><br><span class="line">  const copies = callbacks.slice(0)</span><br><span class="line">  callbacks.length = 0</span><br><span class="line">  for (let i = 0; i &lt; copies.length; i++) &#123;</span><br><span class="line">    copies[i]()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let microTimerFunc</span><br><span class="line">let macroTimerFunc</span><br><span class="line">let useMacroTask = false</span><br><span class="line"></span><br><span class="line">if (typeof setImmediate !== &#x27;undefined&#x27; &amp;&amp; isNative(setImmediate)) &#123;</span><br><span class="line">  macroTimerFunc = () =&gt; &#123;</span><br><span class="line">    setImmediate(flushCallbacks)</span><br><span class="line">  &#125;</span><br><span class="line">&#125; else if (typeof MessageChannel !== &#x27;undefined&#x27; &amp;&amp; (</span><br><span class="line">  isNative(MessageChannel) ||</span><br><span class="line">  // PhantomJS</span><br><span class="line">  MessageChannel.toString() === &#x27;[object MessageChannelConstructor]&#x27;</span><br><span class="line">)) &#123;</span><br><span class="line">  const channel = new MessageChannel()</span><br><span class="line">  const port = channel.port2</span><br><span class="line">  channel.port1.onmessage = flushCallbacks</span><br><span class="line">  macroTimerFunc = () =&gt; &#123;</span><br><span class="line">    port.postMessage(1)</span><br><span class="line">  &#125;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  /* istanbul ignore next */</span><br><span class="line">  macroTimerFunc = () =&gt; &#123;</span><br><span class="line">    setTimeout(flushCallbacks, 0)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (typeof Promise !== &#x27;undefined&#x27; &amp;&amp; isNative(Promise)) &#123;</span><br><span class="line">  const p = Promise.resolve()</span><br><span class="line">  microTimerFunc = () =&gt; &#123;</span><br><span class="line">    p.then(flushCallbacks)</span><br><span class="line">    if (isIOS) setTimeout(noop)</span><br><span class="line">  &#125;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  // fallback to macro</span><br><span class="line">  microTimerFunc = macroTimerFunc</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export function withMacroTask (fn: Function): Function &#123;</span><br><span class="line">  return fn._withTask || (fn._withTask = function () &#123;</span><br><span class="line">    useMacroTask = true</span><br><span class="line">    const res = fn.apply(null, arguments)</span><br><span class="line">    useMacroTask = false</span><br><span class="line">    return res</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export function nextTick (cb?: Function, ctx?: Object) &#123;</span><br><span class="line">  let _resolve</span><br><span class="line">  callbacks.push(() =&gt; &#123;</span><br><span class="line">    if (cb) &#123;</span><br><span class="line">      try &#123;</span><br><span class="line">        cb.call(ctx)</span><br><span class="line">      &#125; catch (e) &#123;</span><br><span class="line">        handleError(e, ctx, &#x27;nextTick&#x27;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; else if (_resolve) &#123;</span><br><span class="line">      _resolve(ctx)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  if (!pending) &#123;</span><br><span class="line">    pending = true</span><br><span class="line">    if (useMacroTask) &#123;</span><br><span class="line">      macroTimerFunc()</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      microTimerFunc()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  // $flow-disable-line</span><br><span class="line">  if (!cb &amp;&amp; typeof Promise !== &#x27;undefined&#x27;) &#123;</span><br><span class="line">    return new Promise(resolve =&gt; &#123;</span><br><span class="line">      _resolve = resolve</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>从上面代码可以看到，首先定义两个变量microTimerFunc、macroTimerFunc，分别对应micro task 的函数和 macro task 的函数。</p>
+<ul>
+<li>对于macro task，按优先级依次检测setImmediate、MessageChannel是否支持，都不支持就使用setTimeout 0来实现。</li>
+<li>对于micro task ，则检测是否支持Promise，不支持则指向macro task的实现，使用macro来代替</li>
+</ul>
+<p>从上面flushCallbacks函数可以看到，会遍历callbacks，并且同步执行。说明nextTick会把一个tick内的任务，在一个同步任务内执行完，不会分多次异步去执行。</p>
+<p>最以可以看到函数的最后提供了一个Promise化的调用，在不传cb的时候，可以使用promise的方式使用nextTick。</p>
+<p>vue提供了两种调nextTick的方式，一种是全局的，上面initGlobalAPI中的定义Vue.nextTick。另一种是实例上的vm.$nextTick,定义在renderMixin()方法中，在vue定义的文件位置。两种方法最后调用的都是上面定义的nextTick方法。</p>
+<h4 id="响应式的原理"><a href="#响应式的原理" class="headerlink" title="响应式的原理"></a>响应式的原理</h4><p>vue2.x的响应式的核心主要使用了ES5的Object.defineProperty方法。</p>
+<p><strong>Object.defineProperty()</strong> 的作用是直接在一个对象上定义一个新属性，或者修改一个已经存在的属性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Object.defineProperty(obj, prop, desc)</span><br><span class="line">1. obj 需要定义属性的当前对象</span><br><span class="line">2. prop 当前需要定义的属性名</span><br><span class="line">3. desc 属性描述符</span><br><span class="line"></span><br><span class="line">栗子：</span><br><span class="line">let a = &#123;&#125;</span><br><span class="line">a.b = xxx</span><br><span class="line"></span><br><span class="line">// 相当于下面</span><br><span class="line">Object.defineProperty(a, b, &#123;</span><br><span class="line">    value: xxx,</span><br><span class="line">    ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这个方法里的desc属性描述符中包含了get和set以及其它的一些可选键值。</p>
+<ul>
+<li>get 相当于给对象的这个属性添加了getter方法，访问这个值的时候，会触发getter方法。</li>
+<li>set相当于给对象的这个属性添加了setter方法，修改这个属性的时候会触发这个方法</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Object.defineProperty(a, b, &#123;</span><br><span class="line">    value: xxx,</span><br><span class="line">    set () &#123;...&#125;,</span><br><span class="line">    get () &#123;...&#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这样就相当于将vue中的对象变成响应式了，每次改变都会触发一些方法。</p>
+<h4 id="某些对象变化vue监听不到的解决方式"><a href="#某些对象变化vue监听不到的解决方式" class="headerlink" title="某些对象变化vue监听不到的解决方式"></a>某些对象变化vue监听不到的解决方式</h4><ul>
+<li>使用 Object.defineProperty 实现响应式的对象，当我们去给这个对象添加一个新的属性的时候，是不能够触发它的 setter 的。如下</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">  data:&#123;</span><br><span class="line">    a:1</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">// vm.b 是非响应的</span><br><span class="line">vm.b = 2</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这时候vue提供了里的Vue.set的方法，</p>
+<p>定义在src&#x2F;core&#x2F;observer&#x2F;index.js中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">export function set (target: Array&lt;any&gt; | Object, key: any, val: any): any &#123;</span><br><span class="line">...</span><br><span class="line">  defineReactive(ob.value, key, val)</span><br><span class="line">  ob.dep.notify()</span><br><span class="line">  return val</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>可以看到最终调用了defineReactive,这个方法就是上面添加响应式对象的封装方法。最后notify再手动触发通知。</p>
+<ul>
+<li>数组的也存在修改数组长度或者直接根据索引修改一个值不响应的情况。</li>
+</ul>
+<p>在src&#x2F;core&#x2F;observer&#x2F;array.js中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import &#123; def &#125; from &#x27;../util/index&#x27;</span><br><span class="line"></span><br><span class="line">const arrayProto = Array.prototype</span><br><span class="line">export const arrayMethods = Object.create(arrayProto)</span><br><span class="line"></span><br><span class="line">;[</span><br><span class="line">  &#x27;push&#x27;,</span><br><span class="line">  &#x27;pop&#x27;,</span><br><span class="line">  &#x27;shift&#x27;,</span><br><span class="line">  &#x27;unshift&#x27;,</span><br><span class="line">  &#x27;splice&#x27;,</span><br><span class="line">  &#x27;sort&#x27;,</span><br><span class="line">  &#x27;reverse&#x27;</span><br><span class="line">]</span><br><span class="line">.forEach(function (method) &#123;</span><br><span class="line">  // cache original method</span><br><span class="line">  const original = arrayProto[method]</span><br><span class="line">  def(arrayMethods, method, function mutator (...args) &#123;</span><br><span class="line">    const result = original.apply(this, args)</span><br><span class="line">    const ob = this.__ob__</span><br><span class="line">    let inserted</span><br><span class="line">    switch (method) &#123;</span><br><span class="line">      case &#x27;push&#x27;:</span><br><span class="line">      case &#x27;unshift&#x27;:</span><br><span class="line">        inserted = args</span><br><span class="line">        break</span><br><span class="line">      case &#x27;splice&#x27;:</span><br><span class="line">        inserted = args.slice(2)</span><br><span class="line">        break</span><br><span class="line">    &#125;</span><br><span class="line">    if (inserted) ob.observeArray(inserted)</span><br><span class="line">    // notify change</span><br><span class="line">    ob.dep.notify()</span><br><span class="line">    return result</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>可以看到vue对上述数组方法进行了重写，先执行原有的数组方法，然后加入新加的逻辑。新加的逻辑主要是将改变的数组项变成响应式，同时手动通知数据变化。</p>
+<p>数组只要使用上述数组方法就可以出发响应变化</p>
+<h4 id="vm-on、vm-off、vm-once、vm-emit的实现"><a href="#vm-on、vm-off、vm-once、vm-emit的实现" class="headerlink" title="vm.$on、vm.$off、vm.$once、vm.$emit的实现"></a>vm.$on、vm.$off、vm.$once、vm.$emit的实现</h4><p>这几个api初始化是在初始化vue的时候eventsMixin(Vue)中，文件定义在src\core\instance\events.js中</p>
+<h5 id="vm-on"><a href="#vm-on" class="headerlink" title="vm.$on"></a>vm.$on</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const hookRE = /^hook:/</span><br><span class="line">Vue.prototype.$on = function (event: string | Array&lt;string&gt;, fn: Function): Component &#123;</span><br><span class="line">const vm: Component = this</span><br><span class="line">    if (Array.isArray(event)) &#123;</span><br><span class="line">      for (let i = 0, l = event.length; i &lt; l; i++) &#123;</span><br><span class="line">        this.$on(event[i], fn)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      (vm._events[event] || (vm._events[event] = [])).push(fn)</span><br><span class="line">      if (hookRE.test(event)) &#123;</span><br><span class="line">        vm._hasHookEvent = true</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return vm</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>从上面可以看到，事件名是个string的时候，会将定义的函数push进vm._events[event]中。事件名是个数组的时候会经过for循环递归调用自身，也会像上面string的方式处理。</p>
+<h5 id="vm-off"><a href="#vm-off" class="headerlink" title="vm.$off"></a>vm.$off</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">Vue.prototype.$off = function (event?: string | Array&lt;string&gt;, fn?: Function): Component &#123;</span><br><span class="line">    const vm: Component = this</span><br><span class="line">    // all</span><br><span class="line">    if (!arguments.length) &#123;</span><br><span class="line">      vm._events = Object.create(null)</span><br><span class="line">      return vm</span><br><span class="line">    &#125;</span><br><span class="line">    // array of events</span><br><span class="line">    if (Array.isArray(event)) &#123;</span><br><span class="line">      for (let i = 0, l = event.length; i &lt; l; i++) &#123;</span><br><span class="line">        this.$off(event[i], fn)</span><br><span class="line">      &#125;</span><br><span class="line">      return vm</span><br><span class="line">    &#125;</span><br><span class="line">    // specific event</span><br><span class="line">    const cbs = vm._events[event]</span><br><span class="line">    if (!cbs) &#123;</span><br><span class="line">      return vm</span><br><span class="line">    &#125;</span><br><span class="line">    if (arguments.length === 1) &#123;</span><br><span class="line">      vm._events[event] = null</span><br><span class="line">      return vm</span><br><span class="line">    &#125;</span><br><span class="line">    if (fn) &#123;</span><br><span class="line">      // specific handler</span><br><span class="line">      let cb</span><br><span class="line">      let i = cbs.length</span><br><span class="line">      while (i--) &#123;</span><br><span class="line">        cb = cbs[i]</span><br><span class="line">        if (cb === fn || cb.fn === fn) &#123;</span><br><span class="line">          cbs.splice(i, 1)</span><br><span class="line">          break</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return vm</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>从上面可以看到，如果arguments.length &#x3D;&#x3D;&#x3D; 1,则会执行vm._events[event] &#x3D; null,相当于移除所有的event。如果提供fn，则会遍历event的数组去splice对应的event数组里的函数。如果传入的事件名是个数组，则会for循环递归调用自身，执行和string相同的操作。</p>
+<h5 id="vm-once"><a href="#vm-once" class="headerlink" title="vm.$once"></a>vm.$once</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Vue.prototype.$once = function (event: string, fn: Function): Component &#123;</span><br><span class="line">    const vm: Component = this</span><br><span class="line">    function on () &#123;</span><br><span class="line">      vm.$off(event, on)</span><br><span class="line">      fn.apply(vm, arguments)</span><br><span class="line">    &#125;</span><br><span class="line">    on.fn = fn</span><br><span class="line">    vm.$on(event, on)</span><br><span class="line">    return vm</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>可以看到，使用$once添加事件的时候，会调用$on,并且执行事件的时候会调用$off，移除事件。</p>
+<h5 id="vm-emit"><a href="#vm-emit" class="headerlink" title="vm.$emit"></a>vm.$emit</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Vue.prototype.$emit = function (event: string): Component &#123;</span><br><span class="line">    const vm: Component = this</span><br><span class="line">    let cbs = vm._events[event]</span><br><span class="line">    if (cbs) &#123;</span><br><span class="line">      cbs = cbs.length &gt; 1 ? toArray(cbs) : cbs</span><br><span class="line">      const args = toArray(arguments, 1)</span><br><span class="line">      for (let i = 0, l = cbs.length; i &lt; l; i++) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">          cbs[i].apply(vm, args)</span><br><span class="line">        &#125; catch (e) &#123;</span><br><span class="line">          handleError(e, vm, `event handler for &quot;$&#123;event&#125;&quot;`)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return vm</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>从上面可以看到，emit调用的时候，先会去vm._events[event]中查看有无定义这个事件，有的话会去遍历这个event的数组并且执行每一项的方法。从上面off可知，off之后的event会是一个空数组，这里for循环就不会走了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/06/30/vue/%E6%BA%90%E7%A0%81/" data-id="cl1eaywy3000cgwvn5fcr9hhz" data-title="node" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/30/vue/#%E4%BB%80%E4%B9%88%E6%98%AFtypeScript/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          node
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/30/vue/Proxy%20%E4%BB%8B%E7%BB%8D/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">node</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/03/30/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/30/vue/vue2/">node</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/30/vue/1%E3%80%81for%E5%BE%AA%E7%8E%AF%E3%80%81while%E3%80%81do%20while%20%EF%BC%88%E6%95%B0%E7%BB%84%EF%BC%89/">node</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/30/vue/Axios%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/">node</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/30/vue/props%20$emit/">node</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>node | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="一、什么是async、awaitasync函数是es7引入的，它是 Generator函数的语法糖（Generator函数是async函数的实现原理，这一次分享关注使用方法），它是异步操作的又一种实现。  之前分享过Promise（点击查看promise分享），async相当于是对Promise链式异步回调的优化版本。 总的来看异步操作的进化历程主要是：cb函数-&gt; Promise的链式回调">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node">
+<meta property="og:url" content="http://example.com/2020/06/30/vue/%E4%B8%80%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AFasync%E3%80%81await/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、什么是async、awaitasync函数是es7引入的，它是 Generator函数的语法糖（Generator函数是async函数的实现原理，这一次分享关注使用方法），它是异步操作的又一种实现。  之前分享过Promise（点击查看promise分享），async相当于是对Promise链式异步回调的优化版本。 总的来看异步操作的进化历程主要是：cb函数-&gt; Promise的链式回调">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-30T07:03:18.000Z">
+<meta property="article:modified_time" content="2022-03-31T01:15:39.439Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-vue/一、什么是async、await" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/06/30/vue/%E4%B8%80%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AFasync%E3%80%81await/" class="article-date">
+  <time class="dt-published" datetime="2020-06-30T07:03:18.000Z" itemprop="datePublished">2020-06-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      node
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="一、什么是async、await"><a href="#一、什么是async、await" class="headerlink" title="一、什么是async、await"></a>一、什么是async、await</h2><p>async函数是es7引入的，它是 Generator函数的语法糖（Generator函数是async函数的实现原理，这一次分享关注使用方法），它是异步操作的又一种实现。 </p>
+<p>之前分享过Promise（<a target="_blank" rel="noopener" href="https://alidocs.dingtalk.com/i/team/O5pXB6evwQ4aX7Zv/docs/O5pXBZob0bd4aX7Z">点击查看promise分享</a>），async相当于是对Promise链式异步回调的优化版本。</p>
+<p>总的来看异步操作的进化历程主要是：cb函数-&gt; Promise的链式回调 -&gt; async+Promise</p>
+<p>async字面上理解一下就是异步的意思，await就是async wait，是异步等待的意思，wait的是resolve(data)的消息，并把数据data返回。</p>
+<p>async相当于用同步的写法来写异步方法，不使用.then的方式链式回调</p>
+<h2 id="二、使用方法"><a href="#二、使用方法" class="headerlink" title="二、使用方法"></a>二、使用方法</h2><h4 id="1-async"><a href="#1-async" class="headerlink" title="1. async"></a>1. async</h4><p>async是写在函数前面，用来声明这个函数里面包含异步操作。它返回一个promise对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">async function test () &#123;</span><br><span class="line">  console.log(&#x27;我是函数内输出&#x27;)</span><br><span class="line">	return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">  	resolve(&#x27;输出我&#x27;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">test().then((data) =&gt; &#123;</span><br><span class="line">	console.log(data)</span><br><span class="line">&#125;)</span><br><span class="line">// 我是函数内输出</span><br><span class="line">// 输出我</span><br></pre></td></tr></table></figure>
+
+<p>当返回值return的不是一个promise对象是，他会把它转化成promise</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">async function test () &#123;</span><br><span class="line">  console.log(&#x27;我是函数内输出&#x27;)</span><br><span class="line">	return &#x27;输出我&#x27;</span><br><span class="line">&#125;</span><br><span class="line">test().then((data) =&gt; &#123;</span><br><span class="line">	console.log(data)</span><br><span class="line">&#125;)</span><br><span class="line">// 我是函数内输出</span><br><span class="line">// 输出我</span><br><span class="line"></span><br><span class="line">// 上面的async相当于</span><br><span class="line">async function test () &#123;</span><br><span class="line">	return Promise.resolve(&#x27;输出我&#x27;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当这个函数没有return的时候，他会返回一个undefined</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">async function test () &#123;</span><br><span class="line">  console.log(&#x27;我是函数内输出&#x27;)</span><br><span class="line">&#125;</span><br><span class="line">test().then((data) =&gt; &#123;</span><br><span class="line">	console.log(data)</span><br><span class="line">&#125;)</span><br><span class="line">// 我是函数内输出</span><br><span class="line">// undefined</span><br></pre></td></tr></table></figure>
+
+<p>从上面看来，加了async声明的函数，和普通函数的区别就是返回值会被包装成promise对象，可以在then里面取到返回值</p>
+<h4 id="2-await"><a href="#2-await" class="headerlink" title="2. await"></a>2. await</h4><p>await需要配合async使用，<strong>只能写在async函数中, 用在普通函数中会报错。</strong></p>
+<p>await 放置在Promise调用之前，await 强制后面的代码等待，直到Promise对象resolve，不用加then就能获取到resolve的结果，得到resolve的值作为await表达式的运算结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">async function test () &#123;</span><br><span class="line">	let output = await new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      resolve(&#x27;输出我&#x27;)</span><br><span class="line">    &#125;, 1000)</span><br><span class="line">  	&#125;)</span><br><span class="line">  console.log(output)</span><br><span class="line">&#125;</span><br><span class="line">test()</span><br><span class="line">// Promise &#123;&lt;pending&gt;&#125; 这里没有接收test的输出，会打印在控制台这个promise输出（后面不列出来了）</span><br><span class="line">// 1s后输出 -&gt; </span><br><span class="line">// 输出我</span><br></pre></td></tr></table></figure>
+
+
+
+<p>从这里可以看到”我是函数内输出2”,也是1s后和”输出我”一起输出的，说明函数执行到await这里的时候，它是阻塞的，必须等后面的异步有响应结果的时候，才会往后面执行</p>
+<p>关于执行顺序，看下面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">async function test () &#123;</span><br><span class="line">  console.log(1)</span><br><span class="line">	let output = await new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    console.log(2)</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      resolve(3)</span><br><span class="line">    &#125;, 1000)</span><br><span class="line">  &#125;)</span><br><span class="line">  console.log(output)</span><br><span class="line">  console.log(4)</span><br><span class="line">&#125;</span><br><span class="line">test().then(() =&gt; &#123;</span><br><span class="line">	console.log(5)</span><br><span class="line">&#125;)</span><br><span class="line">console.log(6)</span><br><span class="line">// 输出顺序</span><br></pre></td></tr></table></figure>
+
+<p>这里可以看到await会阻塞，但是async函数并没有阻塞</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">6</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-async和await结合"><a href="#3-async和await结合" class="headerlink" title="3. async和await结合"></a>3. async和await结合</h4><p>async函数里我们的异步方法，在按照代码顺序同步执行着</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">function output1 (num) &#123;</span><br><span class="line">	return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      resolve(num+1)</span><br><span class="line">    &#125;, 1000)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"> function output2 (num) &#123;</span><br><span class="line">	return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      resolve(num+2)</span><br><span class="line">    &#125;, 2000)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">async function test () &#123;</span><br><span class="line">  let num = 0</span><br><span class="line">  console.log(num)</span><br><span class="line">	let num1 = await output1(num)</span><br><span class="line">  console.log(num1)</span><br><span class="line">  let num2 = await output2(num1)</span><br><span class="line">  console.log(num2)</span><br><span class="line">&#125;</span><br><span class="line">test()</span><br><span class="line">// 0 </span><br><span class="line">// 1s后输出-&gt; 1 (0+1)</span><br><span class="line">// 2s后输出 -&gt; 3 (1+2)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>当后面await后面的跟的不是promise的时候，就不等待, 相当于同步</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">async function test () &#123;</span><br><span class="line">  console.log(&#x27;我是函数内输出&#x27;)</span><br><span class="line">	let output = await &#x27;输出我&#x27; // 就直接相当于 let output = &#x27;输出我&#x27;</span><br><span class="line">  console.log(output)</span><br><span class="line">&#125;</span><br><span class="line">test()</span><br><span class="line">// 我是函数内输出</span><br><span class="line">// 直接输出 -&gt; 输出我</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-错误处理"><a href="#4-错误处理" class="headerlink" title="4. 错误处理"></a>4. 错误处理</h4><p>当async函数中出现错误时，会中断后面的执行，无论是Promise reject的数据还是逻辑报错，都会中断。所以需要对错误做处理</p>
+<p>async的函数里面报错，相当于返回的promise被reject了，所以错误能通过函数的catch捕获到</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">async function test () &#123;</span><br><span class="line">  console.log(&#x27;我是函数内输出&#x27;)</span><br><span class="line">	let output = await new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      throw new Error(&#x27;出错了&#x27;) // 模拟报错</span><br><span class="line">      resolve(&#x27;输出我&#x27;)</span><br><span class="line">  &#125;)</span><br><span class="line">  console.log(output)</span><br><span class="line">  return &#x27;返回了&#x27;</span><br><span class="line">&#125;</span><br><span class="line">test().then((data)=&gt;&#123;</span><br><span class="line">  console.log(data)</span><br><span class="line">&#125;).catch((err)=&gt; &#123;</span><br><span class="line">	console.log(err, &#x27;进入catch了&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line">// 我是函数内输出</span><br><span class="line">// Error: 出错了    &#x27;进入catch了&#x27;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>也可以使用try catch 处理错误</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">async function test () &#123;</span><br><span class="line">  try &#123;</span><br><span class="line">    console.log(&#x27;我是函数内输出&#x27;)</span><br><span class="line">    let output = await new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">        throw new Error(&#x27;出错了&#x27;) // 模拟报错</span><br><span class="line">        resolve(&#x27;输出我&#x27;)</span><br><span class="line">    &#125;)</span><br><span class="line">    console.log(output)</span><br><span class="line">  &#125; catch (err) &#123;</span><br><span class="line">  	console.log(err, &#x27;进入catch了&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">test()</span><br><span class="line">// 我是函数内输出</span><br><span class="line">// Uncaught Error: 出错了  &#x27;进入catch了&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>从上面可以看到，出错后都不会走后面的代码。</p>
+<p>如果想要继续往下执行，对await异步里的错误做完处理就能继续执行后面的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">async function test () &#123;</span><br><span class="line">  console.log(&#x27;我是函数内输出&#x27;)</span><br><span class="line">	let output = await new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      throw new Error(&#x27;出错了&#x27;) // 模拟报错</span><br><span class="line">    	reject(234)</span><br><span class="line">  &#125;).catch(err =&gt; &#123;console.log(err, &#x27;await的报错catch&#x27;)&#125;)</span><br><span class="line">  console.log(&#x27;报错后面的输出&#x27;)</span><br><span class="line">&#125;</span><br><span class="line">test()</span><br><span class="line">// 我是函数内输出</span><br><span class="line">// VM9420:6 Error: 出错了</span><br><span class="line">    at &lt;anonymous&gt;:4:13</span><br><span class="line">    at new Promise (&lt;anonymous&gt;)</span><br><span class="line">    at test (&lt;anonymous&gt;:3:21)</span><br><span class="line">    at &lt;anonymous&gt;:9:1 &quot;await的报错catch&quot;</span><br><span class="line">// 报错后面的输出</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="三、注意事项汇总"><a href="#三、注意事项汇总" class="headerlink" title="三、注意事项汇总"></a>三、注意事项汇总</h2><h4 id="1-await只能在async函数内部使用，不能放在普通函数里面，否则会报错。"><a href="#1-await只能在async函数内部使用，不能放在普通函数里面，否则会报错。" class="headerlink" title="1. await只能在async函数内部使用，不能放在普通函数里面，否则会报错。"></a>1. await只能在async函数内部使用，不能放在普通函数里面，否则会报错。</h4><h4 id="2-await关键字后面跟Promise对象，会等待后面的resolve（data）之后，才会向下执行，这里是阻塞的。"><a href="#2-await关键字后面跟Promise对象，会等待后面的resolve（data）之后，才会向下执行，这里是阻塞的。" class="headerlink" title="2. await关键字后面跟Promise对象，会等待后面的resolve（data）之后，才会向下执行，这里是阻塞的。"></a>2. await关键字后面跟Promise对象，会等待后面的resolve（data）之后，才会向下执行，这里是阻塞的。</h4><h4 id="3-await命令后面的Promise对象，运行结果可能是rejected，所以要对它的错误做处理。"><a href="#3-await命令后面的Promise对象，运行结果可能是rejected，所以要对它的错误做处理。" class="headerlink" title="3. await命令后面的Promise对象，运行结果可能是rejected，所以要对它的错误做处理。"></a>3. await命令后面的Promise对象，运行结果可能是rejected，所以要对它的错误做处理。</h4><h4 id="4-多个await命令后面的异步操作，如果不存在继发关系，最好让它们同时触发，否则是串联的等待。"><a href="#4-多个await命令后面的异步操作，如果不存在继发关系，最好让它们同时触发，否则是串联的等待。" class="headerlink" title="4. 多个await命令后面的异步操作，如果不存在继发关系，最好让它们同时触发，否则是串联的等待。"></a>4. 多个await命令后面的异步操作，如果不存在继发关系，最好让它们同时触发，否则是串联的等待。</h4><h2 id="四、优点"><a href="#四、优点" class="headerlink" title="四、优点"></a>四、优点</h2><h4 id="1-方便级联调用，同步代码和异步代码可以一起写，看着逻辑清晰"><a href="#1-方便级联调用，同步代码和异步代码可以一起写，看着逻辑清晰" class="headerlink" title="1. 方便级联调用，同步代码和异步代码可以一起写，看着逻辑清晰"></a>1. 方便级联调用，同步代码和异步代码可以一起写，看着逻辑清晰</h4><p>同步代码该怎么写继续怎么写，异步过程需要包装成一个Promise对象放在await关键字后面，读下来就像是同步的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function takeLongTime(n) &#123;</span><br><span class="line">    return new Promise(resolve =&gt; &#123;</span><br><span class="line">        setTimeout(() =&gt; resolve(n + 200), n);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function step1(n) &#123;</span><br><span class="line">    console.log(`step1 with $&#123;n&#125;`);</span><br><span class="line">    return takeLongTime(n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function step2(n) &#123;</span><br><span class="line">    console.log(`step2 with $&#123;n&#125;`);</span><br><span class="line">    return takeLongTime(n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function step3(n) &#123;</span><br><span class="line">    console.log(`step3 with $&#123;n&#125;`);</span><br><span class="line">    return takeLongTime(n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">// promise链式写法</span><br><span class="line">function doIt() &#123;</span><br><span class="line">    console.time(&quot;doIt&quot;);</span><br><span class="line">    const time1 = 300;</span><br><span class="line">    step1(time1)</span><br><span class="line">        .then(time2 =&gt; step2(time2))</span><br><span class="line">        .then(time3 =&gt; step3(time3))</span><br><span class="line">        .then(result =&gt; &#123;</span><br><span class="line">            console.log(`result is $&#123;result&#125;`);</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;</span><br><span class="line">doIt();</span><br><span class="line"></span><br><span class="line">// async函数写法</span><br><span class="line">async function doIt() &#123;</span><br><span class="line">    console.time(&quot;doIt&quot;);</span><br><span class="line">    const time1 = 300;</span><br><span class="line">    const time2 = await step1(time1);</span><br><span class="line">    const time3 = await step2(time2);</span><br><span class="line">    const result = await step3(time3);</span><br><span class="line">    console.log(`result is $&#123;result&#125;`);</span><br><span class="line">&#125;</span><br><span class="line">doIt();</span><br><span class="line"></span><br><span class="line">// step1 with 300</span><br><span class="line">// step2 with 500</span><br><span class="line">// step3 with 700</span><br><span class="line">// result is 900</span><br></pre></td></tr></table></figure>
+
+<p>下面的例子更加明显，需求改成每一个步骤都需要之前每个步骤的结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">function step1(n) &#123;</span><br><span class="line">    console.log(`step1 with $&#123;n&#125;`);</span><br><span class="line">    return takeLongTime(n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function step2(m, n) &#123;</span><br><span class="line">    console.log(`step2 with $&#123;m&#125; and $&#123;n&#125;`);</span><br><span class="line">    return takeLongTime(m + n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function step3(k, m, n) &#123;</span><br><span class="line">    console.log(`step3 with $&#123;k&#125;, $&#123;m&#125; and $&#123;n&#125;`);</span><br><span class="line">    return takeLongTime(k + m + n);</span><br><span class="line">&#125;</span><br><span class="line">// Promise方式调用</span><br><span class="line">function doIt() &#123;</span><br><span class="line">    console.time(&quot;doIt&quot;);</span><br><span class="line">    const time1 = 300;</span><br><span class="line">    step1(time1)</span><br><span class="line">        .then(time2 =&gt; &#123;</span><br><span class="line">            return step2(time1, time2)</span><br><span class="line">                .then(time3 =&gt; [time1, time2, time3]);</span><br><span class="line">        &#125;)</span><br><span class="line">        .then(times =&gt; &#123;</span><br><span class="line">            const [time1, time2, time3] = times;</span><br><span class="line">            return step3(time1, time2, time3);</span><br><span class="line">        &#125;)</span><br><span class="line">        .then(result =&gt; &#123;</span><br><span class="line">            console.log(`result is $&#123;result&#125;`);</span><br><span class="line">            console.timeEnd(&quot;doIt&quot;);</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// async/await方式调用</span><br><span class="line">async function doIt() &#123;</span><br><span class="line">    console.time(&quot;doIt&quot;);</span><br><span class="line">    const time1 = 300;</span><br><span class="line">    const time2 = await step1(time1);</span><br><span class="line">    const time3 = await step2(time1, time2);</span><br><span class="line">    const result = await step3(time1, time2, time3);</span><br><span class="line">    console.log(`result is $&#123;result&#125;`);</span><br><span class="line">    console.timeEnd(&quot;doIt&quot;);</span><br><span class="line">&#125;</span><br><span class="line">// step1 with 300</span><br><span class="line">// step2 with 800 = 300 + 500</span><br><span class="line">// step3 with 1800 = 300 + 500 + 1000</span><br><span class="line">// result is 2000</span><br><span class="line">// doIt: 2907.387ms</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-更方便的参数传递"><a href="#2-更方便的参数传递" class="headerlink" title="2. 更方便的参数传递"></a>2. 更方便的参数传递</h4><p>Promise的then函数只能传递一个参数，虽然可以通过包装成对象来传递多个参数，但是会导致传递冗余信息，频繁的解析又重新组合参数，比较麻烦；async&#x2F;await没有这个限制，可以当做普通的局部变量来处理，用let或者const定义的块级变量想怎么用就怎么用，想定义几个就定义几个，完全没有限制，也没有冗余工作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">// promise链式写法</span><br><span class="line">function doIt() &#123;</span><br><span class="line">    console.time(&quot;doIt&quot;);</span><br><span class="line">    const time1 = 300;</span><br><span class="line">    step1(time1)</span><br><span class="line">        .then((time2) =&gt;&#123;</span><br><span class="line">        	let output = 1</span><br><span class="line">        	return step2(time2)</span><br><span class="line">    	&#125;)</span><br><span class="line">        .then((time3) =&gt; &#123;</span><br><span class="line">        	output += 1</span><br><span class="line">        	console.log(output)</span><br><span class="line">        	return step3(time3)</span><br><span class="line">    	&#125;)</span><br><span class="line">        .then(result =&gt; &#123;</span><br><span class="line">            console.log(`result is $&#123;result&#125;`);</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;</span><br><span class="line">doIt();</span><br><span class="line"></span><br><span class="line">// async函数写法</span><br><span class="line">async function doIt() &#123;</span><br><span class="line">    console.time(&quot;doIt&quot;);</span><br><span class="line">    const time1 = 300;</span><br><span class="line">    const time2 = await step1(time1);</span><br><span class="line">    let output = 1</span><br><span class="line">    const time3 = await step2(time2);</span><br><span class="line">    output += 1</span><br><span class="line">    console.log(output)</span><br><span class="line">    const result = await step3(time3);</span><br><span class="line">    console.log(`result is $&#123;result&#125;`);</span><br><span class="line">&#125;</span><br><span class="line">doIt();</span><br></pre></td></tr></table></figure>
+
+<h2 id="五、常见场景"><a href="#五、常见场景" class="headerlink" title="五、常见场景"></a>五、常见场景</h2><h4 id="1-两个接口请求完，执行某操作"><a href="#1-两个接口请求完，执行某操作" class="headerlink" title="1.两个接口请求完，执行某操作"></a>1.两个接口请求完，执行某操作</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 两个接口相关联，请求完1才能请求2</span><br><span class="line"></span><br><span class="line">async function exc1 () &#123;</span><br><span class="line">    console.log(&#x27;exc1 start:&#x27;,Date.now())</span><br><span class="line">    let res1 = await fetch1(url);</span><br><span class="line">    let res2 = await fetch2(res1); // 依赖1的接口返回新的url</span><br><span class="line">    console.log(&#x27;exc1 end:&#x27;, Date.now())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 并发请求， 两个接口不关联，两个请求完的时候之后后面的逻辑</span><br><span class="line">async function exc2 () &#123;</span><br><span class="line">    console.log(&#x27;exc2 start:&#x27;,Date.now())</span><br><span class="line">    let [res1, res2] = await Promise.all([fetch1(url), fetch2(url)])</span><br><span class="line">    console.log(&#x27;exc2 end:&#x27;, Date.now())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exc1();</span><br><span class="line"></span><br><span class="line">exc2();</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-根据是否超时，做处理"><a href="#2-根据是否超时，做处理" class="headerlink" title="2.根据是否超时，做处理"></a>2.根据是否超时，做处理</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function timeOut (delay) &#123;</span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">        setTimeout(() =&gt; &#123;</span><br><span class="line">        	resolve(false)</span><br><span class="line">        &#125;, delay)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">async function exc1 () &#123;</span><br><span class="line">	let flat = await Promise.race([fetch(url), timeOut(delay)])</span><br><span class="line">    // 根据是否超过规定的时间，做不通的处理</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-一个接口请求失败的话，再尝试请求一定次数"><a href="#3-一个接口请求失败的话，再尝试请求一定次数" class="headerlink" title="3. 一个接口请求失败的话，再尝试请求一定次数"></a>3. 一个接口请求失败的话，再尝试请求一定次数</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function getImg (url) &#123;</span><br><span class="line">  return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      resolve(false)</span><br><span class="line">    &#125;, 3000)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">async function fn3() &#123;</span><br><span class="line">  const times = 3</span><br><span class="line">  let url = &#x27;xxx&#x27;</span><br><span class="line">  for (let i = 0; i &lt; times; i++) &#123;</span><br><span class="line">    let img = await getImg(url).catch(() =&gt; &#123;&#125;)</span><br><span class="line">    console.log(img)</span><br><span class="line">    if (img) &#123;</span><br><span class="line">      break;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">fn3()</span><br></pre></td></tr></table></figure>
+
+
+
+<p>其它场景欢迎补充….</p>
+<p>关于Generator函数，大家可以去看下阮一峰的es6</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/06/30/vue/%E4%B8%80%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AFasync%E3%80%81await/" data-id="cl1eaywws0006gwvngrlg6p6d" data-title="node" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/30/vue/vue%E6%8C%87%E4%BB%A4%E6%98%AF%E4%BB%80%E4%B9%88/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          node
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/30/vue/%E4%B8%80%E3%80%81%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">node</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/03/30/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/30/vue/vue2/">node</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/30/vue/1%E3%80%81for%E5%BE%AA%E7%8E%AF%E3%80%81while%E3%80%81do%20while%20%EF%BC%88%E6%95%B0%E7%BB%84%EF%BC%89/">node</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/30/vue/Axios%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/">node</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/30/vue/props%20$emit/">node</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

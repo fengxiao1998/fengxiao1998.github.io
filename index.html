@@ -124,8 +124,8 @@
   
     <article id="post-vue/vue2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/01/30/vue/vue2/" class="article-date">
-  <time class="dt-published" datetime="2022-01-30T07:03:18.000Z" itemprop="datePublished">2022-01-30</time>
+    <a href="/2020/06/30/vue/vue2/" class="article-date">
+  <time class="dt-published" datetime="2020-06-30T07:03:18.000Z" itemprop="datePublished">2020-06-30</time>
 </a>
     
   </div>
@@ -136,7 +136,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/01/30/vue/vue2/">测试部署</a>
+      <a class="p-name article-title" href="/2020/06/30/vue/vue2/">node</a>
     </h1>
   
 
@@ -144,11 +144,916 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <h1 id="Node-Js"><a href="#Node-Js" class="headerlink" title="Node.Js"></a>Node.Js</h1><p><a target="_blank" rel="noopener" href="http://nodejs.cn/">官网</a></p>
+<h4 id="（扩展了Js的功能，原来在浏览器中运行不了的，可以在node这个平台来运行，具体是v8引擎）"><a href="#（扩展了Js的功能，原来在浏览器中运行不了的，可以在node这个平台来运行，具体是v8引擎）" class="headerlink" title="（扩展了Js的功能，原来在浏览器中运行不了的，可以在node这个平台来运行，具体是v8引擎）"></a>（扩展了Js的功能，原来在浏览器中运行不了的，可以在node这个平台来运行，具体是v8引擎）</h4><h4 id="特点：1-异步IO-2-事件驱动-3-事件循环-4-单线程-主线程是单线程，由V8引擎执行"><a href="#特点：1-异步IO-2-事件驱动-3-事件循环-4-单线程-主线程是单线程，由V8引擎执行" class="headerlink" title="特点：1.异步IO  2.事件驱动  3.事件循环  4.单线程(主线程是单线程，由V8引擎执行)"></a>特点：1.异步IO  2.事件驱动  3.事件循环  4.单线程(主线程是单线程，由V8引擎执行)</h4><h2 id="一、整体架构分为三大部分"><a href="#一、整体架构分为三大部分" class="headerlink" title="一、整体架构分为三大部分"></a>一、整体架构分为三大部分</h2><p>Native Modules</p>
+<ol>
+<li>当前层内容由JS实现</li>
+<li>提供应用程序可以直接调用的库，例如fs、path、http、url等模块</li>
+<li>但是JS无法直接操作底层硬件设置，所以需要一个桥梁Builtin Modules桥梁</li>
+</ol>
+<p>Builtin Modules</p>
+<ol>
+<li>在这个桥梁模块中就可以让nodejs核心模块获取到具体的服务支持，从而完成更底层的操作。例如文件的读写行为</li>
+</ol>
+<p>v8引擎、libuv库、http、parser等模块</p>
+<ol>
+<li>v8引擎负责执行js代码、提供桥梁接口（用来实现模块和底层具体实现直接的沟通）</li>
+<li>libuv库中有事件循环、事件队列、异步IO</li>
+<li>第三方模块：http、c-ares等</li>
+</ol>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/e54Lq3EzZX9Ml7Ed/img/f1a4e803-183c-4fd6-a0f7-fe15c307d8c5.png" alt="img"></p>
+<h2 id="二、-NodeJs的异步IO"><a href="#二、-NodeJs的异步IO" class="headerlink" title="二、 NodeJs的异步IO"></a>二、 NodeJs的异步IO</h2><h5 id="libuv库：（相当于一个线程池、可以看作几种不同的异步IO实现方式的封装层）"><a href="#libuv库：（相当于一个线程池、可以看作几种不同的异步IO实现方式的封装层）" class="headerlink" title="libuv库：（相当于一个线程池、可以看作几种不同的异步IO实现方式的封装层）"></a>libuv库：（相当于一个线程池、可以看作几种不同的异步IO实现方式的封装层）</h5><p>​        当我们在node中运行了一段js代码后，最终会走到libuv库中，然后它会对当前平台判断，依据平台调用相应的异步IO处理方法</p>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/e54Lq3EzZX9Ml7Ed/img/63d368d7-b415-4b91-83cb-c51a5d8fbdfe.png" alt="img"></p>
+<p>​        Node当中具体实现异步IO的过程：当遇到异步请求，然后libuv库会进行工作，在其内部存在一个事件循环的机制，对异步请求进行管理，</p>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/e54Lq3EzZX9Ml7Ed/img/eecffff4-ba39-44ce-a460-cfa060d3f549.png" alt="img"></p>
+<p>IO是应用程序的瓶颈所在</p>
+<p>异步IO提高性能无需原地等待结果返回</p>
+<p>IO操作属于操作系统级别，libuv库对其作了封装</p>
+<p>NodeJs单线程配合事件驱动以及libuv实现了异步IO</p>
+<p>当队列中没有等待的任务时候，它就会退出循环</p>
+<h2 id="三、事件驱动"><a href="#三、事件驱动" class="headerlink" title="三、事件驱动"></a>三、事件驱动</h2><ol>
+<li>特征：主体发布消息，其他实例接受消息</li>
+<li>（发布者广播消息，其他的订阅者可以监听到之前所订阅的消息，从而在订阅的事件发生之后再去执行相应的处理程序）</li>
+</ol>
+<p>​    2. 特点：因为NodeJs拥有一套单线程下异步非阻塞的IO机制，因此程序代码在执行过程中，业务层拿到的并不是最终的目标数据，等到同步代码执行完成之后，此时libuv库就会开始工作,只不过也存在很多非IO的异步操作，比如settimeout，当libuv库接收到一个异步操作请求后，多路分解器开始工作，首先它会找到当前平台下可用的IO处理接口，然后等待着IO操作结束后，将相应的事件通过事件循环或者其他方式添加到事件队列当中，然后最后按照一定的顺序从事件队列中取出相应的事件，然后交给主线程进行执行，（ 其中，事件驱动的体现就是有人发布了事件，然后订阅这个事件的人在将来去接收到具体的事件消息发布之后，就会去执行订阅池的所注册的处理程序 ）</p>
+<p>​    3. 顺序：同步代码先执行，等同步代码执行完成后，去执行异步操作，此时会按照注册顺序执行相应的事件处理函数</p>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/e54Lq3EzZX9Ml7Ed/img/206a109c-9615-4ad7-ba88-790f12843883.png" alt="img"> </p>
+<h2 id="四、单线程实现高并发"><a href="#四、单线程实现高并发" class="headerlink" title="四、单线程实现高并发"></a>四、单线程实现高并发</h2><p>​    通过异步非阻塞IO、事件循环加上事件驱动的架构去通过回调通知的方式来实现非阻塞的调用以及做到并发</p>
+<p>​    具体表现为：当遇到多个请求的时候，是无需阻塞的，会由上向下去执行，然后呢去等待着libuv库完成工作之后呢，再按照顺序来通知相应的事件回调去触发                            执行就可以了，这样就完成了多线程的工作</p>
+<h2 id="五、全局对象和全局变量"><a href="#五、全局对象和全局变量" class="headerlink" title="五、全局对象和全局变量"></a>五、全局对象和全局变量</h2><h5 id="1-全局对象"><a href="#1-全局对象" class="headerlink" title="1. 全局对象"></a>1. 全局对象</h5><p>global</p>
+<h5 id="2-全局变量"><a href="#2-全局变量" class="headerlink" title="2. 全局变量"></a>2. 全局变量</h5><p>__filename  -&gt;返回正在执行脚本文件的绝对路径</p>
+<p>__dirname  -&gt;返回正在执行脚本所在的目录</p>
+<p>timer类函数 -&gt;(settimeout、setinterval)</p>
+<p>process    -&gt;提供与当前进程互动的接口</p>
+<p>require    -&gt;模块加载</p>
+<p>module、exports -&gt;模块的导出</p>
+<p>Buffer</p>
+<h6 id="process（无需require）"><a href="#process（无需require）" class="headerlink" title="process（无需require）"></a>process（无需require）</h6><p>process.cwd()  工作目录</p>
+<p>process.version node版本</p>
+<p>process.arch 操作系统位数</p>
+<p>process.env 环境变量</p>
+<p>process.env.NODE_ENV</p>
+<p>process.env.PATH 系统环境变量</p>
+<p>process.platform 操作系统平台</p>
+<p>process.argv  启动参数 （返回数组。但是从数组的第二个下标开始才是输入的数据）</p>
+<p>process.uptime() 从运行到结束整体消耗时间</p>
+<p>process.stdout 标准输出 （返回对象，是一个流）</p>
+<p>​    fs.createReadSteam(‘text.txt’).pipe(process.stdout) 输出文件内容</p>
+<p>process.stdin 标准输入 （返回对象，是一个流）</p>
+<p>  process.stdin.read()</p>
+<p>​    process.stdin.pipe(process.stdout)</p>
+<p>process.stdin.setEncoding(‘utf-8’)</p>
+<h2 id="六、常用（核心）模块"><a href="#六、常用（核心）模块" class="headerlink" title="六、常用（核心）模块"></a>六、常用（核心）模块</h2><h3 id="1-path"><a href="#1-path" class="headerlink" title="1.path"></a>1.path</h3><p>basename(path)  获取基础路径，路径的最后部分</p>
+<p>dirname(path)   获取路径目录名(路径)</p>
+<p>extname</p>
+<p>isAbsolute</p>
+<p>parse  （得到对象）</p>
+<p>format  （对parse后的结果进行序列化）</p>
+<p>normalize (<strong>当含有多个杠或者点的时候可以用这个来处理一下)</strong></p>
+<h5 id="join（只是简单的拼接，遇到-x2F-就按照正常返回上一次进行拼接）"><a href="#join（只是简单的拼接，遇到-x2F-就按照正常返回上一次进行拼接）" class="headerlink" title="join（只是简单的拼接，遇到..&#x2F;就按照正常返回上一次进行拼接）"></a>join（只是简单的拼接，遇到..&#x2F;就按照正常返回上一次进行拼接）</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">path.join(&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;)   // 输出结果为： &#x27;/a/b/c&#x27;</span><br><span class="line">path.join(&#x27;a&#x27;, &#x27;/b&#x27;, &#x27;c&#x27;)  // 输出结果为： &#x27;/a/b/c&#x27;</span><br><span class="line">path.join(&#x27;a/b&#x27;, &#x27;../&#x27;, &#x27;c&#x27;) // 输出结果为： &#x27;/a/c&#x27;</span><br><span class="line">path.join(&#x27;a&#x27;, &#x27;./&#x27;, &#x27;c&#x27;) // 输出结果为：&#x27;/a/c&#x27;</span><br></pre></td></tr></table></figure>
+
+<h5 id="resolve（从后向前，若字符以-x2F-开头，不会拼接到前面的路径；若以-x2F-开头，拼接前面的路径，但是不含前面一节的最后一层路径；若以-x2F-开头-或者没有符号-则拼接前面路径；）"><a href="#resolve（从后向前，若字符以-x2F-开头，不会拼接到前面的路径；若以-x2F-开头，拼接前面的路径，但是不含前面一节的最后一层路径；若以-x2F-开头-或者没有符号-则拼接前面路径；）" class="headerlink" title="resolve（从后向前，若字符以 &#x2F; 开头，不会拼接到前面的路径；若以 ..&#x2F; 开头，拼接前面的路径，但是不含前面一节的最后一层路径；若以 .&#x2F; 开头 或者没有符号 则拼接前面路径；）"></a>resolve（从后向前，若字符以 &#x2F; 开头，不会拼接到前面的路径；若以 ..&#x2F; 开头，拼接前面的路径，但是不含前面一节的最后一层路径；若以 .&#x2F; 开头 或者没有符号 则拼接前面路径；）</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 假设当前绝对路径为/admin/user</span><br><span class="line">path.resolve(&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;) // 输出结果为：&#x27;/admin/user/a/a/c&#x27;</span><br><span class="line">path.resolve(&#x27;a&#x27;, &#x27;/b&#x27;, &#x27;c&#x27;) // 输出结果为： &#x27;/b/c&#x27;</span><br><span class="line">path.resolve(&#x27;a/b&#x27;, &#x27;../&#x27;, &#x27;c&#x27;) // 输出结果为：&#x27;/admin/user/a/c&#x27;</span><br><span class="line">path.resolve(&#x27;a&#x27;, &#x27;./&#x27;, &#x27;c&#x27;) // 输出结果为：&#x27;admin/user/a/c&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Buffer"><a href="#2-Buffer" class="headerlink" title="2.Buffer"></a>2.Buffer</h3><h4 id="1-特点"><a href="#1-特点" class="headerlink" title="(1) 特点"></a>(1) 特点</h4><p>Node.js中多出来几个概念，一个就是二进制数据、流操作以及Buffer，Buffer就是一片内存空间</p>
+<ol>
+<li>无需require的一个全局变量</li>
+<li>实现nodeJs平台下的二进制操作</li>
+<li>不占据v8的内存空间</li>
+<li>内存使用由node来控制，由V8的GC回收</li>
+<li>一般配合Steam流使用，充当数据缓冲区</li>
+</ol>
+<h4 id="2-实例对象"><a href="#2-实例对象" class="headerlink" title="(2) 实例对象"></a>(2) 实例对象</h4><p>​    Buffer类的实例似于整数数组，不过是对应V8堆外的固定大小的原始内存进行分配(堆外内存，不受V8引擎控制)。 缓冲区的大小在创建时已经确定，所以不能调整大小。</p>
+<p>创建实例方法</p>
+<p>alloc 创建指定字节大小的buffer</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const b1 = Buffer.alloc(10) // &lt;Buffer 00 00 00 00 00 00 00 00 00 00&gt;</span><br></pre></td></tr></table></figure>
+
+<p>allocUnsafe 创建指定字节大小的buffer（不安全，可能混有旧数据）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const b2 = Buffer.allocUnsafe(10) // &lt;Buffer ff ff ff ff ff ff ff ff 00 00&gt;</span><br></pre></td></tr></table></figure>
+
+<p>from 接受数据（这个数据可以是创建好的buffer），创建buffer，此时他会生成一个全新的缓冲区，和原来的缓冲区不冲突，所以修改接受的buffer，并不会影响新生成的buffer</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const b1 = Buffer.from(&#x27;中&#x27;)</span><br><span class="line">console.log(b1); // &lt;Buffer e4 b8 ad&gt;</span><br><span class="line">console.log(b1.toString()); // 中</span><br><span class="line"></span><br><span class="line">const b1 = Buffer.alloc(3)</span><br><span class="line">const b2 = Buffer.from(b1)</span><br><span class="line"> </span><br><span class="line">console.log(b1) // &lt;Buffer 00 00 00&gt;</span><br><span class="line">console.log(b2) // &lt;Buffer 00 00 00&gt;</span><br><span class="line"> </span><br><span class="line">// b1 和 b2 是不是共享内存, </span><br><span class="line"> </span><br><span class="line">b1[0] = 1</span><br><span class="line">console.log(b1) // &lt;Buffer 01 00 00&gt;</span><br><span class="line">console.log(b2) // &lt;Buffer 00 00 00&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-实例常用方法"><a href="#3-实例常用方法" class="headerlink" title="(3) 实例常用方法"></a>(3) 实例常用方法</h4><p>fill  使用数据填充buffer，返回填充后的buffer</p>
+<p>write 向buffer中写入数据</p>
+<p>toString 提取buffer的数据</p>
+<p>slice 截取buffer</p>
+<p>indexOf(在buffer中查找数据)</p>
+<p>copy拷贝buffer的数据</p>
+<h4 id="4-Buffer类静态方法"><a href="#4-Buffer类静态方法" class="headerlink" title="(4) Buffer类静态方法"></a>(4) Buffer类静态方法</h4><p>concat 将多个buffer拼接成一个新的buffer</p>
+<p>isBuffer判断当前数据是否是buffer</p>
+<h3 id="3-FS模块"><a href="#3-FS模块" class="headerlink" title="3.FS模块"></a>3.FS模块</h3><h4 id=""><a href="#" class="headerlink" title=""></a><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/e54Lq3EzZX9Ml7Ed/img/8341efac-b34a-4841-a782-f8608b0899a6.png" alt="img"></h4><p>文件权限flag操作符常见有</p>
+<p>r： 可读</p>
+<p>w：可写</p>
+<p>s： 同步</p>
+<ul>
+<li>： 执行</li>
+</ul>
+<p>x： 排他</p>
+<p>a： 追加</p>
+<h4 id="1-实例常用方法"><a href="#1-实例常用方法" class="headerlink" title="(1) 实例常用方法"></a>(1) 实例常用方法</h4><ul>
+<li>fs.open和 fs.close （打开文件和关闭文件）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const fs = require(&#x27;fs&#x27;)</span><br><span class="line">const path = require(&#x27;path&#x27;)</span><br><span class="line"> </span><br><span class="line">// open </span><br><span class="line"> </span><br><span class="line">fs.open(path.resolve(&#x27;data.txt&#x27;), &#x27;r&#x27;, (err, fd) =&gt; &#123;</span><br><span class="line">    console.log(fd);</span><br><span class="line">&#125;)</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">// close</span><br><span class="line">fs.open(&#x27;data.txt&#x27;, &#x27;r&#x27;, (err, fd) =&gt; &#123;</span><br><span class="line">    console.log(fd);</span><br><span class="line">    fs.close(fd, err =&gt; &#123;</span><br><span class="line">        console.log(&#x27;关闭成功&#x27;);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>access：判断文件或目录是否具有操作权限</li>
+<li>stat：获取目录及文件信息</li>
+<li>mkdir：创建目录</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 三、mkdir recursive 递归操作</span><br><span class="line">fs.mkdir(&#x27;a/b/c&#x27;, &#123;recursive: true&#125;, (err) =&gt; &#123;</span><br><span class="line">    if (!err) &#123;</span><br><span class="line">        console.log(&#x27;创建成功&#x27;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        console.log(err);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>rmdir：删除目录 ({recursive: true}和mkdir一样)</li>
+<li>readdir：读取目录中内容</li>
+<li>unlink：删除指定文件</li>
+</ul>
+<h3 id="4-Events模块"><a href="#4-Events模块" class="headerlink" title="4.Events模块"></a>4.Events模块</h3><ul>
+<li>通过 EventEmitter 类实现事件统一管理</li>
+<li>events 与 EventEmitter</li>
+<li>node.js 是基于时间驱动的异步操作架构，内置 events 模块 events 模块提供了 EventEmitter 类 node.js 中很多内置核心模块继承 EventEmitter</li>
+<li>EventEmitter 常见 API</li>
+<li>on：添加当事件被触发时调用的回调函数</li>
+<li>emit：触发事件，按照注册的序同步调用每个事件监听器</li>
+<li>once：添加当事件在注册之后首次被触发时调用的回调函数</li>
+<li>off：移除特定的监听器</li>
+<li>Eventloop事件环</li>
+<li>从上至下执行所有的同步代码</li>
+<li>执行过程中将遇到的宏任务与微任务添加至相应的队列</li>
+<li>同步代码执行完毕后，执行满足条件的微任务回调</li>
+<li>微任务队列执行完毕后执行所有满足需求的宏任务回调</li>
+<li>循环事件环操作</li>
+</ul>
+<p>浏览器中的eventloop</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(() =&gt; &#123;</span><br><span class="line">  console.log(&#x27;s1&#x27;);</span><br><span class="line">  Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">      console.log(&#x27;p1&#x27;);</span><br><span class="line">  &#125;)</span><br><span class="line">  Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">      console.log(&#x27;p2&#x27;);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">setTimeout(() =&gt; &#123;</span><br><span class="line">  console.log(&#x27;s2&#x27;);</span><br><span class="line">  Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">      console.log(&#x27;p3&#x27;);</span><br><span class="line">  &#125;)</span><br><span class="line">  Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">      console.log(&#x27;p4&#x27;);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// s1 p1 p2 s2 p3 p4</span><br><span class="line">setTimeout(() =&gt; &#123;</span><br><span class="line">  console.log(&#x27;s1&#x27;);</span><br><span class="line">  Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">      console.log(&#x27;p2&#x27;);</span><br><span class="line">  &#125;)</span><br><span class="line">  Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">      console.log(&#x27;p3&#x27;);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">  console.log(&#x27;p1&#x27;);</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">      console.log(&#x27;s2&#x27;);</span><br><span class="line">  &#125;)</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">      console.log(&#x27;s3&#x27;);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">// p1 s1 p2 p3  s2 s3</span><br></pre></td></tr></table></figure>
+
+<h4 id="node-js中的eventloop"><a href="#node-js中的eventloop" class="headerlink" title="node.js中的eventloop"></a>node.js中的eventloop</h4><p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/e54Lq3EzZX9Ml7Ed/img/3adfb8dd-5380-4056-80cc-7e6620cbdab2.png" alt="img"> </p>
+<p>timers：执行 setTimeout 与 setInterval 回调</p>
+<p>pengding callbacks：执行系统操作的回调，例如top udp</p>
+<p>idle，prepare：只在系统内部进行使用</p>
+<p>poll：执行与 I&#x2F;O 相关的回调</p>
+<p>check：执行 setImmediate 中的回调</p>
+<p>close callbacks：执行 close 事件的回调</p>
+<p>其中主要关心timers、poll、check这三个事件队列就好</p>
+<p>​    Nodejs 完整事件环</p>
+<ul>
+<li>执行同步代码，将不同的任务添加至相应的队列</li>
+<li>所有同步代码执行后回去执行满足条件微任务</li>
+<li>所有微任务代码执行后会执行timer队列中满足的宏任务</li>
+<li>timer 中的所有宏任务执行完成后就会依次切换队列</li>
+<li>注意：在完成队列的切换之前会先清空微任务代码</li>
+<li>微任务队列中，nexttick执行顺序是高于promise.resolve的</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(() =&gt; &#123;</span><br><span class="line">    console.log(&#x27;s1&#x27;);</span><br><span class="line">    Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">        console.log(&#x27;p1&#x27;);</span><br><span class="line">    &#125;)</span><br><span class="line">    Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">        console.log(&#x27;t1&#x27;);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">    console.log(&#x27;p2&#x27;);</span><br><span class="line">&#125;)</span><br><span class="line"> </span><br><span class="line">console.log(&#x27;start&#x27;);</span><br><span class="line"> </span><br><span class="line">setTimeout(() =&gt; &#123;</span><br><span class="line">    console.log(&#x27;s2&#x27;);   </span><br><span class="line">    Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">        console.log(&#x27;p3&#x27;);</span><br><span class="line">    &#125;)</span><br><span class="line">    Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">        console.log(&#x27;t2&#x27;);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">console.log(&#x27;end&#x27;);</span><br><span class="line"> </span><br><span class="line">// start end p2 s1 p1 t1 s2 p3 t2</span><br></pre></td></tr></table></figure>
+
+<h4 id="Nodejs与浏览器事件环区别"><a href="#Nodejs与浏览器事件环区别" class="headerlink" title="Nodejs与浏览器事件环区别"></a>Nodejs与浏览器事件环区别</h4><p>​    （1）任务队列数不同</p>
+<p>​          浏览器中只有二个任务队列</p>
+<p>​            Nodejs 中有6个事件队列</p>
+<p>​    （2）Nodejs 微任务执行实际不同</p>
+<p>​            二者都会在同步代码执行完毕后执行微任务</p>
+<p>​            浏览器平台下每当一个宏任务执行完毕后就清空微任务</p>
+<p>​            Nodejs 平台在事件队列切换时会去清空微任务</p>
+<p>​    （3）微任务优先级不同</p>
+<p>​            浏览器事件环中，微任务存放于事件队列，先进先出</p>
+<p>​            Nodejs 中 process.nextTick 先于 promise.then</p>
+<h3 id="5-Stream流模块"><a href="#5-Stream流模块" class="headerlink" title="5. Stream流模块"></a>5. Stream流模块</h3><ul>
+<li>Readable：可读流，能够实现数据的读取</li>
+<li>Writeable：可写流，能够实现数据的写操作</li>
+<li>Duplex：双工流，即可读又可写</li>
+<li>Tranform：转换流，可读可写，还能实现数据转换</li>
+</ul>
+<h2 id="七、中间件"><a href="#七、中间件" class="headerlink" title="七、中间件"></a>七、中间件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">1、中间件就是一种功能的封装方式，就是封装在程序中处理http请求的功能，</span><br><span class="line">2、中间件是在管道中执行</span><br><span class="line">3、中间件有一个next()函数，如果不调用next函数，请求就在这个中间件中终止了，</span><br><span class="line">4、中间件和路由处理器的参数中都有回调函数，这个函数有2,3,4个参数</span><br><span class="line">        如果有两个参数就是req和res；</span><br><span class="line">        如果有三个参数就是req,res和next</span><br><span class="line">        如果有四个参数就是err，req，res，next</span><br><span class="line">5、如果不调用next ，管道就会终止，不会再有处理器做后续响应，应该向客户端发送一个响应</span><br><span class="line">6、如果调用了next，不应该发送响应到客户端，如果发送了，则后面发送的响应都会被忽略</span><br><span class="line">7、中间件的第一个参数可以是路径，如果忽略则全部都匹配</span><br><span class="line"></span><br><span class="line">const middleware2 = (req, res, next) =&gt; &#123;</span><br><span class="line">  console.log(&#x27;middleware2 start&#x27;)</span><br><span class="line">  new Promise(resolve =&gt; &#123;</span><br><span class="line">    setTimeout(() =&gt; resolve(), 1000)</span><br><span class="line">  &#125;).then(() =&gt; &#123;</span><br><span class="line">    next()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="八、http"><a href="#八、http" class="headerlink" title="八、http"></a>八、http</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">const http = require(&#x27;http&#x27;)</span><br><span class="line">const url = require(&#x27;url&#x27;)</span><br><span class="line">const path = require(&#x27;path&#x27;)</span><br><span class="line">const fs = require(&#x27;fs&#x27;)</span><br><span class="line">const mime = require(&#x27;mime&#x27;)</span><br><span class="line"> </span><br><span class="line">const server = http.createServer((req, res) =&gt; &#123;</span><br><span class="line">    // 1、路径处理</span><br><span class="line">    // req.query  处理get请求</span><br><span class="line">    // req.body   处理post请求</span><br><span class="line">    // req.params 处理/:xxx这样的请求</span><br><span class="line"></span><br><span class="line">    let &#123;pathname, query&#125; = url.parse(req.url)</span><br><span class="line">    pathname = decodeURIComponent(pathname)</span><br><span class="line">    let absPath = path.join(__dirname, pathname)</span><br><span class="line"> </span><br><span class="line">    // 2、目标资源状态处理</span><br><span class="line">    fs.stat(absPath, (err, statObj) =&gt; &#123;</span><br><span class="line">        if (err) &#123;</span><br><span class="line">            res.statusCode = 404</span><br><span class="line">            res.end(&#x27;Not Found&#x27;)</span><br><span class="line">            return</span><br><span class="line">        &#125;</span><br><span class="line">        if (statObj.isFile()) &#123;</span><br><span class="line">            // 此时说明路径对应的目标是一个文件,可以直接读取然后回写</span><br><span class="line">            fs.readFile(absPath, (err, data) =&gt; &#123;</span><br><span class="line">                res.setHeader(&#x27;Content-type&#x27;, mime.getType(absPath) + &#x27;;charset=utf-8&#x27;)</span><br><span class="line">                res.end(data)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            fs.readFile(path.join(absPath, &#x27;index.html&#x27;), (err ,data) =&gt; &#123;</span><br><span class="line">                res.setHeader(&#x27;Content-type&#x27;, mime.getType(absPath) + &#x27;;charset=utf-8&#x27;)</span><br><span class="line">                res.end(data)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"> </span><br><span class="line">server.listen(1234, () =&gt; &#123;</span><br><span class="line">    console.log(&#x27;server is running&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>项目中有用到了http-proxy来创建代理服务，就是在我们自己的启动服务外层包一层来把接口代理到对应的ip上</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/01/30/vue/vue2/" data-id="cl1d8ebv00001bovn73le7x3f" data-title="测试部署" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2020/06/30/vue/vue2/" data-id="cl1d8ebv00001bovn73le7x3f" data-title="node" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-vue/1、for循环、while、do while （数组）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/06/30/vue/1%E3%80%81for%E5%BE%AA%E7%8E%AF%E3%80%81while%E3%80%81do%20while%20%EF%BC%88%E6%95%B0%E7%BB%84%EF%BC%89/" class="article-date">
+  <time class="dt-published" datetime="2020-06-30T07:03:18.000Z" itemprop="datePublished">2020-06-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/06/30/vue/1%E3%80%81for%E5%BE%AA%E7%8E%AF%E3%80%81while%E3%80%81do%20while%20%EF%BC%88%E6%95%B0%E7%BB%84%EF%BC%89/">node</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>1、****for循环、while、do while</strong> <strong>（数组）</strong></p>
+<p>能正确响应break、continue和return语句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">let arr = [1, 2, 3]</span><br><span class="line">//for循环遍历数组</span><br><span class="line">for(let i=0;i&lt;arr.length;i++)&#123;</span><br><span class="line">  console.log(i+&quot;: &quot;+arr[i])</span><br><span class="line">&#125;</span><br><span class="line">// 输出</span><br><span class="line"> 0: 1 </span><br><span class="line"> 1: 2</span><br><span class="line"> 2: 3</span><br><span class="line"></span><br><span class="line">let arr=[1,0,8,7],i=0;</span><br><span class="line">while(i&lt;arr.length)&#123;</span><br><span class="line">    console.log(i+&#x27;:&#x27;+arr[i]);//0:1 1:0 2:8 3:7</span><br><span class="line">    i++</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let arr=[1,0,8,7],i=0;</span><br><span class="line">do&#123;</span><br><span class="line">   console.log(i+&#x27;:&#x27;+arr[i]); //0:1 1:0 2:8 3:7</span><br><span class="line">   i++</span><br><span class="line">&#125;while(i&lt;arr.length)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>2、for…in （对象和数组）</strong>   可得到数字索引属性、字母索引属性、原型上的属性，无法获取不可枚举属性</p>
+<p>for…in 得到的数字索引属性为 string 类型</p>
+<p>for-in循环是为了遍历对象而设计的，事实上for-in也能用来遍历数组，但定义的索引i是字符串类型的。如果数组具有一个可枚举的方法，也会被for-in遍历到</p>
+<p>能正确响应break、continue和return语句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">for(let i in arr)&#123;</span><br><span class="line">  console.log(i+&quot;: &quot;+arr[i])</span><br><span class="line">&#125;</span><br><span class="line">// 输出</span><br><span class="line"> 0: 1 </span><br><span class="line"> 1: 2</span><br><span class="line"> 2: 3</span><br><span class="line"></span><br><span class="line">//for-in会遍历到数组的属性</span><br><span class="line">var arrTmp = [&quot;value1&quot;,&quot;value2&quot;,&quot;value3&quot;]</span><br><span class="line">arrTmp.name=&quot;myTest&quot;;</span><br><span class="line">for(var i in arrTmp)&#123;</span><br><span class="line">    console.log(i+&quot;:&quot;+arrTmp[i])</span><br><span class="line">&#125;</span><br><span class="line">// 输出</span><br><span class="line">	0:value1</span><br><span class="line">  1:value2</span><br><span class="line">  2:value3</span><br><span class="line">  name:myTest</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>3、for…of（ES6）（对象和数组）</strong>   只可以得到数字索引的属性值</p>
+<p>用来遍历各种类数组集合，例如DOM NodeList对象、Map和Set对象，甚至字符串也行</p>
+<p>可以正确响应break、continue和return语句</p>
+<p>官方说法：</p>
+<p>for…of语句在可迭代对象(包括 Array, Map, Set, String, TypedArray，arguments 对象等等)上创建一个迭代循环，对每个不同属性的属性值,调用一个自定义的有执行语句的迭代挂钩</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// for-of遍历数组，不带索引，i即为数组元素</span><br><span class="line">for(let i of arrTmp)&#123;</span><br><span class="line">    console.log(i)</span><br><span class="line">&#125;</span><br><span class="line">//输出 &quot;value1&quot; &quot;value2&quot; &quot;value3&quot;</span><br><span class="line"> </span><br><span class="line">// for-of遍历Map对象</span><br><span class="line">let iterable = new Map([[&quot;a&quot;, 1], [&quot;b&quot;, 2], [&quot;c&quot;, 3]]);</span><br><span class="line">for (let [key, value] of iterable) &#123;</span><br><span class="line">  console.log(value);</span><br><span class="line">&#125;</span><br><span class="line">//输出 1 2 3</span><br><span class="line"> </span><br><span class="line">// for-of遍历字符串</span><br><span class="line">let iterable = &quot;china中国&quot;;</span><br><span class="line">for (let value of iterable) &#123;</span><br><span class="line">  console.log(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>4、Object.keys()，Object.values()，Object.entries()</strong>   </p>
+<p> ES6 提供三个新的方法 —— entries()，keys()和values() —— 用于遍历数组。它们都返回一个遍历器对象，可以用for…of循环进行遍历，唯一的区别是keys()是对键名的遍历、values()是对键值的遍历，entries()是对键值对的遍历</p>
+<p>Object.entries() 方法返回一个给定对象自身可枚举属性的键值对数组，其排列与使用 for…in循环遍历该对象时返回的顺序一致（区别在于 for-in 循环也枚举原型链中的属性）。通俗点就是 Object.entries() 可以把一个对象的键值以数组的形式遍历出来，结果和 for…in 一致，但不会遍历原型属性。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">for (let index of [&#x27;a&#x27;, &#x27;b&#x27;].keys()) &#123;</span><br><span class="line">console.log(index);</span><br><span class="line">&#125;</span><br><span class="line">// 0</span><br><span class="line">// 1</span><br><span class="line">for (let elem of [&#x27;a&#x27;, &#x27;b&#x27;].values()) &#123;</span><br><span class="line">console.log(elem);</span><br><span class="line">&#125;</span><br><span class="line">// &#x27;a&#x27;</span><br><span class="line">// &#x27;b&#x27;</span><br><span class="line">for (let [index, elem] of [&#x27;a&#x27;, &#x27;b&#x27;].entries()) &#123;</span><br><span class="line">console.log(index, elem);</span><br><span class="line">&#125;</span><br><span class="line">// 0 &quot;a&quot;</span><br><span class="line">// 1 &quot;b&quot;</span><br><span class="line"></span><br><span class="line">const obj = &#123; foo: &#x27;bar&#x27;, baz: &#x27;abc&#x27; &#125;; </span><br><span class="line">console.log(Object.entries(obj));  // [[&#x27;foo&#x27;, &#x27;bar&#x27;], [&#x27;baz&#x27;, &#x27;abc&#x27;]]</span><br><span class="line"></span><br><span class="line">const arr = [1, 2, 3]; </span><br><span class="line">console.log(Object.entries(arr));  // [[&#x27;0&#x27;, 1], [&#x27;1&#x27;, &#x27;2&#x27;], [&#x27;2&#x27;, &#x27;3&#x27;]]</span><br><span class="line"></span><br><span class="line">const arr1 = [&#123; a: 1 &#125;, 2, 3]; </span><br><span class="line">console.log(Object.entries(arr1));  // [[&#x27;0&#x27;, &#123; a: 1 &#125;], [&#x27;1&#x27;, &#x27;2&#x27;], [&#x27;2&#x27;, &#x27;3&#x27;]]</span><br><span class="line"></span><br><span class="line">const arr2 = [&#123; a: 1 &#125;, &#123; b: 2 &#125;, &#123; c: 3 &#125;]; </span><br><span class="line">console.log(Object.entries(arr2));  // [[&#x27;0&#x27;, &#123; a: 1 &#125;], [&#x27;1&#x27;, &#123; b: 2 &#125;], [&#x27;2&#x27;, &#123; c: 3 &#125;]]</span><br><span class="line"></span><br><span class="line">const str = &#x27;123&#x27;; </span><br><span class="line">console.log(Object.entries(str));  // [[&#x27;0&#x27;, &#x27;1&#x27;], [&#x27;1&#x27;, &#x27;2&#x27;], [&#x27;2&#x27;, &#x27;3&#x27;]]</span><br><span class="line"></span><br><span class="line">const num = 123; </span><br><span class="line">console.log(Object.entries(num));  // []</span><br><span class="line"></span><br><span class="line">const float1 = 12.3; </span><br><span class="line">console.log(Object.entries(float1));  // []</span><br><span class="line"></span><br><span class="line">const obj2 = &#123; foo: &#x27;bar&#x27;, baz: &#x27;abc&#x27; &#125;; </span><br><span class="line">console.log(Object.entries(obj2));  // [[&#x27;foo&#x27;, &#x27;bar&#x27;], [&#x27;baz&#x27;, &#x27;abc&#x27;]]</span><br><span class="line">const map = new Map(Object.entries(obj2)); </span><br><span class="line">console.log(map); // Map &#123;&#x27;foo&#x27; =&gt; &#x27;bar&#x27;, &#x27;baz&#x27; =&gt; &#x27;abc&#x27;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>5、<strong>forEach()（数组）</strong></p>
+<p>forEach只能遍历数组，且无法中断遍历</p>
+<p>遍历数组中的每一项，没有返回值，对原数组没有影响，不支持IE</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var arr = [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;];</span><br><span class="line">arr.forEach(function(value, index) &#123;</span><br><span class="line">    console.log(&#x27;value=&#x27;, value, &#x27;index=&#x27;, index);</span><br><span class="line">&#125;)</span><br><span class="line">// 输出</span><br><span class="line">    value= a index= 0</span><br><span class="line">    value= b index= 1</span><br><span class="line">    value= c index= 2</span><br><span class="line">    value= d index= 3</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>6、map()</strong></p>
+<p>可以对遍历的每一项做相应的处理,返回每次函数调用的结果组成的数组</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var arr = [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;];</span><br><span class="line">arr.map(function(item, index, array) &#123;</span><br><span class="line">    console.log(item, index);</span><br><span class="line">	return item + index</span><br><span class="line">&#125;)</span><br><span class="line">// 输出</span><br><span class="line">  a 0</span><br><span class="line">  b 1</span><br><span class="line">  c 2</span><br><span class="line">  d 3</span><br><span class="line"></span><br><span class="line">(4) [&quot;a0&quot;, &quot;b1&quot;, &quot;c2&quot;, &quot;d3&quot;]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>7、<strong>Objcet.getOwnPropertyNames() （对象和数组）</strong></p>
+<p>可以得到数组和对象自身的所有属性，包括不可枚举属性，但是无法获取原型上的属性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123; &#x27;name&#x27;: &quot;yayaya&quot;, &#x27;age&#x27;: &#x27;12&#x27;, &#x27;sex&#x27;: &#x27;female&#x27; &#125;;</span><br><span class="line">Object.prototype.pro1 = function() &#123;&#125;</span><br><span class="line">    Object.defineProperty(obj, &#x27;country&#x27;, &#123;</span><br><span class="line">    Enumerable: true,</span><br><span class="line">    value: &#x27;ccc&#x27;</span><br><span class="line">&#125;);</span><br><span class="line">Object.defineProperty(obj, &#x27;nation&#x27;, &#123;</span><br><span class="line">    Enumerable: false //不可枚举</span><br><span class="line">&#125;)</span><br><span class="line">obj.contry = &#x27;china&#x27;;</span><br><span class="line">Object.getOwnPropertyNames(obj).forEach(function(index) &#123;</span><br><span class="line">    console.log(index, obj[index])</span><br><span class="line">&#125;);</span><br><span class="line">// 输出</span><br><span class="line">    name yayaya</span><br><span class="line">    age 12</span><br><span class="line">    sex female</span><br><span class="line">    country ccc</span><br><span class="line">    nation undefined</span><br><span class="line">    contry china</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>8、Reflect.ownKeys() （对象和数组）</strong></p>
+<p>返回对象自身的所有属性,不管属性名是Symbol或字符串,也不管是否可枚举.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">Object.defineProperty(目标对象，给对象要加的属性);返回加了属性之后的对象</span><br><span class="line">Object.getOwnPropertyNames(目标对象);返回带有该对象属性的数组</span><br><span class="line">Object.is(value1,value2);判断2个值是否相同，返回布尔值</span><br><span class="line"></span><br><span class="line">var obj = [1,2]</span><br><span class="line"></span><br><span class="line">Reflect.ownKeys(obj)</span><br><span class="line">// 输出</span><br><span class="line">(3) [&quot;0&quot;, &quot;1&quot;, &quot;length&quot;]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var obj = &#123; &#x27;name&#x27;: &quot;yayaya&quot;, &#x27;age&#x27;: &#x27;12&#x27;, &#x27;sex&#x27;: &#x27;female&#x27; &#125;;</span><br><span class="line">Object.prototype.pro1 = function() &#123;&#125;</span><br><span class="line">Object.defineProperty(obj, &#x27;country&#x27;, &#123;</span><br><span class="line">    Enumerable: true,</span><br><span class="line">    value: &#x27;ccc&#x27;</span><br><span class="line">&#125;);</span><br><span class="line">Object.defineProperty(obj, &#x27;nation&#x27;, &#123;</span><br><span class="line">    Enumerable: false //不可枚举</span><br><span class="line">&#125;)</span><br><span class="line">obj.contry = &#x27;china&#x27;;</span><br><span class="line">Reflect.ownKeys(obj).forEach(function(index) &#123;</span><br><span class="line">    console.log(index, obj[index])</span><br><span class="line">&#125;);</span><br><span class="line">// 输出</span><br><span class="line">    name yayaya</span><br><span class="line">    age 12</span><br><span class="line">    sex female</span><br><span class="line">    country ccc</span><br><span class="line">    nation undefined</span><br><span class="line">    contry china</span><br><span class="line">    </span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>9、sort（）</strong></p>
+<p>排序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arr.sort((a,b)=&gt;a-b)//升序</span><br><span class="line">arr.sort((a,b)=&gt;b-a)//降序</span><br></pre></td></tr></table></figure>
+
+
+
+<p>10、<strong>some()</strong></p>
+<ul>
+<li><p>some作为一个用来检测数组是否满足一些条件的函数存在，同样是可以用作遍历的函数签名同forEach，有区别的是当任一callback返回值匹配为true则会直接返回true，如果所有的callback匹配均为false，则返回false。</p>
+</li>
+<li><p>some() 方法会依次执行数组的每个元素：</p>
+</li>
+<li><p>如果有一个元素满足条件，则表达式返回true , 剩余的元素不会再执行检测。如果没有满足条件的元素，则返回false。</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1, 2, 3];</span><br><span class="line">arr.some((item, index, arr) =&gt; &#123; // item为数组中的元素，index为下标，arr为目标数组</span><br><span class="line">    console.log(item); // 1, 2, 3</span><br><span class="line">    console.log(index); // 0, 1, 2</span><br><span class="line">    console.log(arr); // [1, 2, 3]  </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>11、<strong>every()</strong></p>
+<p>every() 方法用于检测数组所有元素是否都符合指定条件（通过函数提供）。</p>
+<p>　　every() 方法使用指定函数检测数组中的所有元素：</p>
+<ul>
+<li>如果数组中检测到有一个元素不满足，则整个表达式返回 false ，且剩余的元素不会再进行检测。</li>
+<li>如果所有元素都满足条件，则返回 true。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1, 2, 3];</span><br><span class="line">arr.every((item, index, arr) =&gt; &#123; // item为数组中的元素，index为下标，arr为目标数组</span><br><span class="line">    return item &gt; 0; // true</span><br><span class="line">    // return index == 0; // false</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>12、<strong>filter()</strong></p>
+<p>filter() 方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1, 2, 3];</span><br><span class="line">arr.filter(item =&gt; &#123; // item为数组当前的元素</span><br><span class="line">    return item &gt; 1; // [2, 3]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>13、<strong>reduce()</strong></p>
+<p>reduce() 方法接收一个函数作为累加器（accumulator），数组中的每个值（从左到右）开始缩减，最终为一个值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var total = [0,1,2,3,4].reduce((a, b)=&gt;a + b); //10</span><br></pre></td></tr></table></figure>
+
+
+
+<p>reduce接受一个函数，函数有四个参数，分别是：上一次的值，当前值，当前值的索引，数组</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[0, 1, 2, 3, 4].reduce(function(previousValue, currentValue, index, array)&#123;</span><br><span class="line"> return previousValue + currentValue;</span><br><span class="line">&#125;); // 10</span><br></pre></td></tr></table></figure>
+
+
+
+<p>reduce还有第二个参数，我们可以把这个参数作为第一次调用callback时的第一个参数，上面这个例子因为没有第二个参数，所以直接从数组的第二项开始，如果我们给了第二个参数为5，那么结果就是这样的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[0, 1, 2, 3, 4].reduce(function(previousValue, currentValue, index, array)&#123;</span><br><span class="line"> return previousValue + currentValue;</span><br><span class="line">&#125;,5);</span><br></pre></td></tr></table></figure>
+
+<p>第一次调用的previousValue的值就用传入的第二个参数代替</p>
+<p>14、<strong>reduceRight（）</strong></p>
+<p>reduceRight()方法的功能和reduce()功能是一样的，不同的是reduceRight()从数组的末尾向前将数组中的数组项做累加。</p>
+<p>reduceRight()首次调用回调函数callbackfn时，prevValue 和 curValue 可以是两个值之一。如果调用 reduceRight() 时提供了 initialValue 参数，则 prevValue 等于 initialValue，curValue 等于数组中的最后一个值。如果没有提供 initialValue 参数，则 prevValue 等于数组最后一个值， curValue 等于数组中倒数第二个值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var arr = [0,1,2,3,4];</span><br><span class="line"> </span><br><span class="line">arr.reduceRight(function (preValue,curValue,index,array) &#123;</span><br><span class="line">    return preValue + curValue;</span><br><span class="line">&#125;); // 10</span><br></pre></td></tr></table></figure>
+
+
+
+<p>15、<strong>find()</strong></p>
+<p>find()方法返回数组中符合测试函数条件的第一个元素。否则返回undefined </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">var stu = [</span><br><span class="line">    &#123;</span><br><span class="line">        name: &#x27;张三&#x27;,</span><br><span class="line">        gender: &#x27;男&#x27;,</span><br><span class="line">        age: 20</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        name: &#x27;王小毛&#x27;,</span><br><span class="line">        gender: &#x27;男&#x27;,</span><br><span class="line">        age: 20</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        name: &#x27;李四&#x27;,</span><br><span class="line">        gender: &#x27;男&#x27;,</span><br><span class="line">        age: 20</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">stu.find((element) =&gt; (element.name == &#x27;李四&#x27;))</span><br><span class="line">//返回结果为</span><br><span class="line">//&#123;name: &quot;李四&quot;, gender: &quot;男&quot;, age: 20&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>16、<strong>findIndex（）</strong></p>
+<p>对于数组中的每个元素，findIndex 方法都会调用一次回调函数（采用升序索引顺序），直到有元素返回 true。只要有一个元素返回 true，findIndex 立即返回该返回 true 的元素的索引值。如果数组中没有任何元素返回 true，则 findIndex 返回 -1。</p>
+<p>findIndex 不会改变数组对象。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[1,2,3].findIndex(function(x) &#123; x == 2; &#125;);</span><br><span class="line">// Returns an index value of 1.</span><br><span class="line"></span><br><span class="line">[1,2,3].findIndex(x =&gt; x == 4);</span><br><span class="line">// Returns an index value of -1.</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/06/30/vue/1%E3%80%81for%E5%BE%AA%E7%8E%AF%E3%80%81while%E3%80%81do%20while%20%EF%BC%88%E6%95%B0%E7%BB%84%EF%BC%89/" data-id="cl1eaywvf0000gwvn5uum7yjo" data-title="node" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-vue/Axios的简单介绍" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/06/30/vue/Axios%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" class="article-date">
+  <time class="dt-published" datetime="2020-06-30T07:03:18.000Z" itemprop="datePublished">2020-06-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/06/30/vue/Axios%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/">node</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/0QvjnAaQy8dRnXo5/img/df0320c9-8724-4f1f-994d-bf43ca29e81b.png" alt="img"></p>
+<p>之前在做 前端错误日志统计 项目的时候，因为要使用到 axios 进行接口的请求，当时没有为后期扩展做处理， 现在回过头来看，打算把 axios 在 vue 中的封装和使用整理一下。</p>
+<h2 id="一、Axios的简单介绍"><a href="#一、Axios的简单介绍" class="headerlink" title="一、Axios的简单介绍"></a>一、Axios的简单介绍</h2><p>基于Promise的HTTP客户端，用于浏览器(xmlHttpRequest)和node.js(http)，支持拦截和响应.</p>
+<h2 id="二、Axios的封装"><a href="#二、Axios的封装" class="headerlink" title="二、Axios的封装"></a>二、Axios的封装</h2><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add axios</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import &#123; axios &#125; from &#x27;axios&#x27;;</span><br><span class="line">import QS from &#x27;qs&#x27;; // 用qs模块，序列化post类型的数据</span><br><span class="line">import &#123; Message &#125; from &#x27;element-ui&#x27;; // 根据自身情况 引入合适的提示组件 </span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="配置不同环境下的baseURL"><a href="#配置不同环境下的baseURL" class="headerlink" title="配置不同环境下的baseURL"></a>配置不同环境下的baseURL</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if (process.env.NODE_ENV == &#x27;development&#x27;) &#123;</span><br><span class="line">    axios.defaults.baseURL = &#x27;https://xbbdev.com&#x27;</span><br><span class="line">&#125; else if (process.env.NODE_ENV == &#x27;production&#x27;) &#123;</span><br><span class="line">	  axios.defaults.baseURL = &#x27;https://xbbdev.com&#x27;</span><br><span class="line">&#125;</span><br><span class="line">// 使用webpack等工具时 可以使用proxy代理 这里不进行设置也可</span><br></pre></td></tr></table></figure>
+
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><h4 id="设置请求头"><a href="#设置请求头" class="headerlink" title="设置请求头"></a>设置请求头</h4><p>在post请求时，我们需要加上一个请求头</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">axios.defaults.headers.post[&#x27;Content-Type&#x27;] = &#x27;application/x-www-form-urlencoded;charset=UTF-8&#x27;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="设置请求超时"><a href="#设置请求超时" class="headerlink" title="设置请求超时"></a>设置请求超时</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">axios.defaults.timeout = 10000;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="设置请求拦截"><a href="#设置请求拦截" class="headerlink" title="设置请求拦截"></a>设置请求拦截</h4><p>请求拦截是为了处理一些特殊事件，例如某些页面需要登陆后才能访问，提交的参数需要二次处理等，在发出请求时进行一个拦截</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 先获取需要的参数 例如localStorage、vuex</span><br><span class="line">import store from &#x27;@/store/index&#x27;</span><br><span class="line"></span><br><span class="line">// 设置请求拦截器</span><br><span class="line">axios.interceptors.request.use(</span><br><span class="line">	config =&gt; &#123;</span><br><span class="line">  	// 每次请求都会进行一定的处理</span><br><span class="line">    const token = store.state.token</span><br><span class="line">    // 将token设在请求头中</span><br><span class="line">    token &amp;&amp; (config.headers.Authorization = token)</span><br><span class="line">    return config</span><br><span class="line">  &#125;,</span><br><span class="line">  error =&gt; &#123;</span><br><span class="line">  	return Promise.reject(error)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="设置响应的拦截"><a href="#设置响应的拦截" class="headerlink" title="设置响应的拦截"></a>设置响应的拦截</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">axios.interceptors.response.use(</span><br><span class="line">	response =&gt; &#123;</span><br><span class="line">  	// 根据返回状态码进行处理</span><br><span class="line">    if (response.status === 200) &#123;</span><br><span class="line">   		return Promise.resolve(response)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">    	return Promise.reject(response)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  error =&gt; &#123;</span><br><span class="line">    // 任意非2xx的状态码</span><br><span class="line">    // Do something</span><br><span class="line">    $Message(&#123;</span><br><span class="line">    	message: error.message,</span><br><span class="line">      type: &#x27;error&#x27;</span><br><span class="line">    &#125;)</span><br><span class="line">  	return Promise.reject(error);</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="封装get方法和post方法（可选）"><a href="#封装get方法和post方法（可选）" class="headerlink" title="封装get方法和post方法（可选）"></a>封装get方法和post方法（可选）</h4><p>get:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// get方法请求</span><br><span class="line">// 传入请求地址和参数</span><br><span class="line">export function get(url, params) &#123;</span><br><span class="line">	return new Promise((response, resolve) =&gt; &#123;</span><br><span class="line">  	axios.get(url, &#123;</span><br><span class="line">    	params</span><br><span class="line">    &#125;).then(res =&gt; &#123;</span><br><span class="line">    	resolve(res.data)</span><br><span class="line">    &#125;).catch(err =&gt; &#123;</span><br><span class="line">    	reject(err.data)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>post:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">export function post(url, params) &#123;</span><br><span class="line">	return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">  	axios.post(url, QS.stringfy(params))</span><br><span class="line">    .then(res =&gt; &#123;</span><br><span class="line">    	resolve(res.data)</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(err =&gt; &#123;</span><br><span class="line">    	reject(err.data)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>get和post的区别在于，get的第二个参数是一个{ params: {} },</p>
+<p>而post的第二个参数就是一个参数对象 {} 接下来就可以愉快的使用啦</p>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/0QvjnAaQy8dRnXo5/img/e3cb1c00-50ef-45f0-b71d-53b175e3be9b.gif" alt="img">（ps: 第一个参数是url）</p>
+<h2 id="三、使用axios对api管理"><a href="#三、使用axios对api管理" class="headerlink" title="三、使用axios对api管理"></a>三、使用axios对api管理</h2><p>速速使用一下封装的方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import &#123; get, post &#125; from &#x27;./http&#x27;</span><br><span class="line">// 先封装api</span><br><span class="line">export const getOmg = (url, param) =&gt; post(url, param)</span><br><span class="line"></span><br><span class="line">// use use</span><br><span class="line">import &#123; getOmg &#125; from &#x27;@/request/api&#x27;</span><br><span class="line">~~~~.vue环境~~~~</span><br><span class="line">methods: &#123;</span><br><span class="line">	onLoad() &#123;</span><br><span class="line">  	getOmg(&#x27;www.xxx.com&#x27;, &#123;</span><br><span class="line">    	bussinessType: 1,</span><br><span class="line">      userid: 1</span><br><span class="line">    &#125;).then(res =&gt; &#123;</span><br><span class="line">			// do something</span><br><span class="line">		&#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>到这里就基本上完结了，对于响应拦截器则还可以进行一些错误优化：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/06/30/vue/Axios%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-id="cl1eaywwh0001gwvn85ux4wwa" data-title="node" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-vue/props $emit" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/06/30/vue/props%20$emit/" class="article-date">
+  <time class="dt-published" datetime="2020-06-30T07:03:18.000Z" itemprop="datePublished">2020-06-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/06/30/vue/props%20$emit/">node</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="一-props-emit"><a href="#一-props-emit" class="headerlink" title="一. props $emit"></a>一. props $emit</h1><p><strong>向下:</strong> 在vue中可以通过 v-bind 将父组件数据传递给子组件（前提是子组件需要 什么props 接口，未生命的key 会存放在子组件api $attrs 中）</p>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/P4maOgKzG5NmOWNX/img/806b690f-943f-495d-a835-f51ab1a4d263.png" alt="img"></p>
+<p><strong>向上:</strong> 子组件向上最简单的是就是this.$emit(‘eventName’,arg),此方法可以理解为触发自身的“eventName” 事件，既然是事件肯定需要订阅者 （在父组件中改组件的template上 eventName&#x3D;“handler” 即为订阅该组件上的此事件）</p>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/P4maOgKzG5NmOWNX/img/16704445-2073-4397-9ec3-5f733aead002.png" alt="img"></p>
+<p><strong>高级:</strong> 在此基础上我们扩展一下，再我们的子组件是表单类组件（用户填写选择数据的输入选择组件）时，我们需要大量的数据通信，父组件管理表单数据，子组件回显表单数据，数据改变时通知父组件，这无疑是一种比较普遍的场景，此时我们劲量推荐使用 v-model 双向绑定来实现( 即父组件控制子组件的展示，子组件在值改变时，立刻同步修改父组件中的数据 ) 实际上v-model 仅仅只是上述传值的一种语法糖(简写) v-model 默认在传递一个 key为 value的prop 给子组件，子主键中默认触发 $emit(‘input’,arg) 父组件中不需要额外处理该input 事件即可实现将arg 同步赋值给value（前提注意子组件一定要额外声明 该value props）。</p>
+<p>这个时候可能你会想说，有时候你不想使用value 这个props，比较values的语义性不适应于很多场景，比如复选框一般采用checked。那么没关系，我们只需要在上面的基础上 给该子组件添加一个 model属性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> Vue.component(&#x27;my-checkbox&#x27;, &#123;</span><br><span class="line">  model: &#123;</span><br><span class="line">    prop: &#x27;checked&#x27;,</span><br><span class="line">    event: &#x27;change&#x27;</span><br><span class="line">  &#125;,</span><br><span class="line">  props: &#123;</span><br><span class="line">    // this allows using the `value` prop for a different purpose</span><br><span class="line">    value: String,</span><br><span class="line">    // use `checked` as the prop which take the place of `value`</span><br><span class="line">    checked: &#123;</span><br><span class="line">      type: Number,</span><br><span class="line">      default: 0</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  // ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>可以看到model 中有两个固定要实现的key 一个是prop 表示你想要双向控制的props 名，event 表示触发双向绑定的事件名（这里额外说一下：加了model 也是需要显示的什么该 props 如上面代码的 第10行）此时也能实现双向绑定的效果而且更加灵活。</p>
+<h1 id="二，-sync-更加简易的双向绑定。"><a href="#二，-sync-更加简易的双向绑定。" class="headerlink" title="二，.sync 更加简易的双向绑定。"></a>二，.sync 更加简易的双向绑定。</h1><p>上面的例子高级中我们介绍了props 传值，$emit 响应事件向父传值，也讲了高级版双向绑定通信，可是这里我们需要思考一下，v-mode 这么好用难道没有弊端了吗？ 其实v-mode的弊端还是有的，就是v-model 在自定义时需要额外的声明model 这个属性来定义双向绑定特性，二是一个组件上只能拥有一个v-model 指令。当出现我们需要快捷的双向绑定两个属性的时候怎么去处理呢。</p>
+<p>比如我们有一个弹窗输入主键，无疑改组件我们需要实现两个功能：</p>
+<p>1，show 去控制弹窗显影。</p>
+<p>2，value 去双向绑定输入的值。</p>
+<p>这里我们思考一下，我们的子组件的show是不是也是一种类双向绑定，父组件通知子组件是否显影，子组件关闭时告诉父组件自己关闭了。此时我们无疑需要两个双向通信来简化代码。</p>
+<p>来看看.sync的官网介绍</p>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/P4maOgKzG5NmOWNX/img/7d1a699b-de7b-4d16-950b-692d1e3c75ea.png" alt="img"></p>
+<p>子组件中的向上双向是通过$emit(‘update: propsName’,arg) 相比起来是不是更加简单，而且更加灵活。但是这里大家注意一下，<strong>v-model 和 .sync 的绑定值不能是表达式哦 。</strong></p>
+<h1 id="三，vuex超远通信。"><a href="#三，vuex超远通信。" class="headerlink" title="三，vuex超远通信。"></a><strong>三，vuex超远通信。</strong></h1><p>vuex是一种全局的单例数据状态（其实就是数据）关联工具。有一些全局性的数据各处都有可能调用的。（比如当前用户的用户名什么的。）首先首页的AppBar 我们需要显示该用户的用户名。而其他地方也有可能用到，这个时候有可能两个组件相隔很远，比如一个修改用户名的弹窗，修改完之后如果还需要找到这个AppBar 去给他传值，的话，props+$emits 的弊端就出现了，他们只能通过 子父关系 一级一级一级一级的传啊，传啊，更有可能他们是兄弟关系，还得通过共同祖先来中专这个值，极其复杂切不易维护，这个时候我们只需要将这样的数据交给 vuex 去全局统一处理（其实可以把vuex 理解为全局变量 不过它是响应式的）</p>
+<p>弊端: 当然vuex 也有弊端，刚刚说到了vuex 是类似 window 的，那么作为引用数据，只要该数据发生变化，所有引用改数据的组件都会发生变化，再你的组件在页面上多次使用但是又想切断引用的时候，它就会导致页面絮乱，极其难以管理。总结一下就是， vuex 劲量用在 页面上组件 1 v 1的 组件之间通信，比如 appBar 只有一个。</p>
+<p>这里就不代码举例了。</p>
+<h1 id="四，通过实例通信。"><a href="#四，通过实例通信。" class="headerlink" title="四，通过实例通信。"></a>四，通过实例通信。</h1><p>我们知道在子组件中可以通过$parent 直接获取到父亲实例，在父组件中也可以通过$refs[‘child’] 来获取到子组件的实例，在设计form组件时，都是父组件去主动调用 子组建的 validate 方法去校验子组件同时拿到改form 的formData。这种方法也不失为一种好方法，一时不用刻意去props $emit 去固定通信。在数据传递不是很频繁的时候可以考虑。</p>
+<p>1.this.$parent.$emit(‘xxx’, arg) + this.$parent.$on(‘xxx’, (arg) &#x3D;&gt; { … }) –兄弟通信</p>
+<p>2.this.$root.$emit(‘xxx’, arg) + this.$parent.$on(‘xxx’, (arg) &#x3D;&gt; { … }) –万能</p>
+<p>3.this.$[provider].$emit(‘xxx’, arg) + this.$[inject].$on(‘xxx’, (arg) &#x3D;&gt; { … }) –递归场景 获取其他任何场景都可以</p>
+<h1 id="五，空实例传值（又名bus传值）"><a href="#五，空实例传值（又名bus传值）" class="headerlink" title="五，空实例传值（又名bus传值）"></a>五，空实例传值（又名bus传值）</h1><p>上面已经介绍了很多种传值，再介绍一种相关很远，又没多大亲戚关系的传值。</p>
+<p>第一种传值中介绍过组件的事件事件是 A.$emit(’eventName‘) X.$on(‘eventName’) 即可实现事件订阅。</p>
+<p>那我们是不是可以通过一个空实例去作为这个中间件 去交接处理我们的 组件通信呢？ 答案肯定是可以的，可以想象成它（空实例）就是一个接线员，在你的事件触发时帮你连接 对应的订阅者。</p>
+<p>比如下面有两个组件A B 一个空实例 bus </p>
+<p>在A组件的created 中 添加订阅</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  created()&#123;</span><br><span class="line">    bus.$on(&#x27;事件A&#x27;,()=&gt;&#123;</span><br><span class="line">      // A事件的处理</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 组件A</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在组件B 中某个时机去触发改bus 事件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  methods:&#123;</span><br><span class="line">    // 某click事件</span><br><span class="line">    onclick()&#123;</span><br><span class="line">      bus.$emit(&#x27;事件A&#x27;,&quot;我被点击了&quot;)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 组件B</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这样就可以实现没有关系的组件通信。</p>
+<p><strong>!!! 注意:</strong> 需要注意的是，这个组件虽然灵活，但是一定要注意，在组件销毁时一定要用off销毁该事件，这里的销毁也要额外注意。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">// bad</span><br><span class="line">&#123;</span><br><span class="line">  created()&#123;</span><br><span class="line">    bus.$on(&#x27;事件A&#x27;,()=&gt;&#123;</span><br><span class="line">      // A事件的处理</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeDestroy() &#123;</span><br><span class="line">     bus.$off(&#x27;事件A&#x27;)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// good</span><br><span class="line">&#123;</span><br><span class="line">  methods:&#123;</span><br><span class="line">    // A事件的处理</span><br><span class="line">  	handler()&#123;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created()&#123;</span><br><span class="line">    bus.$on(&#x27;事件A&#x27;,handler)</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeDestroy() &#123;</span><br><span class="line">     bus.$off(&#x27;事件A&#x27;,handler)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码为什么要这样写呢？</p>
+<p>1，有可能项目中多个组件订阅了bus 上的事件A 如果直接$off 是会关掉所有事件A的订阅，无疑是我们不想的。这样会导致其他组件对 bus上事件A 的订阅失效。</p>
+<p>2, $off 关闭指定方法只会关掉自己的组件上bus 事件A 的订阅。这样才是对的。</p>
+<p>扩展：这里需要思考一定bus 一定要是一个 new Vue 实例吗？</p>
+<p>这个回答你们自己去想哦</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/06/30/vue/props%20$emit/" data-id="cl1eaywwm0002gwvn04m94hnh" data-title="node" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-vue/call" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/06/30/vue/call/" class="article-date">
+  <time class="dt-published" datetime="2020-06-30T07:03:18.000Z" itemprop="datePublished">2020-06-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/06/30/vue/call/">node</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h4><p>call()、apply()、bind()是Function.prototype上的方法，所有函数都可以调用，它们的第一个参数都是this的指向对象。</p>
+<h4 id="举栗子：以“小明学会骑自行车”为例。"><a href="#举栗子：以“小明学会骑自行车”为例。" class="headerlink" title="举栗子：以“小明学会骑自行车”为例。"></a><strong>举栗子：以“小明学会骑自行车”为例。</strong></h4><p>先声明一个函数，并且执行它</p>
+<p>代码块1：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 学车方法</span><br><span class="line">function myFn (a) &#123;</span><br><span class="line">a.info = &#x27;学会了骑车&#x27;</span><br><span class="line">console.log(&#x27;this指向&#x27;, this)</span><br><span class="line">&#125;</span><br><span class="line">// 叫小明的一个个体</span><br><span class="line">var obj = &#123;</span><br><span class="line">name: &#x27;小明&#x27;,</span><br><span class="line">info: &#x27;不会骑车&#x27;</span><br><span class="line">&#125;</span><br><span class="line">myFn(obj)</span><br><span class="line">// console.log输出结果为：this指向 Window &#123;postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, parent: Window, …&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到函数里面this 指向是Window</p>
+<h4 id="call"><a href="#call" class="headerlink" title="call()"></a><strong>call()</strong></h4><p>现在，我们想要小明通过这个方法学会骑自行车，那我们可以通过call方法来重定义this指向，将this指向小明这个对象,使他快速学会骑车</p>
+<p>代码块2：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 将上述myFn方法用call执行</span><br><span class="line">// 学车方法</span><br><span class="line">function myFn (a) &#123;</span><br><span class="line">a.info = &#x27;学会了骑车&#x27;</span><br><span class="line">// 输出1</span><br><span class="line">console.log(&#x27;this指向&#x27;, this)</span><br><span class="line">// 输出2</span><br><span class="line">console.log(a.name + a.info)</span><br><span class="line">&#125;</span><br><span class="line">// 叫小明的一个个体</span><br><span class="line">var obj = &#123;</span><br><span class="line">name: &#x27;小明&#x27;,</span><br><span class="line">info: &#x27;不会骑车&#x27;</span><br><span class="line">&#125;</span><br><span class="line">myFn.call(obj,obj)</span><br><span class="line">// 输出1 this指向 &#123;name: &quot;小明&quot;, info: &quot;学会了骑车&quot;&#125;</span><br><span class="line">// 输出2 小明学会了骑车</span><br><span class="line"></span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<p>比如还可以将小明的年龄另外传入</p>
+<p>代码块3：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 先将myFn方法修改下</span><br><span class="line">function myFn (a,b) &#123;</span><br><span class="line">a.info = &#x27;学会了骑车&#x27;</span><br><span class="line">// 输出</span><br><span class="line">console.log(a.name + &#x27;在&#x27; + b + &#x27;岁&#x27; + a.info)</span><br><span class="line">&#125;</span><br><span class="line">// 叫小明的一个个体</span><br><span class="line">var obj = &#123;</span><br><span class="line">name: &#x27;小明&#x27;,</span><br><span class="line">info: &#x27;不会骑车&#x27;</span><br><span class="line">&#125;</span><br><span class="line">myFn.call(obj,obj,&#x27;10&#x27;)</span><br><span class="line">// 输出 小明在10岁学会了骑车</span><br><span class="line"></span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<p>上述结果，我们可以知道，call方法可以将调用函数执行，并将this 指向第一个参数，后续其他参数将会全部传递给调用函数使用</p>
+<p><strong>同样也可以使用apply和bind来实现</strong></p>
+<h4 id="apply"><a href="#apply" class="headerlink" title="apply()"></a><strong>apply()</strong></h4><p>延续代码块3，我们根据官方介绍使用apply方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 只需将最后的调用方式变一下</span><br><span class="line">myFn.apply(obj,[obj,&#x27;10&#x27;])</span><br><span class="line">// 输出 小明在10岁学会了骑车</span><br></pre></td></tr></table></figure>
+
+<p>可见 call()方法的作用和 apply() 方法类似，区别就是call()方法接受的是参数列表，而apply()方法接受的是一个参数数组。</p>
+<p>引申：如果想要从[1,2,5,8,3]中找出最大值，我们就可以想到通过apply借用Math对象中的max来求最大值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var numbers = [1,2,5,8,3]</span><br><span class="line">var max = Math.max.apply(null, numbers)</span><br><span class="line">console.log(max) // 8</span><br></pre></td></tr></table></figure>
+
+<p>在非严格模式下，如果call()和apply()的第一个参数是null或者undefined，那么this的指向就是window全局变量</p>
+<h4 id="bind"><a href="#bind" class="headerlink" title="bind()"></a><strong>bind()</strong></h4><p>言归正传，使用bind看一下</p>
+<p>代码块4：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var newFn1 = myFn.bind(obj,obj,&#x27;10&#x27;)</span><br><span class="line">// 输出1</span><br><span class="line">console.log(newFn1)</span><br><span class="line">var newFn2 = myFn.bind(obj,[obj,&#x27;10&#x27;])</span><br><span class="line">// 输出2</span><br><span class="line">console.log(newFn2)</span><br><span class="line">// newFn1、newFn2输出结果</span><br><span class="line">/* myFn (a,b) &#123;</span><br><span class="line">a.info = &#x27;学会了骑车&#x27;</span><br><span class="line">// 输出</span><br><span class="line">console.log(a.name + &#x27;在&#x27; + b + &#x27;岁&#x27; + a.info)</span><br><span class="line">*/</span><br><span class="line">// 执行newFn2</span><br><span class="line">newFn2()</span><br><span class="line">// s输出 小明在10岁学会了骑车</span><br></pre></td></tr></table></figure>
+
+<p>可见bind返回的是方法，它的参数和 call 一样，所以需要调用才是得到最终结果</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h4><p>1.call()、apply()和bind()都是可以用来改变this指向，可借助它们实现继承；</p>
+<p>2.call()与apply()区别在于参数不一样，如果想一目了然表达形参和实参的对应关系，用call()比较合适；</p>
+<p>3.bind()是返回一个新函数，可供以后调用，而apply()和call()是立即调用，并返回结果</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/06/30/vue/call/" data-id="cl1eaywwn0003gwvn1w54c9pv" data-title="node" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-vue/setvue官方解释" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/06/30/vue/setvue%E5%AE%98%E6%96%B9%E8%A7%A3%E9%87%8A/" class="article-date">
+  <time class="dt-published" datetime="2020-06-30T07:03:18.000Z" itemprop="datePublished">2020-06-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/06/30/vue/setvue%E5%AE%98%E6%96%B9%E8%A7%A3%E9%87%8A/">node</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="一，vue官方解释"><a href="#一，vue官方解释" class="headerlink" title="一，vue官方解释"></a>一，vue官方解释</h1><p><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/list.html#%E5%AF%B9%E8%B1%A1%E5%8F%98%E6%9B%B4%E6%A3%80%E6%B5%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">https://cn.vuejs.org/v2/guide/list.html#%E5%AF%B9%E8%B1%A1%E5%8F%98%E6%9B%B4%E6%A3%80%E6%B5%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9</a></p>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/7jP2lR7kV2bmn8g5/img/10c81c38-a4c5-452f-be70-88f475dbd084.png" alt="img"></p>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/7jP2lR7kV2bmn8g5/img/fba60172-87fa-4d55-bbdb-ec2b4760450e.png" alt="img"></p>
+<p>这里要仔细说的一点事，$set是向一个对象中添加一个新响应性属性所以，请确定这个属性一定要是新的属性，一旦这个对象上面被你提前通过data.xx 或者data[xx]赋值了一个属性,你再去set它，它将不会变成新的响应式属性。</p>
+<p>（同时要注意的是$set一个新属性生效时，会触发这个对象上 引用属性的watch的更新 ）</p>
+<h1 id="二，怎么判断一个对象上的属性是否是响应式的"><a href="#二，怎么判断一个对象上的属性是否是响应式的" class="headerlink" title="二，怎么判断一个对象上的属性是否是响应式的"></a>二，怎么判断一个对象上的属性是否是响应式的</h1><p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/7jP2lR7kV2bmn8g5/img/fadeb573-f614-46b2-8764-ee2d700d6121.png" alt="img"></p>
+<p>可以看到data 中的cat 是有age这个提前声明的属性的</p>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/7jP2lR7kV2bmn8g5/img/c53c48a5-ebcf-4567-a17a-cae9415ad858.png" alt="img"></p>
+<p>控制台上可以看到</p>
+<p>vue 是重写了cat .age 的 get 和 set 的</p>
+<p>下面我们通过.的方式增加一个属性</p>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/7jP2lR7kV2bmn8g5/img/b45b6f4b-ebbe-4bce-876c-bacc6c129ff5.png" alt="img"></p>
+<p>可以看到赋值成功，可是vue却没有为name 重新定义get 和 set </p>
+<p>下面我们通过$set 添加一个属性</p>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/7jP2lR7kV2bmn8g5/img/a6e42038-5f78-4f07-a9e4-1f4d5c38e3dc.png" alt="img"></p>
+<p>可以明显的看出是多了一个color的 get 和 set</p>
+<p>为了验证前面的说法，我们下面set一下之前. 上去的name属性</p>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/7jP2lR7kV2bmn8g5/img/fd78603b-28de-46ac-8590-305020ba5061.png" alt="img"></p>
+<p>可以看到set是能够改变name的值的，可是却还是没有将name变成响应式属性此处验证了我们上面的说噶。</p>
+<h1 id="三，源码篇"><a href="#三，源码篇" class="headerlink" title="三，源码篇"></a>三，源码篇</h1><h2 id="对象的-set"><a href="#对象的-set" class="headerlink" title="对象的$set"></a>对象的$set</h2><p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/7jP2lR7kV2bmn8g5/img/2c3e5144-6b17-4b65-9437-f1d37934f2ed.png" alt="img"></p>
+<p>这里很明显的可以看出，当一个属性已经在这个目标上时仅仅只会给这个属性赋值而已</p>
+<h2 id="数组的-set补充"><a href="#数组的-set补充" class="headerlink" title="数组的$set补充"></a>数组的$set补充</h2><p>这里对观测的target进行判断，如果是数组的话，则使用target.splice方法进行处理。</p>
+<p>key值进行了判断取数组长度、传入的值</p>
+<p>splice方法可以删除，填充，修改数组等等操作。最重要的是可以修改原数组。</p>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/7jP2lR7kV2bmn8g5/img/0eb7837b-797e-4070-94d1-c3d4e009536f.png" alt="img"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/06/30/vue/setvue%E5%AE%98%E6%96%B9%E8%A7%A3%E9%87%8A/" data-id="cl1eaywwo0004gwvnhalda1oo" data-title="node" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-vue/vue指令是什么" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/06/30/vue/vue%E6%8C%87%E4%BB%A4%E6%98%AF%E4%BB%80%E4%B9%88/" class="article-date">
+  <time class="dt-published" datetime="2020-06-30T07:03:18.000Z" itemprop="datePublished">2020-06-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/06/30/vue/vue%E6%8C%87%E4%BB%A4%E6%98%AF%E4%BB%80%E4%B9%88/">node</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="一，vue指令是什么"><a href="#一，vue指令是什么" class="headerlink" title="一，vue指令是什么"></a>一，vue指令是什么</h1><p>参考链接(<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/custom-directive.html">https://cn.vuejs.org/v2/guide/custom-directive.html</a>)</p>
+<p>对于vue我们最熟悉的可能是他的组件了，但是他的指令也是项目中作用非常大的一种工具.</p>
+<p>vue自带很多指令例如：v-on, v-bind,v-if,v-show,v-for……</p>
+<p>指令可以理解是以（v-）开头的语法糖，用来实现部分公共逻辑</p>
+<h1 id="二，如何创建一个自定义指令"><a href="#二，如何创建一个自定义指令" class="headerlink" title="二，如何创建一个自定义指令"></a>二，如何创建一个自定义指令</h1><p>1.全局创建一个指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 注册一个全局自定义指令 `v-focus`</span><br><span class="line">Vue.directive(&#x27;focus&#x27;, &#123;</span><br><span class="line">  // 当被绑定的元素插入到 DOM 中时……</span><br><span class="line">  inserted: function (el) &#123;</span><br><span class="line">    // 聚焦元素</span><br><span class="line">    el.focus()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.创建一个私有的指令</p>
+<p>组件中接受一个 directives 的选项：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">directives: &#123;</span><br><span class="line">  focus: &#123;</span><br><span class="line">    // 指令的定义</span><br><span class="line">    inserted: function (el) &#123;</span><br><span class="line">      el.focus()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="三，何时应该使用vue指令来解决问题"><a href="#三，何时应该使用vue指令来解决问题" class="headerlink" title="三，何时应该使用vue指令来解决问题"></a>三，何时应该使用vue指令来解决问题</h1><p>对于指令其实能做的事情非常多，有时候不用指令当然也能实现，那么问题来了，我们在什么时候应该使用vue的指令去解决问题呢？</p>
+<p>我是这样理解的：当一个逻辑需要对dom进行操作的时候，皆建议使用指令来实现，当这种逻辑运用的非常频繁的时候，建议抽样成一个全局指令。</p>
+<h1 id="四，项目中实际使用的vue指令举例"><a href="#四，项目中实际使用的vue指令举例" class="headerlink" title="四，项目中实际使用的vue指令举例"></a>四，项目中实际使用的vue指令举例</h1><p>1.图片懒加载插件</p>
+<p>main.js 中使用懒加载插件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Vue.use(VueLazyload, &#123;</span><br><span class="line">  preLoad: 1.3,</span><br><span class="line">  error: require(&#x27;@/assets/default.png&#x27;),</span><br><span class="line">  // loading: &#x27;dist/loading.gif&#x27;,</span><br><span class="line">  try: 3 // default 1</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>实际使用该指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;img</span><br><span class="line">  :key=&quot;current.src&quot;</span><br><span class="line">  class=&quot;file-item image&quot;</span><br><span class="line">  v-if=&quot;current.src&quot;</span><br><span class="line">  v-lazy=&quot;current.src&quot;</span><br><span class="line">  :alt=&quot;current.title&quot;</span><br><span class="line">  v-show=&quot;!loading&quot;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.自己封装的 vue指令(滚动条滚动到底部时的事件)</p>
+<p>&#x2F;Users&#x2F;baoxuwang&#x2F;Desktop&#x2F;xb-sass-pro&#x2F;xbb-pro-web-front&#x2F;src&#x2F;directives</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">let handlerFn</span><br><span class="line">export default &#123;</span><br><span class="line">  // 当被绑定的元素插入到 DOM 中时……</span><br><span class="line">  inserted: function (el, binding) &#123;</span><br><span class="line">    let cb = binding.value</span><br><span class="line">    let scrollEl = el</span><br><span class="line">    handlerFn = (event) =&gt; &#123;</span><br><span class="line">      // console.log(scrollEl)</span><br><span class="line">      let scrollTop = scrollEl.scrollTop</span><br><span class="line">      let blockHeight = scrollEl.clientHeight</span><br><span class="line">      let scrollHeight = scrollEl.scrollHeight</span><br><span class="line">      if (scrollTop + blockHeight === scrollHeight) &#123;</span><br><span class="line">        console.log(&#x27;已经到最底部了！!&#x27;)</span><br><span class="line">        cb &amp;&amp; cb()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    scrollEl.addEventListener(&#x27;scroll&#x27;, handlerFn)</span><br><span class="line">  &#125;,</span><br><span class="line">  unbind (el) &#123;</span><br><span class="line">    let scrollEl = el</span><br><span class="line">    scrollEl.removeEventListener(&#x27;scroll&#x27;, handlerFn)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>封装的有点简陋~~</p>
+<h1 id="五，使用vue指令的优势"><a href="#五，使用vue指令的优势" class="headerlink" title="五，使用vue指令的优势"></a>五，使用vue指令的优势</h1><p>总结来说，vue 指令的优势就是，将部分与业务没有太大关系，但是要对dom进行操作 的逻辑 抽离到指令中。在使用时 直接使用v-xx 来调用，简化代码，并且提升代码的维护性。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/06/30/vue/vue%E6%8C%87%E4%BB%A4%E6%98%AF%E4%BB%80%E4%B9%88/" data-id="cl1eaywwr0005gwvnh05whk43" data-title="node" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-vue/一、什么是async、await" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/06/30/vue/%E4%B8%80%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AFasync%E3%80%81await/" class="article-date">
+  <time class="dt-published" datetime="2020-06-30T07:03:18.000Z" itemprop="datePublished">2020-06-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/06/30/vue/%E4%B8%80%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AFasync%E3%80%81await/">node</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="一、什么是async、await"><a href="#一、什么是async、await" class="headerlink" title="一、什么是async、await"></a>一、什么是async、await</h2><p>async函数是es7引入的，它是 Generator函数的语法糖（Generator函数是async函数的实现原理，这一次分享关注使用方法），它是异步操作的又一种实现。 </p>
+<p>之前分享过Promise（<a target="_blank" rel="noopener" href="https://alidocs.dingtalk.com/i/team/O5pXB6evwQ4aX7Zv/docs/O5pXBZob0bd4aX7Z">点击查看promise分享</a>），async相当于是对Promise链式异步回调的优化版本。</p>
+<p>总的来看异步操作的进化历程主要是：cb函数-&gt; Promise的链式回调 -&gt; async+Promise</p>
+<p>async字面上理解一下就是异步的意思，await就是async wait，是异步等待的意思，wait的是resolve(data)的消息，并把数据data返回。</p>
+<p>async相当于用同步的写法来写异步方法，不使用.then的方式链式回调</p>
+<h2 id="二、使用方法"><a href="#二、使用方法" class="headerlink" title="二、使用方法"></a>二、使用方法</h2><h4 id="1-async"><a href="#1-async" class="headerlink" title="1. async"></a>1. async</h4><p>async是写在函数前面，用来声明这个函数里面包含异步操作。它返回一个promise对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">async function test () &#123;</span><br><span class="line">  console.log(&#x27;我是函数内输出&#x27;)</span><br><span class="line">	return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">  	resolve(&#x27;输出我&#x27;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">test().then((data) =&gt; &#123;</span><br><span class="line">	console.log(data)</span><br><span class="line">&#125;)</span><br><span class="line">// 我是函数内输出</span><br><span class="line">// 输出我</span><br></pre></td></tr></table></figure>
+
+<p>当返回值return的不是一个promise对象是，他会把它转化成promise</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">async function test () &#123;</span><br><span class="line">  console.log(&#x27;我是函数内输出&#x27;)</span><br><span class="line">	return &#x27;输出我&#x27;</span><br><span class="line">&#125;</span><br><span class="line">test().then((data) =&gt; &#123;</span><br><span class="line">	console.log(data)</span><br><span class="line">&#125;)</span><br><span class="line">// 我是函数内输出</span><br><span class="line">// 输出我</span><br><span class="line"></span><br><span class="line">// 上面的async相当于</span><br><span class="line">async function test () &#123;</span><br><span class="line">	return Promise.resolve(&#x27;输出我&#x27;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当这个函数没有return的时候，他会返回一个undefined</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">async function test () &#123;</span><br><span class="line">  console.log(&#x27;我是函数内输出&#x27;)</span><br><span class="line">&#125;</span><br><span class="line">test().then((data) =&gt; &#123;</span><br><span class="line">	console.log(data)</span><br><span class="line">&#125;)</span><br><span class="line">// 我是函数内输出</span><br><span class="line">// undefined</span><br></pre></td></tr></table></figure>
+
+<p>从上面看来，加了async声明的函数，和普通函数的区别就是返回值会被包装成promise对象，可以在then里面取到返回值</p>
+<h4 id="2-await"><a href="#2-await" class="headerlink" title="2. await"></a>2. await</h4><p>await需要配合async使用，<strong>只能写在async函数中, 用在普通函数中会报错。</strong></p>
+<p>await 放置在Promise调用之前，await 强制后面的代码等待，直到Promise对象resolve，不用加then就能获取到resolve的结果，得到resolve的值作为await表达式的运算结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">async function test () &#123;</span><br><span class="line">	let output = await new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      resolve(&#x27;输出我&#x27;)</span><br><span class="line">    &#125;, 1000)</span><br><span class="line">  	&#125;)</span><br><span class="line">  console.log(output)</span><br><span class="line">&#125;</span><br><span class="line">test()</span><br><span class="line">// Promise &#123;&lt;pending&gt;&#125; 这里没有接收test的输出，会打印在控制台这个promise输出（后面不列出来了）</span><br><span class="line">// 1s后输出 -&gt; </span><br><span class="line">// 输出我</span><br></pre></td></tr></table></figure>
+
+
+
+<p>从这里可以看到”我是函数内输出2”,也是1s后和”输出我”一起输出的，说明函数执行到await这里的时候，它是阻塞的，必须等后面的异步有响应结果的时候，才会往后面执行</p>
+<p>关于执行顺序，看下面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">async function test () &#123;</span><br><span class="line">  console.log(1)</span><br><span class="line">	let output = await new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    console.log(2)</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      resolve(3)</span><br><span class="line">    &#125;, 1000)</span><br><span class="line">  &#125;)</span><br><span class="line">  console.log(output)</span><br><span class="line">  console.log(4)</span><br><span class="line">&#125;</span><br><span class="line">test().then(() =&gt; &#123;</span><br><span class="line">	console.log(5)</span><br><span class="line">&#125;)</span><br><span class="line">console.log(6)</span><br><span class="line">// 输出顺序</span><br></pre></td></tr></table></figure>
+
+<p>这里可以看到await会阻塞，但是async函数并没有阻塞</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">6</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-async和await结合"><a href="#3-async和await结合" class="headerlink" title="3. async和await结合"></a>3. async和await结合</h4><p>async函数里我们的异步方法，在按照代码顺序同步执行着</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">function output1 (num) &#123;</span><br><span class="line">	return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      resolve(num+1)</span><br><span class="line">    &#125;, 1000)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"> function output2 (num) &#123;</span><br><span class="line">	return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      resolve(num+2)</span><br><span class="line">    &#125;, 2000)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">async function test () &#123;</span><br><span class="line">  let num = 0</span><br><span class="line">  console.log(num)</span><br><span class="line">	let num1 = await output1(num)</span><br><span class="line">  console.log(num1)</span><br><span class="line">  let num2 = await output2(num1)</span><br><span class="line">  console.log(num2)</span><br><span class="line">&#125;</span><br><span class="line">test()</span><br><span class="line">// 0 </span><br><span class="line">// 1s后输出-&gt; 1 (0+1)</span><br><span class="line">// 2s后输出 -&gt; 3 (1+2)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>当后面await后面的跟的不是promise的时候，就不等待, 相当于同步</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">async function test () &#123;</span><br><span class="line">  console.log(&#x27;我是函数内输出&#x27;)</span><br><span class="line">	let output = await &#x27;输出我&#x27; // 就直接相当于 let output = &#x27;输出我&#x27;</span><br><span class="line">  console.log(output)</span><br><span class="line">&#125;</span><br><span class="line">test()</span><br><span class="line">// 我是函数内输出</span><br><span class="line">// 直接输出 -&gt; 输出我</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-错误处理"><a href="#4-错误处理" class="headerlink" title="4. 错误处理"></a>4. 错误处理</h4><p>当async函数中出现错误时，会中断后面的执行，无论是Promise reject的数据还是逻辑报错，都会中断。所以需要对错误做处理</p>
+<p>async的函数里面报错，相当于返回的promise被reject了，所以错误能通过函数的catch捕获到</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">async function test () &#123;</span><br><span class="line">  console.log(&#x27;我是函数内输出&#x27;)</span><br><span class="line">	let output = await new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      throw new Error(&#x27;出错了&#x27;) // 模拟报错</span><br><span class="line">      resolve(&#x27;输出我&#x27;)</span><br><span class="line">  &#125;)</span><br><span class="line">  console.log(output)</span><br><span class="line">  return &#x27;返回了&#x27;</span><br><span class="line">&#125;</span><br><span class="line">test().then((data)=&gt;&#123;</span><br><span class="line">  console.log(data)</span><br><span class="line">&#125;).catch((err)=&gt; &#123;</span><br><span class="line">	console.log(err, &#x27;进入catch了&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line">// 我是函数内输出</span><br><span class="line">// Error: 出错了    &#x27;进入catch了&#x27;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>也可以使用try catch 处理错误</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">async function test () &#123;</span><br><span class="line">  try &#123;</span><br><span class="line">    console.log(&#x27;我是函数内输出&#x27;)</span><br><span class="line">    let output = await new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">        throw new Error(&#x27;出错了&#x27;) // 模拟报错</span><br><span class="line">        resolve(&#x27;输出我&#x27;)</span><br><span class="line">    &#125;)</span><br><span class="line">    console.log(output)</span><br><span class="line">  &#125; catch (err) &#123;</span><br><span class="line">  	console.log(err, &#x27;进入catch了&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">test()</span><br><span class="line">// 我是函数内输出</span><br><span class="line">// Uncaught Error: 出错了  &#x27;进入catch了&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>从上面可以看到，出错后都不会走后面的代码。</p>
+<p>如果想要继续往下执行，对await异步里的错误做完处理就能继续执行后面的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">async function test () &#123;</span><br><span class="line">  console.log(&#x27;我是函数内输出&#x27;)</span><br><span class="line">	let output = await new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      throw new Error(&#x27;出错了&#x27;) // 模拟报错</span><br><span class="line">    	reject(234)</span><br><span class="line">  &#125;).catch(err =&gt; &#123;console.log(err, &#x27;await的报错catch&#x27;)&#125;)</span><br><span class="line">  console.log(&#x27;报错后面的输出&#x27;)</span><br><span class="line">&#125;</span><br><span class="line">test()</span><br><span class="line">// 我是函数内输出</span><br><span class="line">// VM9420:6 Error: 出错了</span><br><span class="line">    at &lt;anonymous&gt;:4:13</span><br><span class="line">    at new Promise (&lt;anonymous&gt;)</span><br><span class="line">    at test (&lt;anonymous&gt;:3:21)</span><br><span class="line">    at &lt;anonymous&gt;:9:1 &quot;await的报错catch&quot;</span><br><span class="line">// 报错后面的输出</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="三、注意事项汇总"><a href="#三、注意事项汇总" class="headerlink" title="三、注意事项汇总"></a>三、注意事项汇总</h2><h4 id="1-await只能在async函数内部使用，不能放在普通函数里面，否则会报错。"><a href="#1-await只能在async函数内部使用，不能放在普通函数里面，否则会报错。" class="headerlink" title="1. await只能在async函数内部使用，不能放在普通函数里面，否则会报错。"></a>1. await只能在async函数内部使用，不能放在普通函数里面，否则会报错。</h4><h4 id="2-await关键字后面跟Promise对象，会等待后面的resolve（data）之后，才会向下执行，这里是阻塞的。"><a href="#2-await关键字后面跟Promise对象，会等待后面的resolve（data）之后，才会向下执行，这里是阻塞的。" class="headerlink" title="2. await关键字后面跟Promise对象，会等待后面的resolve（data）之后，才会向下执行，这里是阻塞的。"></a>2. await关键字后面跟Promise对象，会等待后面的resolve（data）之后，才会向下执行，这里是阻塞的。</h4><h4 id="3-await命令后面的Promise对象，运行结果可能是rejected，所以要对它的错误做处理。"><a href="#3-await命令后面的Promise对象，运行结果可能是rejected，所以要对它的错误做处理。" class="headerlink" title="3. await命令后面的Promise对象，运行结果可能是rejected，所以要对它的错误做处理。"></a>3. await命令后面的Promise对象，运行结果可能是rejected，所以要对它的错误做处理。</h4><h4 id="4-多个await命令后面的异步操作，如果不存在继发关系，最好让它们同时触发，否则是串联的等待。"><a href="#4-多个await命令后面的异步操作，如果不存在继发关系，最好让它们同时触发，否则是串联的等待。" class="headerlink" title="4. 多个await命令后面的异步操作，如果不存在继发关系，最好让它们同时触发，否则是串联的等待。"></a>4. 多个await命令后面的异步操作，如果不存在继发关系，最好让它们同时触发，否则是串联的等待。</h4><h2 id="四、优点"><a href="#四、优点" class="headerlink" title="四、优点"></a>四、优点</h2><h4 id="1-方便级联调用，同步代码和异步代码可以一起写，看着逻辑清晰"><a href="#1-方便级联调用，同步代码和异步代码可以一起写，看着逻辑清晰" class="headerlink" title="1. 方便级联调用，同步代码和异步代码可以一起写，看着逻辑清晰"></a>1. 方便级联调用，同步代码和异步代码可以一起写，看着逻辑清晰</h4><p>同步代码该怎么写继续怎么写，异步过程需要包装成一个Promise对象放在await关键字后面，读下来就像是同步的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function takeLongTime(n) &#123;</span><br><span class="line">    return new Promise(resolve =&gt; &#123;</span><br><span class="line">        setTimeout(() =&gt; resolve(n + 200), n);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function step1(n) &#123;</span><br><span class="line">    console.log(`step1 with $&#123;n&#125;`);</span><br><span class="line">    return takeLongTime(n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function step2(n) &#123;</span><br><span class="line">    console.log(`step2 with $&#123;n&#125;`);</span><br><span class="line">    return takeLongTime(n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function step3(n) &#123;</span><br><span class="line">    console.log(`step3 with $&#123;n&#125;`);</span><br><span class="line">    return takeLongTime(n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">// promise链式写法</span><br><span class="line">function doIt() &#123;</span><br><span class="line">    console.time(&quot;doIt&quot;);</span><br><span class="line">    const time1 = 300;</span><br><span class="line">    step1(time1)</span><br><span class="line">        .then(time2 =&gt; step2(time2))</span><br><span class="line">        .then(time3 =&gt; step3(time3))</span><br><span class="line">        .then(result =&gt; &#123;</span><br><span class="line">            console.log(`result is $&#123;result&#125;`);</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;</span><br><span class="line">doIt();</span><br><span class="line"></span><br><span class="line">// async函数写法</span><br><span class="line">async function doIt() &#123;</span><br><span class="line">    console.time(&quot;doIt&quot;);</span><br><span class="line">    const time1 = 300;</span><br><span class="line">    const time2 = await step1(time1);</span><br><span class="line">    const time3 = await step2(time2);</span><br><span class="line">    const result = await step3(time3);</span><br><span class="line">    console.log(`result is $&#123;result&#125;`);</span><br><span class="line">&#125;</span><br><span class="line">doIt();</span><br><span class="line"></span><br><span class="line">// step1 with 300</span><br><span class="line">// step2 with 500</span><br><span class="line">// step3 with 700</span><br><span class="line">// result is 900</span><br></pre></td></tr></table></figure>
+
+<p>下面的例子更加明显，需求改成每一个步骤都需要之前每个步骤的结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">function step1(n) &#123;</span><br><span class="line">    console.log(`step1 with $&#123;n&#125;`);</span><br><span class="line">    return takeLongTime(n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function step2(m, n) &#123;</span><br><span class="line">    console.log(`step2 with $&#123;m&#125; and $&#123;n&#125;`);</span><br><span class="line">    return takeLongTime(m + n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function step3(k, m, n) &#123;</span><br><span class="line">    console.log(`step3 with $&#123;k&#125;, $&#123;m&#125; and $&#123;n&#125;`);</span><br><span class="line">    return takeLongTime(k + m + n);</span><br><span class="line">&#125;</span><br><span class="line">// Promise方式调用</span><br><span class="line">function doIt() &#123;</span><br><span class="line">    console.time(&quot;doIt&quot;);</span><br><span class="line">    const time1 = 300;</span><br><span class="line">    step1(time1)</span><br><span class="line">        .then(time2 =&gt; &#123;</span><br><span class="line">            return step2(time1, time2)</span><br><span class="line">                .then(time3 =&gt; [time1, time2, time3]);</span><br><span class="line">        &#125;)</span><br><span class="line">        .then(times =&gt; &#123;</span><br><span class="line">            const [time1, time2, time3] = times;</span><br><span class="line">            return step3(time1, time2, time3);</span><br><span class="line">        &#125;)</span><br><span class="line">        .then(result =&gt; &#123;</span><br><span class="line">            console.log(`result is $&#123;result&#125;`);</span><br><span class="line">            console.timeEnd(&quot;doIt&quot;);</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// async/await方式调用</span><br><span class="line">async function doIt() &#123;</span><br><span class="line">    console.time(&quot;doIt&quot;);</span><br><span class="line">    const time1 = 300;</span><br><span class="line">    const time2 = await step1(time1);</span><br><span class="line">    const time3 = await step2(time1, time2);</span><br><span class="line">    const result = await step3(time1, time2, time3);</span><br><span class="line">    console.log(`result is $&#123;result&#125;`);</span><br><span class="line">    console.timeEnd(&quot;doIt&quot;);</span><br><span class="line">&#125;</span><br><span class="line">// step1 with 300</span><br><span class="line">// step2 with 800 = 300 + 500</span><br><span class="line">// step3 with 1800 = 300 + 500 + 1000</span><br><span class="line">// result is 2000</span><br><span class="line">// doIt: 2907.387ms</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-更方便的参数传递"><a href="#2-更方便的参数传递" class="headerlink" title="2. 更方便的参数传递"></a>2. 更方便的参数传递</h4><p>Promise的then函数只能传递一个参数，虽然可以通过包装成对象来传递多个参数，但是会导致传递冗余信息，频繁的解析又重新组合参数，比较麻烦；async&#x2F;await没有这个限制，可以当做普通的局部变量来处理，用let或者const定义的块级变量想怎么用就怎么用，想定义几个就定义几个，完全没有限制，也没有冗余工作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">// promise链式写法</span><br><span class="line">function doIt() &#123;</span><br><span class="line">    console.time(&quot;doIt&quot;);</span><br><span class="line">    const time1 = 300;</span><br><span class="line">    step1(time1)</span><br><span class="line">        .then((time2) =&gt;&#123;</span><br><span class="line">        	let output = 1</span><br><span class="line">        	return step2(time2)</span><br><span class="line">    	&#125;)</span><br><span class="line">        .then((time3) =&gt; &#123;</span><br><span class="line">        	output += 1</span><br><span class="line">        	console.log(output)</span><br><span class="line">        	return step3(time3)</span><br><span class="line">    	&#125;)</span><br><span class="line">        .then(result =&gt; &#123;</span><br><span class="line">            console.log(`result is $&#123;result&#125;`);</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;</span><br><span class="line">doIt();</span><br><span class="line"></span><br><span class="line">// async函数写法</span><br><span class="line">async function doIt() &#123;</span><br><span class="line">    console.time(&quot;doIt&quot;);</span><br><span class="line">    const time1 = 300;</span><br><span class="line">    const time2 = await step1(time1);</span><br><span class="line">    let output = 1</span><br><span class="line">    const time3 = await step2(time2);</span><br><span class="line">    output += 1</span><br><span class="line">    console.log(output)</span><br><span class="line">    const result = await step3(time3);</span><br><span class="line">    console.log(`result is $&#123;result&#125;`);</span><br><span class="line">&#125;</span><br><span class="line">doIt();</span><br></pre></td></tr></table></figure>
+
+<h2 id="五、常见场景"><a href="#五、常见场景" class="headerlink" title="五、常见场景"></a>五、常见场景</h2><h4 id="1-两个接口请求完，执行某操作"><a href="#1-两个接口请求完，执行某操作" class="headerlink" title="1.两个接口请求完，执行某操作"></a>1.两个接口请求完，执行某操作</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 两个接口相关联，请求完1才能请求2</span><br><span class="line"></span><br><span class="line">async function exc1 () &#123;</span><br><span class="line">    console.log(&#x27;exc1 start:&#x27;,Date.now())</span><br><span class="line">    let res1 = await fetch1(url);</span><br><span class="line">    let res2 = await fetch2(res1); // 依赖1的接口返回新的url</span><br><span class="line">    console.log(&#x27;exc1 end:&#x27;, Date.now())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 并发请求， 两个接口不关联，两个请求完的时候之后后面的逻辑</span><br><span class="line">async function exc2 () &#123;</span><br><span class="line">    console.log(&#x27;exc2 start:&#x27;,Date.now())</span><br><span class="line">    let [res1, res2] = await Promise.all([fetch1(url), fetch2(url)])</span><br><span class="line">    console.log(&#x27;exc2 end:&#x27;, Date.now())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exc1();</span><br><span class="line"></span><br><span class="line">exc2();</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-根据是否超时，做处理"><a href="#2-根据是否超时，做处理" class="headerlink" title="2.根据是否超时，做处理"></a>2.根据是否超时，做处理</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function timeOut (delay) &#123;</span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">        setTimeout(() =&gt; &#123;</span><br><span class="line">        	resolve(false)</span><br><span class="line">        &#125;, delay)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">async function exc1 () &#123;</span><br><span class="line">	let flat = await Promise.race([fetch(url), timeOut(delay)])</span><br><span class="line">    // 根据是否超过规定的时间，做不通的处理</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-一个接口请求失败的话，再尝试请求一定次数"><a href="#3-一个接口请求失败的话，再尝试请求一定次数" class="headerlink" title="3. 一个接口请求失败的话，再尝试请求一定次数"></a>3. 一个接口请求失败的话，再尝试请求一定次数</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function getImg (url) &#123;</span><br><span class="line">  return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      resolve(false)</span><br><span class="line">    &#125;, 3000)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">async function fn3() &#123;</span><br><span class="line">  const times = 3</span><br><span class="line">  let url = &#x27;xxx&#x27;</span><br><span class="line">  for (let i = 0; i &lt; times; i++) &#123;</span><br><span class="line">    let img = await getImg(url).catch(() =&gt; &#123;&#125;)</span><br><span class="line">    console.log(img)</span><br><span class="line">    if (img) &#123;</span><br><span class="line">      break;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">fn3()</span><br></pre></td></tr></table></figure>
+
+
+
+<p>其它场景欢迎补充….</p>
+<p>关于Generator函数，大家可以去看下阮一峰的es6</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/06/30/vue/%E4%B8%80%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AFasync%E3%80%81await/" data-id="cl1eaywws0006gwvngrlg6p6d" data-title="node" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-vue/一、策略模式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/06/30/vue/%E4%B8%80%E3%80%81%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" class="article-date">
+  <time class="dt-published" datetime="2020-06-30T07:03:18.000Z" itemprop="datePublished">2020-06-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/06/30/vue/%E4%B8%80%E3%80%81%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">node</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>关于设计模式的学习，网上有各式各样的学习文档。但是在实际开发中，很少有人会去思考如何去使用。一个好的设计模式对代码的维护，阅读，扩展的帮助是非常大的。后续code review中，也会陆续将项目里比较合适的设计模式搬出来，作为样例供大家思考。提高代码质量。</p>
+<h1 id="一、策略模式"><a href="#一、策略模式" class="headerlink" title="一、策略模式"></a>一、策略模式</h1><p>该模式时开发过程中 最常见，最易使用的设计模式</p>
+<p>策略模式指的是：定义一系列的算法，把它们一个个封装起来，将不变的部分和变化的部分隔开，实际就是将算法的使用和实现分离出来。</p>
+<p>例如：</p>
+<p>公司的年终奖是根据员工的工资和绩效来考核的，绩效为A的人，年终奖为工资的4倍，绩效为B的人，年终奖为工资的3倍，绩效为C的人，年终奖为工资的2倍</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> var obj = &#123;</span><br><span class="line">    &quot;A&quot;: function(salary) &#123;</span><br><span class="line">        return salary * 4;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;B&quot; : function(salary) &#123;</span><br><span class="line">        return salary * 3;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;C&quot; : function(salary) &#123;</span><br><span class="line">        return salary * 2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">var calculateBouns =function(level,salary) &#123;</span><br><span class="line">    return obj[level](salary);</span><br><span class="line">&#125;;</span><br><span class="line">console.log(calculateBouns(&#x27;A&#x27;,10000)); // 40000</span><br></pre></td></tr></table></figure>
+
+<p><strong>优点</strong></p>
+<p>可以有效地避免多重条件语句，将一系列方法封装起来也更直观，利于维护</p>
+<p><strong>缺点</strong></p>
+<p>往往策略集会比较多，我们需要事先就了解定义好所有的情况</p>
+<h3 id="项目中实际意义："><a href="#项目中实际意义：" class="headerlink" title="项目中实际意义："></a>项目中实际意义：</h3><p>优化前的代码：</p>
+<p>需要先判断当前业务类型，在判断当前字段去获取关联数据的业务类型</p>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/MeYVOLxY8880Opz2/img/e58a5e17-d9e0-45aa-ac87-3d0a8cfa3dd3.png" alt="img"></p>
+<p>优化后的代码：</p>
+<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/MeYVOLxY8880Opz2/img/03cfce34-9680-402c-b65e-e0613a839b41.png" alt="img"></p>
+<p>注意：枚举就是一种最特殊的策略模式</p>
+<h1 id="二、代理模式"><a href="#二、代理模式" class="headerlink" title="二、代理模式"></a>二、代理模式</h1><p>代理模式为对象提供与一个代用品或占位符，以便控制对它的访问。</p>
+<p>控制对对象的访问。过滤掉不需要的请求叫“保护代理”。把一些开销很大的对象，延迟到真正需要它的时候才去创建的叫“虚拟代理”。“缓存”代理为一些开销大的运算结果提供暂时的存储。在下次运算时。如果传递进来的参数和之前的一致，则可以直接返回之前运算的结果。</p>
+<h3 id="示例一：虚拟代理"><a href="#示例一：虚拟代理" class="headerlink" title="示例一：虚拟代理"></a>示例一：虚拟代理</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">// 使用虚拟代理实现图片预加载</span><br><span class="line">class MyImage&#123;</span><br><span class="line">    constructor(src) &#123;</span><br><span class="line">        this.img = document.createElement(&#x27;img&#x27;);</span><br><span class="line">        this.img.src = src;</span><br><span class="line">        document.body.appendChild(this.img);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    setSrc(src) &#123;</span><br><span class="line">        this.img.src = src;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 使用代理加载图片</span><br><span class="line">class ProxyImage&#123;</span><br><span class="line">    constructor(src) &#123;</span><br><span class="line">        this.img = new MyImage(&#x27;img&#x27;); // 先加载本地的loding图，由于图片在本地所以可以直接显示</span><br><span class="line">        this.img.img.onload = () =&gt; &#123; // 加载实际图</span><br><span class="line">            this.img.setSrc(src);</span><br><span class="line">            this.img.img.onload = null;</span><br><span class="line">        &#125;</span><br><span class="line">        this.img.img.onerror = () =&gt; &#123; // 发生错误时加载错误占位图</span><br><span class="line">            this.img.setSrc(&#x27;https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg&#x27;)</span><br><span class="line">            this.img.img.onerror = null</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">new ProxyImage(&#x27;https://cdn.v2ex.com/avatar/3c30/8c17/303588_large.png?m=1581048676&#x27;)</span><br><span class="line">new ProxyImage(&#x27;https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fbpic.588ku.com%2Felement_origin_min_pic%2F01%2F37%2F92%2F40573c69065b76e.jpg&#x27;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="示例二：保护代理"><a href="#示例二：保护代理" class="headerlink" title="示例二：保护代理"></a>示例二：保护代理</h3><p>PaaS低代码正是使用这种设计模式实现禁用对系统字段的设置值操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// 使用保护代理实现对对象属性的权限管控</span><br><span class="line"></span><br><span class="line">// 原对象 Person</span><br><span class="line">const Person = &#123;</span><br><span class="line">  name: &#x27;张三&#x27;,</span><br><span class="line">  age: 22</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 保护对象</span><br><span class="line">const Protect = &#123;&#125;;</span><br><span class="line">Object.keys(Person).forEach(key =&gt; &#123;</span><br><span class="line">    Object.defineProperty(Protect, key, &#123;</span><br><span class="line">        get: () =&gt; Person[key],</span><br><span class="line">        set: (value) =&gt; &#123;</span><br><span class="line">            if(key === &#x27;age&#x27;) throw new Error(&#x27;年龄不允许修改&#x27;);</span><br><span class="line">            Person[key] = value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">console.log(Protect.name);  // 张三</span><br><span class="line">console.log(Protect.age);  // 22</span><br><span class="line">Protect.name = &#x27;李四&#x27;;  //李四</span><br><span class="line">Protect.age = 18;  // Uncaught Error: 年龄不允许修改</span><br></pre></td></tr></table></figure>
+
+<h3 id="示例三：缓存代理"><a href="#示例三：缓存代理" class="headerlink" title="示例三：缓存代理"></a>示例三：缓存代理</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// 使用缓存代理实现加速计算斐波那契数列</span><br><span class="line"></span><br><span class="line">// 正常递归版本</span><br><span class="line">function fibonacci (n) &#123;</span><br><span class="line">  if (n==0) &#123;</span><br><span class="line">    return 0;</span><br><span class="line">  &#125; else if (n==1) &#123;</span><br><span class="line">    return 1;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    return fibonacci(n-1) + fibonacci(n-2);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 引入缓存代理</span><br><span class="line">const cache = &#123;&#125;</span><br><span class="line">function fibonacci (n) &#123;</span><br><span class="line">   if (n==0) &#123;</span><br><span class="line">     return 0;</span><br><span class="line">   &#125; else if (n==1) &#123;</span><br><span class="line">     return 1;</span><br><span class="line">   &#125; else &#123;</span><br><span class="line">        cache[n] = (cache[n-1] || fibonacci(n-1)) + (cache[n-2] || fibonacci(n-2));</span><br><span class="line">        return cache[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h3><p>代理模式符合<strong>单一职责原则</strong>，其通过代理对象为原有对象添加新职责，同时也符合<strong>开放封闭原则</strong>，如果有一天不需要代理了直接请求原对象即可，不需要对对象进行任何的改动。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/06/30/vue/%E4%B8%80%E3%80%81%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" data-id="cl1eaywwt0007gwvn8peg8rd0" data-title="node" class="article-share-link">Share</a>
       
       
       
@@ -161,6 +1066,11 @@
 
   
 
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
 
 </section>
         
@@ -178,7 +1088,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
     </div>
   </div>
 
@@ -195,7 +1105,19 @@
           </li>
         
           <li>
-            <a href="/2022/01/30/vue/vue2/">测试部署</a>
+            <a href="/2020/06/30/vue/vue2/">node</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/30/vue/1%E3%80%81for%E5%BE%AA%E7%8E%AF%E3%80%81while%E3%80%81do%20while%20%EF%BC%88%E6%95%B0%E7%BB%84%EF%BC%89/">node</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/30/vue/Axios%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/">node</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/30/vue/props%20$emit/">node</a>
           </li>
         
       </ul>
