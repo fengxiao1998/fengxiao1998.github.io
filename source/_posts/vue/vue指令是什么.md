@@ -1,3 +1,8 @@
+---
+title: vue指令
+date: 2020-06-30 15:03:18
+tags: vue
+---
 # 一，vue指令是什么
 
 参考链接(https://cn.vuejs.org/v2/guide/custom-directive.html)
@@ -91,8 +96,6 @@ Vue.use(VueLazyload, {
 2.自己封装的 vue指令(滚动条滚动到底部时的事件)
 
 
-
-/Users/baoxuwang/Desktop/xb-sass-pro/xbb-pro-web-front/src/directives
 
 ```
 let handlerFn

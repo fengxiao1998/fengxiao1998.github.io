@@ -1,3 +1,8 @@
+---
+title: props与$emit
+date: 2020-06-30 15:03:18
+tags:
+---
 # 一. props $emit
 
 **向下:** 在vue中可以通过 v-bind 将父组件数据传递给子组件（前提是子组件需要 什么props 接口，未生命的key 会存放在子组件api $attrs 中）

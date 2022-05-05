@@ -1,3 +1,8 @@
+---
+title: typeScript
+date: 2020-06-30 15:03:18
+tags:
+---
 ### #什么是typeScript
 
 

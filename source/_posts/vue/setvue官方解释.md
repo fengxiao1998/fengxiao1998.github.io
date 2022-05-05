@@ -1,3 +1,8 @@
+---
+title: set vue
+date: 2020-06-30 15:03:18
+tags:
+---
 # 一，vue官方解释
 
 [https://cn.vuejs.org/v2/guide/list.html#%E5%AF%B9%E8%B1%A1%E5%8F%98%E6%9B%B4%E6%A3%80%E6%B5%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9](https://cn.vuejs.org/v2/guide/list.html#对象变更检测注意事项)

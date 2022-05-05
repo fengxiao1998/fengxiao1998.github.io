@@ -1,3 +1,8 @@
+---
+title: async与await
+date: 2020-06-30 15:03:18
+tags:
+---
 ## 一、什么是async、await
 
 async函数是es7引入的，它是 Generator函数的语法糖（Generator函数是async函数的实现原理，这一次分享关注使用方法），它是异步操作的又一种实现。 
