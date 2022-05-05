@@ -1,1145 +1,201 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Fx.blog</title><meta name="author" content="冯啸"><meta name="copyright" content="冯啸"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="Fx.blog">
 <meta property="og:url" content="http://example.com/page/2/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="en_US">
-<meta property="article:author" content="John Doe">
+<meta property="og:site_name" content="Fx.blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/avatar.png">
+<meta property="article:author" content="冯啸">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/avatar.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/page/2/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/test" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Fx.blog',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-05-05 16:33:43'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
   
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
-<meta name="generator" content="Hexo 6.1.0"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
         
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-vue/数组对象监听" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/06/30/vue/%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E7%9B%91%E5%90%AC/" class="article-date">
-  <time class="dt-published" datetime="2020-06-30T07:03:18.000Z" itemprop="datePublished">2020-06-30</time>
-</a>
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/06/30/vue/%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E7%9B%91%E5%90%AC/">node</a>
-    </h1>
-  
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.1.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/background.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Fx.blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Fx.blog</h1><div id="site_social_icons"><a class="social-icon" href="mailto:fengxiao19980913@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2020/06/30/vue/%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E7%9B%91%E5%90%AC/" title="node">node</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-06-30T07:03:18.000Z" title="发表于 2020-06-30 15:03:18">2020-06-30</time></span></div><div class="content">总感觉要写点啥。
+以下仅仅是简单的实现一下new Vue的过程。
+123456789101112// 虚假的vue.js&lt;script src=&quot;vue.js&quot;&gt;&lt;/script&gt;&lt;script&gt;  let vm = new Vue(&#123;        el: &#x27;#app&#x27;,        data() &#123;          return &#123;            arr:[&#123;a:1&#125;]          &#125;        &#125;  &#125;)&lt;/script&gt;
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>总感觉要写点啥。</p>
-<p>以下仅仅是简单的实现一下new Vue的过程。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 虚假的vue.js</span><br><span class="line">&lt;script src=&quot;vue.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  let vm = new Vue(&#123;</span><br><span class="line">        el: &#x27;#app&#x27;,</span><br><span class="line">        data() &#123;</span><br><span class="line">          return &#123;</span><br><span class="line">            arr:[&#123;a:1&#125;]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+new Vue的初始化我们都知道new Vue其实是一个构造函数的执行过程，所以在Vue中也有一个对应的init方法，它大概干了啥如下。
 
-<h2 id="new-Vue的初始化"><a href="#new-Vue的初始化" class="headerlink" title="new Vue的初始化"></a>new Vue的初始化</h2><p>我们都知道new Vue其实是一个构造函数的执行过程，所以在Vue中也有一个对应的init方法，它大概干了啥如下。</p>
-<ol>
-<li>这里仿照了Vue.js，首先把一个_init方法挂载在Vue的原型上，并初始化一个$options，方便存储用户使用构造函数时的对象，即new Vue({…..})。</li>
-</ol>
-<ul>
-<li>原型上添加方法的好处：这里是以插件的形式对原型进行拓展。方便维护以及后期功能的添加。</li>
-</ul>
-<ol>
-<li>用户使用new Vue()，执行_init方法，通过initState开始初始化传递过来的对象属性。</li>
-</ol>
-<p>代码如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import &#123; initState &#125; from &quot;./state&quot;</span><br><span class="line"></span><br><span class="line">function Vue(options) &#123;</span><br><span class="line">  // 一个简单的构造函数，每有一个实例就开辟一个自己的_init方法。</span><br><span class="line">  this._init(options)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function initMixin(Vue) &#123;</span><br><span class="line">  // vue 初始化</span><br><span class="line">  Vue.prototype._init = function (options) &#123;</span><br><span class="line">    const vm = this</span><br><span class="line">    vm.$options = options</span><br><span class="line">    // 初始化状态 （初始化劫持数据，改变数据时更新视图）</span><br><span class="line">    // 添加状态</span><br><span class="line">    initState(vm)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">initMixin(Vue)</span><br><span class="line"></span><br><span class="line">export defalut Vue</span><br></pre></td></tr></table></figure>
+这里仿照了Vue.js，首先把一个_init方法挂载在Vue的原型上，并初始化一个$options，方便存储用户使用构造函数时的对象，即new Vue({…..})。
 
-<h2 id="插入initState方法"><a href="#插入initState方法" class="headerlink" title="插入initState方法"></a>插入initState方法</h2><ol>
-<li>当我们拿到vue传递过来的对象之后，需要检查是否存在vue常见的一些属性，以便于并执行对应属性的方法，例如：props、methods、data等等，这里仅对于data进行观测与实现。</li>
-<li>当我们观测到data之后，对new Vue中拿到的data进行类型判断及赋值，在vue实例下挂载一个_data用于存储data中的数据，并执行对应的数据观测方法。</li>
-</ol>
-<p>代码如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">export function initState(vm) &#123;</span><br><span class="line">  const opts = vm.$options</span><br><span class="line">  if (opts.data) &#123;</span><br><span class="line">    initData(vm)</span><br><span class="line">  &#125;</span><br><span class="line">  if (opts.props) &#123;</span><br><span class="line">    initProps(vm)</span><br><span class="line">  &#125;</span><br><span class="line">  if (opts.methods) &#123;</span><br><span class="line">    initMethods(vm)</span><br><span class="line">  &#125;</span><br><span class="line">  // ..... 各种属性的判断</span><br><span class="line">&#125;</span><br><span class="line">function initData(vm) &#123;</span><br><span class="line">  let data = vm.$options.data</span><br><span class="line">  vm._data = data = typeof data === &#x27;function&#x27; ? data.call(vm) : data</span><br><span class="line">  observe(data)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function initProps(vm) &#123;&#125;</span><br><span class="line"></span><br><span class="line">function initMethods(vm) &#123;&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="data中数据的观测"><a href="#data中数据的观测" class="headerlink" title="data中数据的观测"></a>data中数据的观测</h2><p>vue的Object.defineProperty使用。可能本处实现有较大差异，但总体利弊还是明了的。</p>
-<ol>
-<li>书接上文，首先我们需要判断当前数据是否为对象或者为空，如果满足条件则返回一个Observer实例。</li>
-<li>执行Observer，这里对传入的value大概进行了三步处理如下：第一步：首先给将要被观测的value通过Object.defineProperty加上__ob__属性，并设置其不可枚举的属性，让其不在循环。</li>
-</ol>
-<p>第二步：区分数组，在Vue.js中对于数组的进行了特殊处理。   第三步：执行walk方法，循环value对象的key值对每一项属性进行观测。执行defineReactive。</p>
-<ol>
-<li>进入defineReactive方法，首先执行observe判断该value是否是一个引用类型数据，随后通过Object.defineProperty设置其get、set方法。set方法设置值时同样需要再次进行observe方法判断其数据类型。</li>
-<li>如果是观测是数组，则在value的原型链加入我们自定义的数组方法。此处为了劫持数组的方法，当用户对数组做处理的同时，我们自己也能做点事情。</li>
-</ol>
-<p>代码如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">export function observe(data) &#123;</span><br><span class="line">  if (typeof data !== &#x27;object&#x27; || data === null) &#123;</span><br><span class="line">    return data</span><br><span class="line">  &#125;</span><br><span class="line">  // 加入一个属性判断是否被监听过</span><br><span class="line">  if (data.__ob__) &#123;</span><br><span class="line">    return data</span><br><span class="line">  &#125;</span><br><span class="line">  return new Observer(data)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 封装 继承</span><br><span class="line">class Observer &#123;</span><br><span class="line">  constructor(value) &#123;</span><br><span class="line">    // 给监听的对象添加一个__ob__属性避免多次监听</span><br><span class="line">     Object.defineProperty(value, &#x27;__ob__&#x27;, &#123;</span><br><span class="line">      enumerable: false, // 设置不可枚举，不能被循环，this.work就循环不到该属性</span><br><span class="line">      configurable: false,</span><br><span class="line">      value: this</span><br><span class="line">    &#125;)</span><br><span class="line">    // 数组的监听判断</span><br><span class="line">    if (Array.isArray(value)) &#123;</span><br><span class="line">      // 函数劫持、切片编程</span><br><span class="line">      value.__proto__ = arrayMethods</span><br><span class="line">      // 观测数组中的对象类型，对象变化也需要观测</span><br><span class="line">      this.observeArray(value)</span><br><span class="line">      return</span><br><span class="line">    &#125;</span><br><span class="line">    // denfineProperty 重新定义属性</span><br><span class="line">    this.walk(value)</span><br><span class="line">  &#125;</span><br><span class="line">  // 给数组的每一项进行观测</span><br><span class="line">  observeArray(value) &#123;</span><br><span class="line">    value.forEach(item =&gt; &#123;</span><br><span class="line">      observe(item)</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  walk(data) &#123;</span><br><span class="line">    let keys = Object.keys(data) //拿到最外层的key</span><br><span class="line">    // 循环监听属性</span><br><span class="line">    keys.forEach(item =&gt; &#123;</span><br><span class="line">      defineReactive(data, item, data[item]);</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function defineReactive(data, key, value) &#123;</span><br><span class="line">  observe(value) // 如果值是对象类型继续观测,递归代理</span><br><span class="line">  Object.defineProperty(data, key, &#123;</span><br><span class="line">    get() &#123;</span><br><span class="line">      console.log(&#x27;取值&#x27;)</span><br><span class="line">      return value</span><br><span class="line">    &#125;,</span><br><span class="line">    set(newValue) &#123;</span><br><span class="line">      console.log(&#x27;设置值&#x27;)</span><br><span class="line">      if (newValue === value) return</span><br><span class="line">      observe(newValue) //用户将值改为对象继续监控</span><br><span class="line">      value = newValue</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+原型上添加方法的好处：这里是以插件的形式对原型进行拓展。方便维 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2020/06/30/vue/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/" title="线程与进程">线程与进程</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-06-30T07:03:18.000Z" title="发表于 2020-06-30 15:03:18">2020-06-30</time></span></div><div class="content">进程与线程进程描述了 CPU 在运行指令及加载和保存上下文所需的时间，在应用层面来说就是一个程序，线程是进程中的更小单位，描述了执行一段指令所需的时间。进程——资源分配的最小单位，线程——程序执行的最小单位。
+单线程与多线程
+单线程：单线程在程序执行时，所走的程序路径按照连续顺序排下来，前面的必须处理好，后面的才会执行。
 
-<h2 id="数组的观测与特殊处理"><a href="#数组的观测与特殊处理" class="headerlink" title="数组的观测与特殊处理"></a>数组的观测与特殊处理</h2><ol>
-<li>首先需要继承Array的原型上的方法，对需要监听的方法进行处理，如果为push、unshift等修改数组的方法，需要执行方法的同时，执行数据的观测。</li>
-</ol>
-<p>代码如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">// 拿到数组原型的方法</span><br><span class="line">let oldArrayProtMethods = Array.prototype;</span><br><span class="line"></span><br><span class="line">// 继承该方法 arrayMethods.__proto__ = oldArrayProtMethods</span><br><span class="line">export let arrayMethods = Object.create(oldArrayProtMethods)</span><br><span class="line">// 改变数组状态</span><br><span class="line">let methods = [</span><br><span class="line">  &#x27;push&#x27;,</span><br><span class="line">  &#x27;pop&#x27;,</span><br><span class="line">  &#x27;shift&#x27;,</span><br><span class="line">  &#x27;unshift&#x27;,</span><br><span class="line">  &#x27;sort&#x27;,</span><br><span class="line">  &#x27;splice&#x27;,</span><br><span class="line">  &#x27;reverse&#x27;</span><br><span class="line">]</span><br><span class="line">methods.forEach(method =&gt; &#123;</span><br><span class="line">  arrayMethods[method] = function (...args) &#123;</span><br><span class="line">    // 数组方法被调用了</span><br><span class="line">    const res = oldArrayProtMethods[method].apply(this, args)</span><br><span class="line">    let inserted;</span><br><span class="line">    let ob = this.__ob__</span><br><span class="line">    switch (method) &#123;</span><br><span class="line">      case &#x27;push&#x27;:</span><br><span class="line">      case &#x27;unshift&#x27;: //数组添加，或许添加对象类型</span><br><span class="line">        inserted = args</span><br><span class="line">        break;</span><br><span class="line">      case &#x27;splice&#x27;: //this.$set原理</span><br><span class="line">        inserted = args.slice(2); //数组显示选取的元素。</span><br><span class="line">      default:</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">    if (inserted) ob.observeArray(inserted) // 给数组新增</span><br><span class="line">    return res</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/06/30/vue/%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E7%9B%91%E5%90%AC/" data-id="cl1eaywwv0008gwvn32q03bzm" data-title="node" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
+多线程：多线程是指程序中包含多个执行流，即在一个程序中可以同时运行多个不同的线程来执行不同的任务，也就是说允许单个程序创建多个并行执行的线程来完成各自的任务。
 
 
+JS单线程（原因及特点）在浏览器中打开一个页面时，相当于创建了一个进程。这个进程中可以有多个线程，比如渲染线程、JS 引擎线程、HTTP 请求线程等等。当发起一个请求时，其实就是创建了一个线程，当请求结束后，该线程可能就会被销毁。
+而其中提到的JS 引擎线程和渲染线程，众所周知，在 JS 运行的时候可能会阻止 UI 渲染，这说明了两个线程是互斥的。原因在于JS可以修改DOM，如果在JS执行的时候渲染线程也在工作的话，可能会导致不安全的渲染UI。单线程相对于多线程有着占用的内存较少，也能节约时间，便于控制的 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2020/06/30/vue/%E9%98%B2%E6%8A%96%E5%87%BD%E6%95%B0/" title="防抖与节流">防抖与节流</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-06-30T07:03:18.000Z" title="发表于 2020-06-30 15:03:18">2020-06-30</time></span></div><div class="content">首先我们把对防抖和节流的理解放到一起来看一下防抖：每次事件触发后总是等待一段时间执行，如果在等待时间内事件再次触发，则重新计算等待时间（停止触发的时候只会执行一次,最后一次生效）
+​        节流：每次事件触发后总是等待一段时间执行，如果在等待时间内事件再次触发（事件触发时有其他事件在等待），则不作处理。如果事件触发时没有其他事件在等待，则将事件进行绑定（等待时间到则进行事件执行）多次触发事件时只有一次生效，对应时间内只执行一次，第一次生效
+我们看一下示意图应该是怎么样的
 
-  
-    <article id="post-vue/进程与线程" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/06/30/vue/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/" class="article-date">
-  <time class="dt-published" datetime="2020-06-30T07:03:18.000Z" itemprop="datePublished">2020-06-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/06/30/vue/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">node</a>
-    </h1>
-  
+依据上面的原理以及图示意，我们可以分别将防抖和节流的函数写出来，首先不考虑this指向以及传参，只做一个简单的函数执行
+防抖函数函数示意
+123function fun () &#123;	// 会多次触发的函数&#125;
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h2><p><strong>进程</strong>描述了 CPU 在运行指令及加载和保存上下文所需的时间，在应用层面来说就是一个程序，<strong>线程</strong>是进程中的更小单位，描述了执行一段指令所需的时间。进程——资源分配的最小单位，线程——程序执行的最小单位。</p>
-<h5 id="单线程与多线程"><a href="#单线程与多线程" class="headerlink" title="单线程与多线程"></a>单线程与多线程</h5><ul>
-<li><p>单线程：单线程在程序执行时，所走的程序路径按照连续顺序排下来，前面的必须处理好，后面的才会执行。</p>
-</li>
-<li><p>多线程：多线程是指程序中包含多个执行流，即在一个程序中可以同时运行多个不同的线程来执行不同的任务，也就是说允许单个程序创建多个并行执行的线程来完成各自的任务。</p>
-</li>
-</ul>
-<h5 id="JS单线程（原因及特点）"><a href="#JS单线程（原因及特点）" class="headerlink" title="JS单线程（原因及特点）"></a>JS单线程（原因及特点）</h5><p>在浏览器中打开一个页面时，相当于创建了一个进程。这个进程中可以有多个线程，比如渲染线程、JS 引擎线程、HTTP 请求线程等等。当发起一个请求时，其实就是创建了一个线程，当请求结束后，该线程可能就会被销毁。</p>
-<p>而其中提到的<strong>JS 引擎线程</strong>和<strong>渲染线程</strong>，众所周知，在 JS 运行的时候可能会阻止 UI 渲染，这说明了两个线程是互斥的。原因在于JS可以修改DOM，如果在JS执行的时候渲染线程也在工作的话，可能会导致不安全的渲染UI。单线程相对于多线程有着占用的内存较少，也能节约时间，便于控制的优点。</p>
-<p>在不同的操作系统中，对于创建多进程所需的时间不同，对于Window系统来说，开启多进程需要的时间开销较大。而在Linux系统中，创建进程的时间开销较少，而某些服务器依靠大量创建进程工作，甚至对每个用户的请求就创建一个进程，因此服务器使用Linux系统要更为普遍。</p>
-<h2 id="执行栈"><a href="#执行栈" class="headerlink" title="执行栈"></a>执行栈</h2><h5 id="js中的堆（heap）内存与栈内存（stack）"><a href="#js中的堆（heap）内存与栈内存（stack）" class="headerlink" title="js中的堆（heap）内存与栈内存（stack）"></a>js中的堆（heap）内存与栈内存（stack）</h5><p>heap是没有结构的，数据可以任意存放。heap用于复杂数据类型（引用类型）分配空间，例如数组对象、object对象。</p>
-<p>stack是有结构的，每个区块按照一定次序存放（后进先出），stack中主要存放一些基本类型的变量和对象的引用，存在栈中的数据大小与生存期必须是确定的。可以明确知道每个区块的大小，因此，stack的寻址速度要快于heap。</p>
-<p>程序运行时，每个线程分配一个stack，每个进程分配一个heap，也就是说，stack是线程独占的，heap是线程共用的。由于stack在创建的时候大小确定，所以当数据大小超出了stack的范围时，就会出现爆栈的问题。</p>
-<h5 id="执行栈-1"><a href="#执行栈-1" class="headerlink" title="执行栈"></a>执行栈</h5><p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/ya2QnVEQdo4Jl4XB/img/d20f44b5-746a-43bf-bf86-901f5a6cbf94.gif" alt="img"></p>
-<p>由上图，我们可以把执行栈理解成是一个存储函数调用的栈结构，遵循先进后出的原则。</p>
-<p>当开始执行 JS 代码时，首先会执行一个 main 函数（<em>JS没有main函数，只是模拟出的main函数，方便理解</em>），然后执行代码。根据先进后出的原则，后执行的函数会先弹出栈，在图中我们也可以发现，foo 函数后执行，当执行完毕后就从栈中弹出了。</p>
-<p>在代码执行时，可以利用断点调试查看代码执行过程中，调用栈的变化（可以自行搜索相关文档，例如<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000012646261%EF%BC%89%E3%80%82%E6%88%96%E8%80%85%E5%9C%A8%E6%8A%A5%E9%94%99%E7%9A%84%E5%87%BD%E6%95%B0%E4%B8%AD%E7%9C%8B%E4%B8%80%E4%B8%8B%E6%89%A7%E8%A1%8C%E6%A0%88%E7%9A%84%E9%A1%BA%E5%BA%8F">https://segmentfault.com/a/1190000012646261）。或者在报错的函数中看一下执行栈的顺序</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  throw new Error(&#x27;error&#x27;)</span><br><span class="line">&#125;</span><br><span class="line">function bar() &#123;</span><br><span class="line">  foo()</span><br><span class="line">&#125;</span><br><span class="line">bar()</span><br><span class="line"></span><br><span class="line">//报错</span><br><span class="line">VM89:2 Uncaught Error: error</span><br><span class="line">    at foo (&lt;anonymous&gt;:2:9) // 报错在foo函数</span><br><span class="line">    at bar (&lt;anonymous&gt;:5:3) // foo函数在bar中执行</span><br><span class="line">    at &lt;anonymous&gt;:7:1</span><br></pre></td></tr></table></figure>
 
 
+12345678let timer = null;function debounce (fun,wait) &#123;	// 事件触发，如果之前有等待的事件，则清空计时，重新进行事件等待执行	if (timer) &#123;  	clearTimeOut(timer);  &# ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2020/06/30/vue/#%E4%BB%80%E4%B9%88%E6%98%AFtypeScript/" title="typeScript">typeScript</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-06-30T07:03:18.000Z" title="发表于 2020-06-30 15:03:18">2020-06-30</time></span></div><div class="content">#什么是typeScript1TypeScript 是 JavaScript 的类型的超集，主要提供了类型系统和对 ES6 的支持，它可以编译成纯 JavaScript。编译出来的 JavaScript 可以运行在任何浏览器上。TypeScript 编译工具可以运行在任何服务器和任何系统上。
 
-<h2 id="Event-Loop"><a href="#Event-Loop" class="headerlink" title="Event Loop"></a>Event Loop</h2><p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/ya2QnVEQdo4Jl4XB/img/7ea7390f-29b1-45bd-8963-fa1ef3cf15a2.svg" alt="img"></p>
-<p>上面已经说过的堆（heap）和栈（stack）,在Event Loop中还有一个队列（queue）的概念。在执行同步代码的时候，就是往执行栈中放入函数。而在遇到异步代码时，就会被挂起，在需要执行的时候加入到Task队列中。当执行栈为空时，Event Loop就会从 Task 队列中拿出需要执行的代码并放入执行栈中执行，所以本质上来说 JS 中的异步还是同步行为。只不过是把异步代码放在Task队列中去等待执行而已。</p>
-<p>引用一张比较经典的图来解释：</p>
-<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/ya2QnVEQdo4Jl4XB/img/dee16ba1-8f0b-4385-bd4d-547c291ffb68.png" alt="img"></p>
-<p>由图还能看出，不同的任务源会被分配到不同的任务对列，任务源可以分为 微任务（microtask） 和 宏任务（macrotask）。</p>
-<p><strong>Event Loop 执行顺序</strong>：</p>
-<ul>
-<li><p>首先执行同步代码，这属于宏任务</p>
-</li>
-<li><p>当执行完所有同步代码后，执行栈为空，查询是否有异步代码需要执行</p>
-</li>
-<li><p>执行所有微任务</p>
-</li>
-<li><p>当执行完所有微任务后，如有必要会渲染页面</p>
-</li>
-<li><p>然后开始下一轮 Event Loop。</p>
-</li>
-</ul>
-<p>见下图，宏任务与微任务的执行顺序：</p>
-<p>​    <img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/ya2QnVEQdo4Jl4XB/img/855b4c8f-5e98-4e86-a86d-7d427b57e159.png" alt="img"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">console.log(&#x27;script start&#x27;)</span><br><span class="line"></span><br><span class="line">async function async1() &#123;</span><br><span class="line">  await async2()</span><br><span class="line">  console.log(&#x27;async1 end&#x27;)</span><br><span class="line">&#125;</span><br><span class="line">async function async2() &#123;</span><br><span class="line">  console.log(&#x27;async2 end&#x27;)</span><br><span class="line">&#125;</span><br><span class="line">async1()</span><br><span class="line"></span><br><span class="line">setTimeout(function() &#123;</span><br><span class="line">  console.log(&#x27;setTimeout&#x27;)</span><br><span class="line">&#125;, 0)</span><br><span class="line"></span><br><span class="line">new Promise(resolve =&gt; &#123;</span><br><span class="line">  console.log(&#x27;Promise&#x27;)</span><br><span class="line">  resolve()</span><br><span class="line">&#125;)</span><br><span class="line">  .then(function() &#123;</span><br><span class="line">    console.log(&#x27;promise1&#x27;)</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(function() &#123;</span><br><span class="line">    console.log(&#x27;promise2&#x27;)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">console.log(&#x27;script end&#x27;)</span><br></pre></td></tr></table></figure>
 
 
+优点
+123456789101112131415161718192021（1）TypeScript 增加了代码的可读性和可维护性     类型系统实际上是最好的文档，大部分的函数看看类型的定义就可以知道如何使用了    可以在编译阶段就发现大部分错误，这总比在运行时候出错好    增强了编辑器和 IDE 的功能，包括代码补全、接口提示、跳转到定义、重构等（2）TypeScript 非常包容         TypeScript 是 JavaScript 的超集，`.js` 文件可以直接重命名为 `.ts` 即可        即使不显式的定义类型，也能够自动做出类型推论    可以定义从简单到复杂的几乎一切类型    即使 TypeScript 编译报错，也可以生成 JavaScript 文 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2020/06/30/vue/%E6%BA%90%E7%A0%81/" title="vue源码解析">vue源码解析</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-06-30T07:03:18.000Z" title="发表于 2020-06-30 15:03:18">2020-06-30</time></span></div><div class="content">源码视频并没有看完，这篇文章只是针对一些新学到的，对以前的疑问解惑做一些记录。
+针对vue2.x版本
+一、静态类型检查flowvue源码中使用Flow作为它的静态类型检查工具，使用静态类型检查工具非常有利于大型项目的开发和维护。
+Flow是facebook出品的js静态类型检查工具。它的工作类似typescript的工作，vue2.x没有使用ts，想要做类型检查，所以使用flow来做这部分工作。
+Flow的类型检查语法和ts的很像，在文件头部增加如下注释即可开启文件类型检查
+1234/*@flow*/或者	// @flow....
 
-<p>虽然 setTimeout 写在 Promise 之前，但是因为 Promise 属于微任务而 setTimeout 属于宏任务，所以setTimeout的打印结果会在最后。</p>
-<p>然而以上代码的运行结果在不同的环境中执行结果是不一样的，在node V8和Node V10的环境中执行结果分别：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">script start&gt;async2 end&gt;Promise&gt;script end&gt;async1 end&gt;promise1&gt;promise2&gt;setTimeout</span><br><span class="line">script start&gt;async2 end&gt;Promise&gt;script end&gt;promise1&gt;promise2&gt;async1 end&gt;setTimeout</span><br></pre></td></tr></table></figure>
 
 
+根目录下有.flowconfig文件，这是flow的配置文件。
+根目录下有个flow文件夹，这是flow的类型定义文件。源码中的自定义类型在这里能找到。
+12345678flow├── compiler.js        # 编译相关├── component.js       # 组件数据结构├── global-api.js      # Global API 结构├── modules.js         # 第三方库定义├── option ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2020/06/30/vue/vue2/" title="vue知识">vue知识</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-06-30T07:03:18.000Z" title="发表于 2020-06-30 15:03:18">2020-06-30</time></span></div><div class="content">Node.Js官网
+（扩展了Js的功能，原来在浏览器中运行不了的，可以在node这个平台来运行，具体是v8引擎）特点：1.异步IO  2.事件驱动  3.事件循环  4.单线程(主线程是单线程，由V8引擎执行)一、整体架构分为三大部分Native Modules
 
-<p>在浏览器中的第一种结果，也就是await后的函数执行要快于promise的链式操作，这种其实是一种错误的规范。因为如果 await 后面跟着 Promise 的话，会在Promise 的链式操作全部完成后才执行async1 end，所以浏览器利用的Node 8的BUG，也算是优化了性能，将await提前了，目前已被同意这种做法。详情见解释<a target="_blank" rel="noopener" href="https://github.com/tc39/ecma262/pull/1250">https://github.com/tc39/ecma262/pull/1250</a></p>
-<p>但在使用时应该注意相关情形，尤其是async和Promise混用时，参见<a target="_blank" rel="noopener" href="https://v8.dev/blog/fast-async#await-under-the-hood%E3%80%82%E4%BE%8B%E5%A6%82%E4%BB%A5%E4%B8%8B%E4%BB%A3%E7%A0%81%E3%80%82">https://v8.dev/blog/fast-async#await-under-the-hood。例如以下代码。</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const p = Promise.resolve();</span><br><span class="line"></span><br><span class="line">(async () =&gt; &#123;</span><br><span class="line">  await p; console.log(&#x27;after:await&#x27;);</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line">p.then(() =&gt; console.log(&#x27;tick:a&#x27;))</span><br><span class="line">  .then(() =&gt; console.log(&#x27;tick:b&#x27;));</span><br><span class="line"> </span><br><span class="line">如果原意想在p函数全部执行完毕之后再去console.log(&#x27;after:await&#x27;)，此时浏览器就会将console.log(&#x27;after:await&#x27;)提前到tick:a和tick:b之前，这明显是一种错误的规范，因为同属于微任务，应该按照任务队列执行，所以Node V10中将此规范更改了回来。</span><br></pre></td></tr></table></figure>
+当前层内容由JS实现
+提供应用程序可以直接调用的库，例如fs、path、http、url等模块
+但是JS无法直接操作底层硬件设置，所以需要一个桥梁Builtin Modules桥梁
 
+Builtin Modules
 
+在这个桥梁模块中就可以让nodejs核心模块获取到具体的服务支持，从而完成更底层的操作。例如文件的读写行为
 
-<p>微任务包括 process.nextTick ，promise ，MutationObserver。</p>
-<p>宏任务包括 script ， setTimeout ，setInterval ，setImmediate ，I&#x2F;O ，UI rendering。</p>
-<h2 id="Node-中的-Event-Loop"><a href="#Node-中的-Event-Loop" class="headerlink" title="Node 中的 Event Loop"></a>Node 中的 Event Loop</h2><p>Node 中的 Event Loop 和浏览器中的是完全不相同的东西。</p>
-<p>Node 的 Event Loop 分为 6 个阶段，它们会按照顺序反复运行。每当进入某一个阶段的时候，都会从对应的回调队列中取出函数去执行。当队列为空或者执行的回调函数数量到达系统设定的阈值，就会进入下一阶段。</p>
-<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/ya2QnVEQdo4Jl4XB/img/b7bac0ed-3005-4a65-8007-2f87b96618e7.png" alt="img"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. timers(计时器) ------- 执行setTimeout以及setInterval的回调</span><br><span class="line">2. I/O callbcacks ------ 执行几乎所有的回调，除了close回调，timer的回调，和setImmediate()的回调</span><br><span class="line">3. idle,prepare -------- node内部使用</span><br><span class="line">4. poll(轮询) ----------- 获取新的I/O事件；node会在适当条件下阻塞在这里。</span><br><span class="line">5. check --------------- 处理 setImmediate 回调</span><br><span class="line">6. close callbcaks ----- 处理关闭的回调  如socke.on(&#x27;close&#x27;)</span><br></pre></td></tr></table></figure>
+v8引擎、libuv库、http、parser等模块
 
+v8引擎负责执行js代码、提供桥梁接口（用来实现模块和底层具体实现直接的沟通）
+libuv库中有事件循环、事件队列、异步IO
+第三方模块：http、c-ares等
 
 
-<p>较为经典的例子如下，如果有兴趣可以自己去翻看相关资料：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(() =&gt; &#123;</span><br><span class="line">    console.log(&#x27;setTimeout&#x27;)</span><br><span class="line">&#125;, 0)</span><br><span class="line">setImmediate(() =&gt; &#123;</span><br><span class="line">    console.log(&#x27;setImmediate&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line">在上述代码中，setTimeout 可能执行在前，也可能执行在后</span><br><span class="line">·首先 setTimeout(fn, 0) === setTimeout(fn, 1)，这是由源码决定的</span><br><span class="line">·进入事件循环也是需要成本的，如果在准备时候花费了大于 1ms 的时间，那么在 timer 阶段就会直接执行 setTimeout 回调</span><br><span class="line">·那么如果准备时间花费小于 1ms，那么就是 setImmediate 回调先执行了</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const fs = require(&#x27;fs&#x27;)</span><br><span class="line"></span><br><span class="line">fs.readFile(__filename, () =&gt; &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">        console.log(&#x27;timeout&#x27;);</span><br><span class="line">    &#125;, 0)</span><br><span class="line">    setImmediate(() =&gt; &#123;</span><br><span class="line">        console.log(&#x27;immediate&#x27;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">在上述代码中，setImmediate 永远先执行。因为两个代码写在 IO 回调中，IO 回调是在 poll 阶段执行，当回调执行完毕后队列为空，发现存在 setImmediate 回调，所以就直接跳转到 check 阶段去执行回调了。</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上面介绍的都是 macrotask 的执行情况，对于 microtask 来说，它会在以上每个阶段完成前清空 microtask 队列，下图中的 Tick 就代表了 microtask。</p>
-<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/ya2QnVEQdo4Jl4XB/img/b9acf340-5ec4-49ee-96b2-ff50c43c7b17.png" alt="img"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(() =&gt; &#123;</span><br><span class="line">  console.log(&#x27;timer&#x27;)</span><br><span class="line">&#125;, 0)</span><br><span class="line"></span><br><span class="line">Promise.resolve().then(function() &#123;</span><br><span class="line">  console.log(&#x27;promise&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line">以上代码来说，和浏览器中的输出是一样的，microtask 永远执行在 macrotask 前面。</span><br></pre></td></tr></table></figure>
-
-
-
-<p>还有一个特别的函数，即Node 中的 process.nextTick，这个函数其实是独立于 Event Loop 之外的，它有一个自己的队列，当每个阶段完成后，如果存在 nextTick 队列，就会清空队列中的所有回调函数，并且优先于其他 microtask 执行。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(() =&gt; &#123;</span><br><span class="line"> console.log(&#x27;timer1&#x27;)</span><br><span class="line"></span><br><span class="line"> Promise.resolve().then(function() &#123;</span><br><span class="line">   console.log(&#x27;promise1&#x27;)</span><br><span class="line"> &#125;)</span><br><span class="line">&#125;, 0)</span><br><span class="line"></span><br><span class="line">process.nextTick(() =&gt; &#123;</span><br><span class="line"> console.log(&#x27;nextTick1&#x27;)</span><br><span class="line"> process.nextTick(() =&gt; &#123;</span><br><span class="line">   console.log(&#x27;nextTick2&#x27;)</span><br><span class="line">   process.nextTick(() =&gt; &#123;</span><br><span class="line">     console.log(&#x27;nextTick3&#x27;)</span><br><span class="line">     process.nextTick(() =&gt; &#123;</span><br><span class="line">       console.log(&#x27;nextTick4&#x27;)</span><br><span class="line">     &#125;)</span><br><span class="line">   &#125;)</span><br><span class="line"> &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">可以发现 nextTick 永远都是优先全部打印出来</span><br></pre></td></tr></table></figure>
-
-
-
-<p>以上是对JS的Event Loop和Node中的Event Loop的简单介绍，有兴趣可以深入研究以下，并希望得到大家的补充和建议。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/06/30/vue/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/" data-id="cl1eaywx00009gwvnfid41qgl" data-title="node" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-vue/防抖函数" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/06/30/vue/%E9%98%B2%E6%8A%96%E5%87%BD%E6%95%B0/" class="article-date">
-  <time class="dt-published" datetime="2020-06-30T07:03:18.000Z" itemprop="datePublished">2020-06-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/06/30/vue/%E9%98%B2%E6%8A%96%E5%87%BD%E6%95%B0/">node</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h4 id="首先我们把对防抖和节流的理解放到一起来看一下"><a href="#首先我们把对防抖和节流的理解放到一起来看一下" class="headerlink" title="首先我们把对防抖和节流的理解放到一起来看一下"></a>首先我们把对防抖和节流的理解放到一起来看一下</h4><p><strong>防抖：每次事件触发后总是等待一段时间执行，如果在等待时间内事件再次触发，则重新计算等待时间（停止触发的时候只会执行一次,最后一次生效）</strong></p>
-<p>​        <strong>节流：每次事件触发后总是等待一段时间执行，如果在等待时间内事件再次触发（事件触发时有其他事件在等待），则不作处理。如果事件触发时没有其他事件在等待，则将事件进行绑定（等待时间到则进行事件执行）多次触发事件时只有一次生效，对应时间内只执行一次，第一次生效</strong></p>
-<p>我们看一下示意图应该是怎么样的</p>
-<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/X8oLl99rZrDelapY/img/b5df7a56-bdff-4c4a-8645-cde0e30c09e0.png" alt="img"></p>
-<p>依据上面的原理以及图示意，我们可以分别将防抖和节流的函数写出来，首先不考虑this指向以及传参，只做一个简单的函数执行</p>
-<h3 id="防抖函数"><a href="#防抖函数" class="headerlink" title="防抖函数"></a>防抖函数</h3><p>函数示意</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function fun () &#123;</span><br><span class="line">	// 会多次触发的函数</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let timer = null;</span><br><span class="line">function debounce (fun,wait) &#123;</span><br><span class="line">	// 事件触发，如果之前有等待的事件，则清空计时，重新进行事件等待执行</span><br><span class="line">	if (timer) &#123;</span><br><span class="line">  	clearTimeOut(timer);</span><br><span class="line">  &#125;</span><br><span class="line">  timer = setTimeout(fun, wait);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>接下来我们要需要把这个函数封装成为一个公共的方法放在我们的项目中，因为是把函数作为参数传入到防抖函数内，不确定传入的函数内都会使用什么参数，参数绑定的对象是哪个，为了能够准确的使用参数，所以我们在调用时修改this指向</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">let timer = null;</span><br><span class="line">function debounce (fun,wait) &#123;</span><br><span class="line">	// 事件触发，如果之前有等待的事件，则清空计时，重新进行事件等待执行</span><br><span class="line">	if (timer) &#123;</span><br><span class="line">  	clearTimeOut(timer);</span><br><span class="line">  &#125;</span><br><span class="line">  timer = setTimeout(function () &#123;</span><br><span class="line">  	fun.apply(this);</span><br><span class="line">  &#125;, wait);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 调用</span><br><span class="line">debounce(fun, 100);</span><br></pre></td></tr></table></figure>
-
-
-
-<p>我们会发现我们向防抖函数传递的参数fun无法传递参数进去，这样就需要进一步的修改了</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">let timer = null;</span><br><span class="line">function debounce (fun,wait) &#123;</span><br><span class="line">  return function () &#123;</span><br><span class="line">  	const argu = arguments;</span><br><span class="line">  	// 事件触发，如果之前有等待的事件，则清空计时，重新进行事件等待执行</span><br><span class="line">    if (timer) &#123;</span><br><span class="line">      clearTimeOut(timer);</span><br><span class="line">    &#125;</span><br><span class="line">    timer = setTimeout(function () &#123;</span><br><span class="line">      fun.apply(this, argu);</span><br><span class="line">    &#125;, wait);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 调用</span><br><span class="line">debounce(fun, 100)(argu1, argu2);</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="节流函数"><a href="#节流函数" class="headerlink" title="节流函数"></a>节流函数</h3><p>函数示意</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">let timer = null;</span><br><span class="line">function throttle (fun,wait) &#123;</span><br><span class="line">	// 事件触发，如果之前有等待的事件，则不作处理</span><br><span class="line">	if (timer) &#123;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">  	事件触发，前面没有事件在等待，则将事件进行等待执行</span><br><span class="line">  	timer = setTimeout(function () &#123;</span><br><span class="line">  		fun();</span><br><span class="line">  	&#125;, wait);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>同上面的防抖函数一样，只是内部执行时机不同，我们将节流函数进行封装</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">let timer = null;</span><br><span class="line">function throttle (fun,wait) &#123;</span><br><span class="line">  return function () &#123;</span><br><span class="line">  	const argu = arguments;</span><br><span class="line">    // 事件触发，如果之前有等待的事件，则不作处理</span><br><span class="line">    if (timer) &#123;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      事件触发，前面没有事件在等待，则将事件进行等待执行</span><br><span class="line">      timer = setTimeout(function () &#123;</span><br><span class="line">        fun();</span><br><span class="line">      &#125;, wait);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 调用</span><br><span class="line">throttle(fun, 100)(argu1, argu2);</span><br></pre></td></tr></table></figure>
-
-
-
-<p>节流函数有几种写法，我们需要理解的就是这种思想。不管方法封装成什么样，上面的原理理解透彻就可</p>
-<h3 id="使用场景分析"><a href="#使用场景分析" class="headerlink" title="使用场景分析"></a>使用场景分析</h3><p>平时开发过程中会有很多的应用场景会使用到</p>
-<p>比较常见的就是input框作为搜索条件时的输入，我们会监听input框，如果每次触发都去请求接口就会耗费性能，所以我们应该在用户停止输入后再去请求接口，那就是最后一次时间触发后等待一段时间执行，所以应该使用节流。</p>
-<p>还有就是滑动加载页面，用户鼠标向下滑动，一直滑动，则我们需要监听内容区距离底部的距离，当内容区即将展示完毕时，我们就需要请求接口。提取信息就是，比如内容区距离底部100px的过程中我们都会触发事件，但是这个事件会触发很多很多次，所以我们应该第一次监听到就去让事件执行，后续的触发则不再执行</p>
-<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><p>我们的假设都是在延迟的这段时间内发生的事件触发。根据各自的概念就能够知道，防抖是最后一个事件触发后等待一段时间执行。节流是第一个事件触发后到点就触发。</p>
-<p>一点点小想法：以防抖来说，如果同时有两个函数先后触发了防抖，则先触发的函数不会被执行，其实是两个不相干的函数，都应该被执行</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/06/30/vue/%E9%98%B2%E6%8A%96%E5%87%BD%E6%95%B0/" data-id="cl1eaywx5000agwvn3xmx3woo" data-title="node" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-vue/#什么是typeScript" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/06/30/vue/#%E4%BB%80%E4%B9%88%E6%98%AFtypeScript/" class="article-date">
-  <time class="dt-published" datetime="2020-06-30T07:03:18.000Z" itemprop="datePublished">2020-06-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/06/30/vue/#%E4%BB%80%E4%B9%88%E6%98%AFtypeScript/">node</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="什么是typeScript"><a href="#什么是typeScript" class="headerlink" title="#什么是typeScript"></a>#什么是typeScript</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TypeScript 是 JavaScript 的类型的超集，主要提供了类型系统和对 ES6 的支持，它可以编译成纯 JavaScript。编译出来的 JavaScript 可以运行在任何浏览器上。TypeScript 编译工具可以运行在任何服务器和任何系统上。</span><br></pre></td></tr></table></figure>
-
-
-
-<p>优点</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">（1）TypeScript 增加了代码的可读性和可维护性 </span><br><span class="line"></span><br><span class="line">    类型系统实际上是最好的文档，大部分的函数看看类型的定义就可以知道如何使用了</span><br><span class="line"></span><br><span class="line">    可以在编译阶段就发现大部分错误，这总比在运行时候出错好</span><br><span class="line"></span><br><span class="line">    增强了编辑器和 IDE 的功能，包括代码补全、接口提示、跳转到定义、重构等</span><br><span class="line"></span><br><span class="line">（2）TypeScript 非常包容</span><br><span class="line"></span><br><span class="line">         TypeScript 是 JavaScript 的超集，`.js` 文件可以直接重命名为 `.ts` 即可</span><br><span class="line"></span><br><span class="line">        即使不显式的定义类型，也能够自动做出类型推论</span><br><span class="line"></span><br><span class="line">    可以定义从简单到复杂的几乎一切类型</span><br><span class="line"></span><br><span class="line">    即使 TypeScript 编译报错，也可以生成 JavaScript 文件</span><br><span class="line"></span><br><span class="line">    兼容第三方库，即使第三方库不是用 TypeScript 写的，也可以编写单独的类型文件供 TypeScript 读取</span><br><span class="line"></span><br><span class="line">（3）社区活跃</span><br></pre></td></tr></table></figure>
-
-
-
-<p>缺点</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">（1）需要一定学习成本（理解接口（Interfaces）、泛型（Generics）、类（Classes）、枚举类型（Enums））等概念</span><br><span class="line"> (2) 短期增加开发成本</span><br><span class="line"> (3) 与一些库结合不完美</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="安装"><a href="#安装" class="headerlink" title="#安装"></a>#安装</h3><p>TypeScript 的命令行工具安装方法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g typescript</span><br></pre></td></tr></table></figure>
-
-
-
-<p> 编译</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tsc hello.ts</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="基础"><a href="#基础" class="headerlink" title="#基础"></a>#基础</h3><ul>
-<li><p>boolean为布尔值类型，如let isDone: Boolean &#x3D; false</p>
-</li>
-<li><p>number为数值类型，如let decimal: number &#x3D; 6; let decimal: number &#x3D; ‘string’ error: Type ‘“string”‘ is not assignable to type ‘number’.</p>
-</li>
-<li><p>string为字符串类型，如let color: string &#x3D; ‘blue’</p>
-</li>
-<li><p>null和undefined</p>
-</li>
-<li><p>多种类型可以用|隔开，比如number | string表示可以是number或string类型</p>
-</li>
-<li><p>any为任意类型，如let notSure: any &#x3D; 4; notSure &#x3D; “maybe a string instead”</p>
-</li>
-<li><p>void为空类型，如let unusable: void &#x3D; undefined</p>
-</li>
-<li><p>array为数组，如let arr: number[] &#x3D; [1,2,3]</p>
-</li>
-</ul>
-<h2 id="类"><a href="#类" class="headerlink" title="#类"></a>#类</h2><h3 id="public-private-和-protected"><a href="#public-private-和-protected" class="headerlink" title="public private 和 protected"></a>public private 和 protected</h3><p>TypeScript 可以使用三种访问修饰符（Access Modifiers），分别是 public、private 和 protected。</p>
-<ul>
-<li><p>public 修饰的属性或方法是公有的，可以在任何地方被访问到，默认所有的属性和方法都是 public 的</p>
-</li>
-<li><p>private 修饰的属性或方法是私有的，不能在声明它的类的外部访问</p>
-</li>
-<li><p>protected 修饰的属性或方法是受保护的，它和 private 类似，区别是它在子类中也是允许被访问的</p>
-</li>
-</ul>
-<p>下面举一些例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Animal &#123;</span><br><span class="line">    public name;</span><br><span class="line">    public constructor(name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let a = new Animal(&#x27;Jack&#x27;);</span><br><span class="line">console.log(a.name); // Jack</span><br><span class="line">a.name = &#x27;Tom&#x27;;</span><br><span class="line">console.log(a.name); // Tom</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上面的例子中，name 被设置为了 public，所以直接访问实例的 name 属性是允许的。</p>
-<p>很多时候，我们希望有的属性是无法直接存取的，这时候就可以用 private 了：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Animal &#123;</span><br><span class="line">    private name;</span><br><span class="line">    public constructor(name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let a = new Animal(&#x27;Jack&#x27;);</span><br><span class="line">console.log(a.name); // Jack</span><br><span class="line">a.name = &#x27;Tom&#x27;;</span><br><span class="line"></span><br><span class="line">// index.ts(9,13): error TS2341: Property &#x27;name&#x27; is private and only accessible within class &#x27;Animal&#x27;.</span><br><span class="line">// index.ts(10,1): error TS2341: Property &#x27;name&#x27; is private and only accessible within class &#x27;Animal&#x27;.</span><br></pre></td></tr></table></figure>
-
-
-
-<p>需要注意的是，TypeScript 编译之后的代码中，并没有限制 private 属性在外部的可访问性。</p>
-<p>使用 private 修饰的属性或方法，在子类中也是不允许访问的：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Animal &#123;</span><br><span class="line">    private name;</span><br><span class="line">    public constructor(name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Cat extends Animal &#123;</span><br><span class="line">    constructor(name) &#123;</span><br><span class="line">        super(name);</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// index.ts(11,17): error TS2341: Property &#x27;name&#x27; is private and only accessible within class &#x27;Animal&#x27;.</span><br></pre></td></tr></table></figure>
-
-
-
-<p>而如果是用 protected 修饰，则允许在子类中访问：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Animal &#123;</span><br><span class="line">    protected name;</span><br><span class="line">    public constructor(name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Cat extends Animal &#123;</span><br><span class="line">    constructor(name) &#123;</span><br><span class="line">        super(name);</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><p>abstract 用于定义抽象类和其中的抽象方法。</p>
-<p>什么是抽象类？</p>
-<p>首先，抽象类是不允许被实例化的：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">abstract class Animal &#123;</span><br><span class="line">    public name;</span><br><span class="line">    public constructor(name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    public abstract sayHi();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let a = new Animal(&#x27;Jack&#x27;);</span><br><span class="line"></span><br><span class="line">// index.ts(9,11): error TS2511: Cannot create an instance of the abstract class &#x27;Animal&#x27;.</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上面的例子中，我们定义了一个抽象类 Animal，并且定义了一个抽象方法 sayHi。在实例化抽象类的时候报错了。</p>
-<p>其次，抽象类中的抽象方法必须被子类实现：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">abstract class Animal &#123;</span><br><span class="line">    public name;</span><br><span class="line">    public constructor(name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    public abstract sayHi();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Cat extends Animal &#123;</span><br><span class="line">    public eat() &#123;</span><br><span class="line">        console.log(`$&#123;this.name&#125; is eating.`);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let cat = new Cat(&#x27;Tom&#x27;);</span><br><span class="line"></span><br><span class="line">// index.ts(9,7): error TS2515: Non-abstract class &#x27;Cat&#x27; does not implement inherited abstract member &#x27;sayHi&#x27; from class &#x27;Animal&#x27;.</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上面的例子中，我们定义了一个类 Cat 继承了抽象类 Animal，但是没有实现抽象方法 sayHi，所以编译报错了。</p>
-<p>下面是一个正确使用抽象类的例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">abstract class Animal &#123;</span><br><span class="line">    public name;</span><br><span class="line">    public constructor(name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    public abstract sayHi();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Cat extends Animal &#123;</span><br><span class="line">    public sayHi() &#123;</span><br><span class="line">        console.log(`Meow, My name is $&#123;this.name&#125;`);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let cat = new Cat(&#x27;Tom&#x27;);</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上面的例子中，我们实现了抽象方法 sayHi，编译通过了。</p>
-<h3 id="类的类型"><a href="#类的类型" class="headerlink" title="类的类型"></a>类的类型</h3><p>给类加上 TypeScript 的类型很简单，与接口类似：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Animal &#123;</span><br><span class="line">    name: string;</span><br><span class="line">    constructor(name: string) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    sayHi(): string &#123;</span><br><span class="line">      return `My name is $&#123;this.name&#125;`;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let a: Animal = new Animal(&#x27;Jack&#x27;);</span><br><span class="line">console.log(a.sayHi()); // My name is Jack</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="泛型"><a href="#泛型" class="headerlink" title="#泛型"></a>#泛型</h1><p>泛型（Generics）是指在定义函数、接口或类的时候，不预先指定具体的类型，而在使用的时候再指定类型的一种特性。</p>
-<h2 id="简单的例子"><a href="#简单的例子" class="headerlink" title="简单的例子"></a>简单的例子</h2><p>首先，我们来实现一个函数 createArray，它可以创建一个指定长度的数组，同时将每一项都填充一个默认值：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function createArray(length: number, value: any): Array&lt;any&gt; &#123;</span><br><span class="line">    let result = [];</span><br><span class="line">    for (let i = 0; i &lt; length; i++) &#123;</span><br><span class="line">        result[i] = value;</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">createArray(3, &#x27;x&#x27;); // [&#x27;x&#x27;, &#x27;x&#x27;, &#x27;x&#x27;]</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上例中，我们使用了<a target="_blank" rel="noopener" href="https://ts.xcatliu.com/basics/type-of-array.html#%E6%95%B0%E7%BB%84%E6%B3%9B%E5%9E%8B">之前提到过的数组泛型</a>来定义返回值的类型。</p>
-<p>这段代码编译不会报错，但是一个显而易见的缺陷是，它并没有准确的定义返回值的类型：</p>
-<p>Array<any> 允许数组的每一项都为任意类型。但是我们预期的是，数组中每一项都应该是输入的 value的类型。</p>
-<p>这时候，泛型就派上用场了：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function createArray&lt;T&gt;(length: number, value: T): Array&lt;T&gt; &#123;</span><br><span class="line">    let result: T[] = [];</span><br><span class="line">    for (let i = 0; i &lt; length; i++) &#123;</span><br><span class="line">        result[i] = value;</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">createArray&lt;string&gt;(3, &#x27;x&#x27;); // [&#x27;x&#x27;, &#x27;x&#x27;, &#x27;x&#x27;]</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上例中，我们在函数名后添加了 <T>，其中 T 用来指代任意输入的类型，在后面的输入 value: T 和输出 Array<T> 中即可使用了。</p>
-<p>接着在调用的时候，可以指定它具体的类型为 string。当然，也可以不手动指定，而让类型推论自动推算出来：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function createArray&lt;T&gt;(length: number, value: T): Array&lt;T&gt; &#123;</span><br><span class="line">    let result: T[] = [];</span><br><span class="line">    for (let i = 0; i &lt; length; i++) &#123;</span><br><span class="line">        result[i] = value;</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">createArray(3, &#x27;x&#x27;); // [&#x27;x&#x27;, &#x27;x&#x27;, &#x27;x&#x27;]</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="多个类型参数"><a href="#多个类型参数" class="headerlink" title="多个类型参数"></a>多个类型参数</h2><p>定义泛型的时候，可以一次定义多个类型参数：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function swap&lt;T, U&gt;(tuple: [T, U]): [U, T] &#123;</span><br><span class="line">    return [tuple[1], tuple[0]];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">swap([7, &#x27;seven&#x27;]); // [&#x27;seven&#x27;, 7]</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上例中，我们定义了一个 swap 函数，用来交换输入的元组。</p>
-<h2 id="泛型约束"><a href="#泛型约束" class="headerlink" title="泛型约束"></a>泛型约束</h2><p>在函数内部使用泛型变量的时候，由于事先不知道它是哪种类型，所以不能随意的操作它的属性或方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function loggingIdentity&lt;T&gt;(arg: T): T &#123;</span><br><span class="line">    console.log(arg.length);</span><br><span class="line">    return arg;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// index.ts(2,19): error TS2339: Property &#x27;length&#x27; does not exist on type &#x27;T&#x27;.</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上例中，泛型 T 不一定包含属性 length，所以编译的时候报错了。</p>
-<p>这时，我们可以对泛型进行约束，只允许这个函数传入那些包含 length 属性的变量。这就是泛型约束：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">interface Lengthwise &#123;</span><br><span class="line">    length: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function loggingIdentity&lt;T extends Lengthwise&gt;(arg: T): T &#123;</span><br><span class="line">    console.log(arg.length);</span><br><span class="line">    return arg;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上例中，我们使用了 extends 约束了泛型 T 必须符合接口 Lengthwise 的形状，也就是必须包含 length 属性。</p>
-<p>此时如果调用 loggingIdentity 的时候，传入的 arg 不包含 length，那么在编译阶段就会报错了：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">interface Lengthwise &#123;</span><br><span class="line">    length: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function loggingIdentity&lt;T extends Lengthwise&gt;(arg: T): T &#123;</span><br><span class="line">    console.log(arg.length);</span><br><span class="line">    return arg;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">loggingIdentity(7);</span><br><span class="line"></span><br><span class="line">// index.ts(10,17): error TS2345: Argument of type &#x27;7&#x27; is not assignable to parameter of type &#x27;Lengthwise&#x27;.</span><br></pre></td></tr></table></figure>
-
-
-
-<p>多个类型参数之间也可以互相约束：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function copyFields&lt;T extends U, U&gt;(target: T, source: U): T &#123;</span><br><span class="line">    for (let id in source) &#123;</span><br><span class="line">        target[id] = (&lt;T&gt;source)[id];</span><br><span class="line">    &#125;</span><br><span class="line">    return target;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let x = &#123; a: 1, b: 2, c: 3, d: 4 &#125;;</span><br><span class="line"></span><br><span class="line">copyFields(x, &#123; b: 10, d: 20 &#125;);</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上例中，我们使用了两个类型参数，其中要求 T 继承 U，这样就保证了 U 上不会出现 T 中不存在的字段。</p>
-<h2 id="泛型接口"><a href="#泛型接口" class="headerlink" title="泛型接口"></a>泛型接口</h2><p><a target="_blank" rel="noopener" href="https://ts.xcatliu.com/basics/type-of-function.html#%E6%8E%A5%E5%8F%A3%E4%B8%AD%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89">之前学习过</a>，可以使用接口的方式来定义一个函数需要符合的形状：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">interface SearchFunc &#123;</span><br><span class="line">  (source: string, subString: string): boolean;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let mySearch: SearchFunc;</span><br><span class="line">mySearch = function(source: string, subString: string) &#123;</span><br><span class="line">    return source.search(subString) !== -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>当然也可以使用含有泛型的接口来定义函数的形状：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">interface CreateArrayFunc &#123;</span><br><span class="line">    &lt;T&gt;(length: number, value: T): Array&lt;T&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let createArray: CreateArrayFunc;</span><br><span class="line">createArray = function&lt;T&gt;(length: number, value: T): Array&lt;T&gt; &#123;</span><br><span class="line">    let result: T[] = [];</span><br><span class="line">    for (let i = 0; i &lt; length; i++) &#123;</span><br><span class="line">        result[i] = value;</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">createArray(3, &#x27;x&#x27;); // [&#x27;x&#x27;, &#x27;x&#x27;, &#x27;x&#x27;]</span><br></pre></td></tr></table></figure>
-
-
-
-<p>进一步，我们可以把泛型参数提前到接口名上：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">interface CreateArrayFunc&lt;T&gt; &#123;</span><br><span class="line">    (length: number, value: T): Array&lt;T&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let createArray: CreateArrayFunc&lt;any&gt;;</span><br><span class="line">createArray = function&lt;T&gt;(length: number, value: T): Array&lt;T&gt; &#123;</span><br><span class="line">    let result: T[] = [];</span><br><span class="line">    for (let i = 0; i &lt; length; i++) &#123;</span><br><span class="line">        result[i] = value;</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">createArray(3, &#x27;x&#x27;); // [&#x27;x&#x27;, &#x27;x&#x27;, &#x27;x&#x27;]</span><br></pre></td></tr></table></figure>
-
-
-
-<p>注意，此时在使用泛型接口的时候，需要定义泛型的类型。</p>
-<h2 id="泛型类"><a href="#泛型类" class="headerlink" title="泛型类"></a>泛型类</h2><p>与泛型接口类似，泛型也可以用于类的类型定义中：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class GenericNumber&lt;T&gt; &#123;</span><br><span class="line">    zeroValue: T;</span><br><span class="line">    add: (x: T, y: T) =&gt; T;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let myGenericNumber = new GenericNumber&lt;number&gt;();</span><br><span class="line">myGenericNumber.zeroValue = 0;</span><br><span class="line">myGenericNumber.add = function(x, y) &#123; return x + y; &#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="泛型参数的默认类型"><a href="#泛型参数的默认类型" class="headerlink" title="泛型参数的默认类型"></a>泛型参数的默认类型</h2><p>在 TypeScript 2.3 以后，我们可以为泛型中的类型参数指定默认类型。当使用泛型时没有在代码中直接指定类型参数，从实际值参数中也无法推测出时，这个默认类型就会起作用。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function createArray&lt;T = string&gt;(length: number, value: T): Array&lt;T&gt; &#123;</span><br><span class="line">    let result: T[] = [];</span><br><span class="line">    for (let i = 0; i &lt; length; i++) &#123;</span><br><span class="line">        result[i] = value;</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="枚举"><a href="#枚举" class="headerlink" title="#枚举"></a>#枚举</h1><p>枚举（Enum）类型用于取值被限定在一定范围内的场景，比如一周只能有七天，颜色限定为红绿蓝等。</p>
-<h2 id="简单的例子-1"><a href="#简单的例子-1" class="headerlink" title="简单的例子"></a>简单的例子</h2><p>枚举使用 enum 关键字来定义：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enum Days &#123;Sun, Mon, Tue, Wed, Thu, Fri, Sat&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>枚举成员会被赋值为从 0 开始递增的数字，同时也会对枚举值到枚举名进行反向映射：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">enum Days &#123;Sun, Mon, Tue, Wed, Thu, Fri, Sat&#125;;</span><br><span class="line"></span><br><span class="line">console.log(Days[&quot;Sun&quot;] === 0); // true</span><br><span class="line">console.log(Days[&quot;Mon&quot;] === 1); // true</span><br><span class="line">console.log(Days[&quot;Tue&quot;] === 2); // true</span><br><span class="line">console.log(Days[&quot;Sat&quot;] === 6); // true</span><br><span class="line"></span><br><span class="line">console.log(Days[0] === &quot;Sun&quot;); // true</span><br><span class="line">console.log(Days[1] === &quot;Mon&quot;); // true</span><br><span class="line">console.log(Days[2] === &quot;Tue&quot;); // true</span><br><span class="line">console.log(Days[6] === &quot;Sat&quot;); // true</span><br></pre></td></tr></table></figure>
-
-
-
-<p>事实上，上面的例子会被编译为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var Days;</span><br><span class="line">(function (Days) &#123;</span><br><span class="line">    Days[Days[&quot;Sun&quot;] = 0] = &quot;Sun&quot;;</span><br><span class="line">    Days[Days[&quot;Mon&quot;] = 1] = &quot;Mon&quot;;</span><br><span class="line">    Days[Days[&quot;Tue&quot;] = 2] = &quot;Tue&quot;;</span><br><span class="line">    Days[Days[&quot;Wed&quot;] = 3] = &quot;Wed&quot;;</span><br><span class="line">    Days[Days[&quot;Thu&quot;] = 4] = &quot;Thu&quot;;</span><br><span class="line">    Days[Days[&quot;Fri&quot;] = 5] = &quot;Fri&quot;;</span><br><span class="line">    Days[Days[&quot;Sat&quot;] = 6] = &quot;Sat&quot;;</span><br><span class="line">&#125;)(Days || (Days = &#123;&#125;));</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="手动赋值"><a href="#手动赋值" class="headerlink" title="手动赋值"></a>手动赋值</h2><p>我们也可以给枚举项手动赋值：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">enum Days &#123;Sun = 7, Mon = 1, Tue, Wed, Thu, Fri, Sat&#125;;</span><br><span class="line"></span><br><span class="line">console.log(Days[&quot;Sun&quot;] === 7); // true</span><br><span class="line">console.log(Days[&quot;Mon&quot;] === 1); // true</span><br><span class="line">console.log(Days[&quot;Tue&quot;] === 2); // true</span><br><span class="line">console.log(Days[&quot;Sat&quot;] === 6); // true</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上面的例子中，未手动赋值的枚举项会接着上一个枚举项递增。</p>
-<p>如果未手动赋值的枚举项与手动赋值的重复了，TypeScript 是不会察觉到这一点的：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">enum Days &#123;Sun = 3, Mon = 1, Tue, Wed, Thu, Fri, Sat&#125;;</span><br><span class="line"></span><br><span class="line">console.log(Days[&quot;Sun&quot;] === 3); // true</span><br><span class="line">console.log(Days[&quot;Wed&quot;] === 3); // true</span><br><span class="line">console.log(Days[3] === &quot;Sun&quot;); // false</span><br><span class="line">console.log(Days[3] === &quot;Wed&quot;); // true</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上面的例子中，递增到 3 的时候与前面的 Sun 的取值重复了，但是 TypeScript 并没有报错，导致 Days[3] 的值先是 “Sun”，而后又被 “Wed” 覆盖了。编译的结果是：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var Days;</span><br><span class="line">(function (Days) &#123;</span><br><span class="line">    Days[Days[&quot;Sun&quot;] = 3] = &quot;Sun&quot;;</span><br><span class="line">    Days[Days[&quot;Mon&quot;] = 1] = &quot;Mon&quot;;</span><br><span class="line">    Days[Days[&quot;Tue&quot;] = 2] = &quot;Tue&quot;;</span><br><span class="line">    Days[Days[&quot;Wed&quot;] = 3] = &quot;Wed&quot;;</span><br><span class="line">    Days[Days[&quot;Thu&quot;] = 4] = &quot;Thu&quot;;</span><br><span class="line">    Days[Days[&quot;Fri&quot;] = 5] = &quot;Fri&quot;;</span><br><span class="line">    Days[Days[&quot;Sat&quot;] = 6] = &quot;Sat&quot;;</span><br><span class="line">&#125;)(Days || (Days = &#123;&#125;));</span><br></pre></td></tr></table></figure>
-
-
-
-<p>所以使用的时候需要注意，最好不要出现这种覆盖的情况。</p>
-<p>手动赋值的枚举项可以不是数字，此时需要使用类型断言来让tsc无视类型检查 (编译出的js仍然是可用的)：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">enum Days &#123;Sun = 7, Mon, Tue, Wed, Thu, Fri, Sat = &lt;any&gt;&quot;S&quot;&#125;;</span><br><span class="line">var Days;</span><br><span class="line">(function (Days) &#123;</span><br><span class="line">    Days[Days[&quot;Sun&quot;] = 7] = &quot;Sun&quot;;</span><br><span class="line">    Days[Days[&quot;Mon&quot;] = 8] = &quot;Mon&quot;;</span><br><span class="line">    Days[Days[&quot;Tue&quot;] = 9] = &quot;Tue&quot;;</span><br><span class="line">    Days[Days[&quot;Wed&quot;] = 10] = &quot;Wed&quot;;</span><br><span class="line">    Days[Days[&quot;Thu&quot;] = 11] = &quot;Thu&quot;;</span><br><span class="line">    Days[Days[&quot;Fri&quot;] = 12] = &quot;Fri&quot;;</span><br><span class="line">    Days[Days[&quot;Sat&quot;] = &quot;S&quot;] = &quot;Sat&quot;;</span><br><span class="line">&#125;)(Days || (Days = &#123;&#125;));</span><br></pre></td></tr></table></figure>
-
-
-
-<p>当然，手动赋值的枚举项也可以为小数或负数，此时后续未手动赋值的项的递增步长仍为 1：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">enum Days &#123;Sun = 7, Mon = 1.5, Tue, Wed, Thu, Fri, Sat&#125;;</span><br><span class="line"></span><br><span class="line">console.log(Days[&quot;Sun&quot;] === 7); // true</span><br><span class="line">console.log(Days[&quot;Mon&quot;] === 1.5); // true</span><br><span class="line">console.log(Days[&quot;Tue&quot;] === 2.5); // true</span><br><span class="line">console.log(Days[&quot;Sat&quot;] === 6.5); // true</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="常数项和计算所得项"><a href="#常数项和计算所得项" class="headerlink" title="常数项和计算所得项"></a>常数项和计算所得项</h2><p>枚举项有两种类型：常数项（constant member）和计算所得项（computed member）。</p>
-<p>前面我们所举的例子都是常数项，一个典型的计算所得项的例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enum Color &#123;Red, Green, Blue = &quot;blue&quot;.length&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上面的例子中，”blue”.length 就是一个计算所得项。</p>
-<p>上面的例子不会报错，但是<strong>如果紧接在计算所得项后面的是未手动赋值的项，那么它就会因为无法获得初始值而报错</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">enum Color &#123;Red = &quot;red&quot;.length, Green, Blue&#125;;</span><br><span class="line"></span><br><span class="line">// index.ts(1,33): error TS1061: Enum member must have initializer.</span><br><span class="line">// index.ts(1,40): error TS1061: Enum member must have initializer.</span><br></pre></td></tr></table></figure>
-
-
-
-<p>下面是常数项和计算所得项的完整定义，部分引用自<a target="_blank" rel="noopener" href="https://zhongsp.gitbooks.io/typescript-handbook/content/doc/handbook/Enums.html">中文手册 - 枚举</a>：</p>
-<p>当满足以下条件时，枚举成员被当作是常数：</p>
-<ul>
-<li><p>不具有初始化函数并且之前的枚举成员是常数。在这种情况下，当前枚举成员的值为上一个枚举成员的值加 1。但第一个枚举元素是个例外。如果它没有初始化方法，那么它的初始值为 0。</p>
-</li>
-<li><p>枚举成员使用常数枚举表达式初始化。常数枚举表达式是 TypeScript 表达式的子集，它可以在编译阶段求值。当一个表达式满足下面条件之一时，它就是一个常数枚举表达式：</p>
-</li>
-<li><p>数字字面量</p>
-</li>
-<li><p>引用之前定义的常数枚举成员（可以是在不同的枚举类型中定义的）如果这个成员是在同一个枚举类型中定义的，可以使用非限定名来引用</p>
-</li>
-<li><p>带括号的常数枚举表达式</p>
-</li>
-<li><p>+, -, ~ 一元运算符应用于常数枚举表达式</p>
-</li>
-<li><p>+, -, *, &#x2F;, %, &lt;&lt;, &gt;&gt;, &gt;&gt;&gt;, &amp;, |, ^ 二元运算符，常数枚举表达式做为其一个操作对象。若常数枚举表达式求值后为NaN或Infinity，则会在编译阶段报错</p>
-</li>
-</ul>
-<p>所有其它情况的枚举成员被当作是需要计算得出的值。</p>
-<h2 id="常数枚举"><a href="#常数枚举" class="headerlink" title="常数枚举"></a>常数枚举</h2><p>常数枚举是使用 const enum 定义的枚举类型：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const enum Directions &#123;</span><br><span class="line">    Up,</span><br><span class="line">    Down,</span><br><span class="line">    Left,</span><br><span class="line">    Right</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right];</span><br></pre></td></tr></table></figure>
-
-
-
-<p>常数枚举与普通枚举的区别是，它会在编译阶段被删除，并且不能包含计算成员。</p>
-<p>上例的编译结果是：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var directions = [0 /* Up */, 1 /* Down */, 2 /* Left */, 3 /* Right */];</span><br></pre></td></tr></table></figure>
-
-
-
-<p>假如包含了计算成员，则会在编译阶段报错：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const enum Color &#123;Red, Green, Blue = &quot;blue&quot;.length&#125;;</span><br><span class="line"></span><br><span class="line">// index.ts(1,38): error TS2474: In &#x27;const&#x27; enum declarations member initializer must be constant expression.</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="外部枚举"><a href="#外部枚举" class="headerlink" title="外部枚举"></a>外部枚举</h2><p>外部枚举（Ambient Enums）是使用 declare enum 定义的枚举类型：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">declare enum Directions &#123;</span><br><span class="line">    Up,</span><br><span class="line">    Down,</span><br><span class="line">    Left,</span><br><span class="line">    Right</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right];</span><br></pre></td></tr></table></figure>
-
-
-
-<p>之前提到过，declare 定义的类型只会用于编译时的检查，编译结果中会被删除。</p>
-<p>上例的编译结果是：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right];</span><br></pre></td></tr></table></figure>
-
-
-
-<p>外部枚举与声明语句一样，常出现在声明文件中。</p>
-<p>同时使用 declare 和 const 也是可以的：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">declare const enum Directions &#123;</span><br><span class="line">    Up,</span><br><span class="line">    Down,</span><br><span class="line">    Left,</span><br><span class="line">    Right</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right];</span><br></pre></td></tr></table></figure>
-
-
-
-<p>编译结果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var directions = [0 /* Up */, 1 /* Down */, 2 /* Left */, 3 /* Right */];</span><br></pre></td></tr></table></figure>
-
-<p>TypeScript 的枚举类型的概念<a target="_blank" rel="noopener" href="https://msdn.microsoft.com/zh-cn/library/sbbt4032.aspx">来源于 C#</a>。</p>
-<h1 id="对象的类型——接口"><a href="#对象的类型——接口" class="headerlink" title="#对象的类型——接口"></a>#对象的类型——接口</h1><p>在 TypeScript 中，我们使用接口（Interfaces）来定义对象的类型。</p>
-<h2 id="什么是接口"><a href="#什么是接口" class="headerlink" title="什么是接口"></a>什么是接口</h2><p>在面向对象语言中，接口（Interfaces）是一个很重要的概念，它是对行为的抽象，而具体如何行动需要由类（classes）去实现（implements）。</p>
-<p>TypeScript 中的接口是一个非常灵活的概念，除了可用于<a target="_blank" rel="noopener" href="https://ts.xcatliu.com/advanced/class-and-interfaces.html#%E7%B1%BB%E5%AE%9E%E7%8E%B0%E6%8E%A5%E5%8F%A3">对类的一部分行为进行抽象</a>以外，也常用于对「对象的形状（Shape）」进行描述。</p>
-<h2 id="简单的例子-2"><a href="#简单的例子-2" class="headerlink" title="简单的例子"></a>简单的例子</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">interface Person &#123;</span><br><span class="line">    name: string;</span><br><span class="line">    age: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let tom: Person = &#123;</span><br><span class="line">    name: &#x27;Tom&#x27;,</span><br><span class="line">    age: 25</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上面的例子中，我们定义了一个接口 Person，接着定义了一个变量 tom，它的类型是 Person。这样，我们就约束了 tom 的形状必须和接口 Person 一致。</p>
-<p>接口一般首字母大写。<a target="_blank" rel="noopener" href="https://msdn.microsoft.com/en-us/library/8bc1fexb(v=vs.71).aspx">有的编程语言中会建议接口的名称加上 I 前缀</a>。</p>
-<p>定义的变量比接口少了一些属性是不允许的：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">interface Person &#123;</span><br><span class="line">    name: string;</span><br><span class="line">    age: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let tom: Person = &#123;</span><br><span class="line">    name: &#x27;Tom&#x27;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// index.ts(6,5): error TS2322: Type &#x27;&#123; name: string; &#125;&#x27; is not assignable to type &#x27;Person&#x27;.</span><br><span class="line">//   Property &#x27;age&#x27; is missing in type &#x27;&#123; name: string; &#125;&#x27;.</span><br></pre></td></tr></table></figure>
-
-
-
-<p>多一些属性也是不允许的：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">interface Person &#123;</span><br><span class="line">    name: string;</span><br><span class="line">    age: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let tom: Person = &#123;</span><br><span class="line">    name: &#x27;Tom&#x27;,</span><br><span class="line">    age: 25,</span><br><span class="line">    gender: &#x27;male&#x27;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// index.ts(9,5): error TS2322: Type &#x27;&#123; name: string; age: number; gender: string; &#125;&#x27; is not assignable to type &#x27;Person&#x27;.</span><br><span class="line">//   Object literal may only specify known properties, and &#x27;gender&#x27; does not exist in type &#x27;Person&#x27;.</span><br></pre></td></tr></table></figure>
-
-
-
-<p>可见，<strong>赋值的时候，变量的形状必须和接口的形状保持一致</strong>。</p>
-<h2 id="可选属性"><a href="#可选属性" class="headerlink" title="可选属性"></a>可选属性</h2><p>有时我们希望不要完全匹配一个形状，那么可以用可选属性：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">interface Person &#123;</span><br><span class="line">    name: string;</span><br><span class="line">    age?: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let tom: Person = &#123;</span><br><span class="line">    name: &#x27;Tom&#x27;</span><br><span class="line">&#125;;</span><br><span class="line">interface Person &#123;</span><br><span class="line">    name: string;</span><br><span class="line">    age?: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let tom: Person = &#123;</span><br><span class="line">    name: &#x27;Tom&#x27;,</span><br><span class="line">    age: 25</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>可选属性的含义是该属性可以不存在。</p>
-<p>这时<strong>仍然不允许添加未定义的属性</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">interface Person &#123;</span><br><span class="line">    name: string;</span><br><span class="line">    age?: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let tom: Person = &#123;</span><br><span class="line">    name: &#x27;Tom&#x27;,</span><br><span class="line">    age: 25,</span><br><span class="line">    gender: &#x27;male&#x27;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// examples/playground/index.ts(9,5): error TS2322: Type &#x27;&#123; name: string; age: number; gender: string; &#125;&#x27; is not assignable to type &#x27;Person&#x27;.</span><br><span class="line">//   Object literal may only specify known properties, and &#x27;gender&#x27; does not exist in type &#x27;Person&#x27;.</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="任意属性"><a href="#任意属性" class="headerlink" title="任意属性"></a>任意属性</h2><p>有时候我们希望一个接口允许有任意的属性，可以使用如下方式：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">interface Person &#123;</span><br><span class="line">    name: string;</span><br><span class="line">    age?: number;</span><br><span class="line">    [propName: string]: any;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let tom: Person = &#123;</span><br><span class="line">    name: &#x27;Tom&#x27;,</span><br><span class="line">    gender: &#x27;male&#x27;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>使用 [propName: string] 定义了任意属性取 string 类型的值。</p>
-<p>需要注意的是，<strong>一旦定义了任意属性，那么确定属性和可选属性都必须是它的子属性</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">interface Person &#123;</span><br><span class="line">    name: string;</span><br><span class="line">    age?: number;</span><br><span class="line">    [propName: string]: string;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let tom: Person = &#123;</span><br><span class="line">    name: &#x27;Tom&#x27;,</span><br><span class="line">    age: 25,</span><br><span class="line">    gender: &#x27;male&#x27;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// index.ts(3,5): error TS2411: Property &#x27;age&#x27; of type &#x27;number&#x27; is not assignable to string index type &#x27;string&#x27;.</span><br><span class="line">// index.ts(7,5): error TS2322: Type &#x27;&#123; [x: string]: string | number; name: string; age: number; gender: string; &#125;&#x27; is not assignable to type &#x27;Person&#x27;.</span><br><span class="line">//   Index signatures are incompatible.</span><br><span class="line">//     Type &#x27;string | number&#x27; is not assignable to type &#x27;string&#x27;.</span><br><span class="line">//       Type &#x27;number&#x27; is not assignable to type &#x27;string&#x27;.</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上例中，任意属性的值允许是 string，但是可选属性 age 的值却是 number，number 不是 string 的子属性，所以报错了。</p>
-<p>另外，在报错信息中可以看出，此时 { name: ‘Tom’, age: 25, gender: ‘male’ } 的类型被推断成了 { [x: string]: string | number; name: string; age: number; gender: string; }，这是联合类型和接口的结合。</p>
-<h2 id="只读属性"><a href="#只读属性" class="headerlink" title="只读属性"></a>只读属性</h2><p>有时候我们希望对象中的一些字段只能在创建的时候被赋值，那么可以用 readonly 定义只读属性：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">interface Person &#123;</span><br><span class="line">    readonly id: number;</span><br><span class="line">    name: string;</span><br><span class="line">    age?: number;</span><br><span class="line">    [propName: string]: any;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let tom: Person = &#123;</span><br><span class="line">    id: 89757,</span><br><span class="line">    name: &#x27;Tom&#x27;,</span><br><span class="line">    gender: &#x27;male&#x27;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">tom.id = 9527;</span><br><span class="line"></span><br><span class="line">// index.ts(14,5): error TS2540: Cannot assign to &#x27;id&#x27; because it is a constant or a read-only property.</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上例中，使用 readonly 定义的属性 id 初始化后，又被赋值了，所以报错了。</p>
-<p><strong>注意，只读的约束存在于第一次给对象赋值的时候，而不是第一次给只读属性赋值的时候</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">interface Person &#123;</span><br><span class="line">    readonly id: number;</span><br><span class="line">    name: string;</span><br><span class="line">    age?: number;</span><br><span class="line">    [propName: string]: any;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let tom: Person = &#123;</span><br><span class="line">    name: &#x27;Tom&#x27;,</span><br><span class="line">    gender: &#x27;male&#x27;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">tom.id = 89757;</span><br><span class="line"></span><br><span class="line">// index.ts(8,5): error TS2322: Type &#x27;&#123; name: string; gender: string; &#125;&#x27; is not assignable to type &#x27;Person&#x27;.</span><br><span class="line">//   Property &#x27;id&#x27; is missing in type &#x27;&#123; name: string; gender: string; &#125;&#x27;.</span><br><span class="line">// index.ts(13,5): error TS2540: Cannot assign to &#x27;id&#x27; because it is a constant or a read-only property.</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上例中，报错信息有两处，第一处是在对 tom 进行赋值的时候，没有给 id 赋值。</p>
-<p>第二处是在给 tom.id 赋值的时候，由于它是只读属性，所以报错了。</p>
-<h1 id="类与接口"><a href="#类与接口" class="headerlink" title="类与接口"></a>类与接口</h1><p><a target="_blank" rel="noopener" href="https://ts.xcatliu.com/basics/type-of-object-interfaces.html">之前学习过</a>，接口（Interfaces）可以用于对「对象的形状（Shape）」进行描述。</p>
-<p>这一章主要介绍接口的另一个用途，对类的一部分行为进行抽象。</p>
-<h2 id="类实现接口"><a href="#类实现接口" class="headerlink" title="类实现接口"></a>类实现接口</h2><p>实现（implements）是面向对象中的一个重要概念。一般来讲，一个类只能继承自另一个类，有时候不同类之间可以有一些共有的特性，这时候就可以把特性提取成接口（interfaces），用 implements 关键字来实现。这个特性大大提高了面向对象的灵活性。</p>
-<p>举例来说，门是一个类，防盗门是门的子类。如果防盗门有一个报警器的功能，我们可以简单的给防盗门添加一个报警方法。这时候如果有另一个类，车，也有报警器的功能，就可以考虑把报警器提取出来，作为一个接口，防盗门和车都去实现它：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">interface Alarm &#123;</span><br><span class="line">    alert();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Door &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class SecurityDoor extends Door implements Alarm &#123;</span><br><span class="line">    alert() &#123;</span><br><span class="line">        console.log(&#x27;SecurityDoor alert&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Car implements Alarm &#123;</span><br><span class="line">    alert() &#123;</span><br><span class="line">        console.log(&#x27;Car alert&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>一个类可以实现多个接口：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">interface Alarm &#123;</span><br><span class="line">    alert();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface Light &#123;</span><br><span class="line">    lightOn();</span><br><span class="line">    lightOff();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Car implements Alarm, Light &#123;</span><br><span class="line">    alert() &#123;</span><br><span class="line">        console.log(&#x27;Car alert&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">    lightOn() &#123;</span><br><span class="line">        console.log(&#x27;Car light on&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">    lightOff() &#123;</span><br><span class="line">        console.log(&#x27;Car light off&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上例中，Car 实现了 Alarm 和 Light 接口，既能报警，也能开关车灯。</p>
-<h2 id="接口继承接口"><a href="#接口继承接口" class="headerlink" title="接口继承接口"></a>接口继承接口</h2><p>接口与接口之间可以是继承关系：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">interface Alarm &#123;</span><br><span class="line">    alert();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface LightableAlarm extends Alarm &#123;</span><br><span class="line">    lightOn();</span><br><span class="line">    lightOff();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>上例中，我们使用 extends 使 LightableAlarm 继承 Alarm。</p>
-<h2 id="接口继承类"><a href="#接口继承类" class="headerlink" title="接口继承类"></a>接口继承类</h2><p>接口也可以继承类：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Point &#123;</span><br><span class="line">    x: number;</span><br><span class="line">    y: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface Point3d extends Point &#123;</span><br><span class="line">    z: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let point3d: Point3d = &#123;x: 1, y: 2, z: 3&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="混合类型"><a href="#混合类型" class="headerlink" title="混合类型"></a>混合类型</h2><p><a target="_blank" rel="noopener" href="https://ts.xcatliu.com/basics/type-of-function.html#%E6%8E%A5%E5%8F%A3%E4%B8%AD%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89">之前学习过</a>，可以使用接口的方式来定义一个函数需要符合的形状：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">interface SearchFunc &#123;</span><br><span class="line">    (source: string, subString: string): boolean;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let mySearch: SearchFunc;</span><br><span class="line">mySearch = function(source: string, subString: string) &#123;</span><br><span class="line">    return source.search(subString) !== -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>有时候，一个函数还可以有自己的属性和方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">interface Counter &#123;</span><br><span class="line">    (start: number): string;</span><br><span class="line">    interval: number;</span><br><span class="line">    reset(): void;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function getCounter(): Counter &#123;</span><br><span class="line">    let counter = &lt;Counter&gt;function (start: number) &#123; &#125;;</span><br><span class="line">    counter.interval = 123;</span><br><span class="line">    counter.reset = function () &#123; &#125;;</span><br><span class="line">    return counter;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let c = getCounter();</span><br><span class="line">c(10);</span><br><span class="line">c.reset();</span><br><span class="line">c.interval = 5.0;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="在vue项目中使用typescript"><a href="#在vue项目中使用typescript" class="headerlink" title="#在vue项目中使用typescript"></a>#在vue项目中使用typescript</h3><p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000011744210#articleHeader13">https://segmentfault.com/a/1190000011744210</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/06/30/vue/#%E4%BB%80%E4%B9%88%E6%98%AFtypeScript/" data-id="cl1eaywy1000bgwvn2k3ka8ar" data-title="node" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-vue/源码" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/06/30/vue/%E6%BA%90%E7%A0%81/" class="article-date">
-  <time class="dt-published" datetime="2020-06-30T07:03:18.000Z" itemprop="datePublished">2020-06-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/06/30/vue/%E6%BA%90%E7%A0%81/">node</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>源码视频并没有看完，这篇文章只是针对一些新学到的，对以前的疑问解惑做一些记录。</p>
-<p>针对vue2.x版本</p>
-<h2 id="一、静态类型检查flow"><a href="#一、静态类型检查flow" class="headerlink" title="一、静态类型检查flow"></a>一、静态类型检查flow</h2><p>vue源码中使用Flow作为它的静态类型检查工具，使用静态类型检查工具非常有利于大型项目的开发和维护。</p>
-<p>Flow是facebook出品的js静态类型检查工具。它的工作类似typescript的工作，vue2.x没有使用ts，想要做类型检查，所以使用flow来做这部分工作。</p>
-<p>Flow的类型检查语法和ts的很像，在文件头部增加如下注释即可开启文件类型检查</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/*@flow*/</span><br><span class="line">或者	</span><br><span class="line">// @flow</span><br><span class="line">....</span><br></pre></td></tr></table></figure>
-
-
-
-<p>根目录下有.flowconfig文件，这是flow的配置文件。</p>
-<p>根目录下有个flow文件夹，这是flow的类型定义文件。源码中的自定义类型在这里能找到。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">flow</span><br><span class="line">├── compiler.js        # 编译相关</span><br><span class="line">├── component.js       # 组件数据结构</span><br><span class="line">├── global-api.js      # Global API 结构</span><br><span class="line">├── modules.js         # 第三方库定义</span><br><span class="line">├── options.js         # 选项相关</span><br><span class="line">├── ssr.js             # 服务端渲染相关</span><br><span class="line">├── vnode.js           # 虚拟 node 相关</span><br></pre></td></tr></table></figure>
-
-
-
-<p>对flow感兴趣的同学可以去<a target="_blank" rel="noopener" href="https://flow.org/en/">官网</a>了解更详细的信息。</p>
-<h2 id="二、vue文件分析"><a href="#二、vue文件分析" class="headerlink" title="二、vue文件分析"></a>二、vue文件分析</h2><h4 id="文件目录"><a href="#文件目录" class="headerlink" title="文件目录"></a>文件目录</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">src</span><br><span class="line">├── compiler        # 编译相关 </span><br><span class="line">├── core            # 核心代码 </span><br><span class="line">├── platforms       # 不同平台的支持</span><br><span class="line">├── server          # 服务端渲染</span><br><span class="line">├── sfc             # .vue 文件解析</span><br><span class="line">├── shared          # 共享代码</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="vue版本"><a href="#vue版本" class="headerlink" title="vue版本"></a>vue版本</h4><p>vue2.x最终渲染都是通过render函数，所以最终vue编译都会将代码编译成render函数的形式。</p>
-<p>在我们用vue-cli初始化一个vue项目的时候，会询问我们使用哪个版本的vue，有Runtime-Only 版本和Runtime + Compiler两个版本选项。</p>
-<ul>
-<li>Runtime Only</li>
-</ul>
-<p>我们使用webpack的话，已经使用了vue-loader，在运行前已经预编译好了，使用这个版本的话，里面只包含了运行时的vue代码，代码会更轻量，效率更高。</p>
-<ul>
-<li>Runtime + Compiler版本</li>
-</ul>
-<p>如果我们代码中使用了如下的写法</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">new Vue(&#123;</span><br><span class="line">  template: &#x27;&lt;div&gt;&#123;&#123; hi &#125;&#125;&lt;/div&gt;&#x27;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-
-<p>webpack的vue-loader并不会编译template字符串这部分代码，这时候就需要使用这个版本，里面包含了运行时的vue代码和编译的vue代码，文件会更大，效率会低一些。</p>
-<p>为了降低性能损耗，觉得代码中不使用template的话，使用runtime-only版本的vue更好。</p>
-<h3 id="vue的初始化"><a href="#vue的初始化" class="headerlink" title="vue的初始化"></a>vue的初始化</h3><p>vue的初始化的地方在src&#x2F;core&#x2F;index.js中，文件如下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// src/core/index.js</span><br><span class="line">import Vue from &#x27;./instance/index&#x27;</span><br><span class="line">import &#123; initGlobalAPI &#125; from &#x27;./global-api/index&#x27;</span><br><span class="line">initGlobalAPI(Vue)</span><br><span class="line">...</span><br><span class="line">export default Vue</span><br></pre></td></tr></table></figure>
-
-
-
-<p>这里主要会初始化全局的api，initGlobalAPI,然后从src&#x2F;core&#x2F;instance&#x2F;index.js中引入vue定义的地方</p>
-<h4 id="vue定义的地方"><a href="#vue定义的地方" class="headerlink" title="vue定义的地方"></a>vue定义的地方</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// src/core/instance/index.js</span><br><span class="line">import &#123; initMixin &#125; from &#x27;./init&#x27;</span><br><span class="line">import &#123; stateMixin &#125; from &#x27;./state&#x27;</span><br><span class="line">import &#123; renderMixin &#125; from &#x27;./render&#x27;</span><br><span class="line">import &#123; eventsMixin &#125; from &#x27;./events&#x27;</span><br><span class="line">import &#123; lifecycleMixin &#125; from &#x27;./lifecycle&#x27;</span><br><span class="line">import &#123; warn &#125; from &#x27;../util/index&#x27;</span><br><span class="line">function Vue (options) &#123;</span><br><span class="line">  if (process.env.NODE_ENV !== &#x27;production&#x27; &amp;&amp;</span><br><span class="line">    !(this instanceof Vue)</span><br><span class="line">  ) &#123;</span><br><span class="line">    warn(&#x27;Vue is a constructor and should be called with the `new` keyword&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line">  this._init(options)</span><br><span class="line">&#125;</span><br><span class="line">initMixin(Vue)</span><br><span class="line">stateMixin(Vue)</span><br><span class="line">eventsMixin(Vue)</span><br><span class="line">lifecycleMixin(Vue)</span><br><span class="line">renderMixin(Vue)</span><br><span class="line">export default Vue</span><br></pre></td></tr></table></figure>
-
-
-
-<p>从上面可以看到，vue是个用Function实现的类，只能通过new Vue去实例化它</p>
-<h4 id="initGlobalAPI"><a href="#initGlobalAPI" class="headerlink" title="initGlobalAPI"></a>initGlobalAPI</h4><p>文件定义在src&#x2F;core&#x2F;global-api&#x2F;index.js中</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">export function initGlobalAPI (Vue: GlobalAPI) &#123;</span><br><span class="line"> ...</span><br><span class="line">  Object.defineProperty(Vue, &#x27;config&#x27;, configDef)</span><br><span class="line">  Vue.util = &#123;</span><br><span class="line">    warn,</span><br><span class="line">    extend,</span><br><span class="line">    mergeOptions,</span><br><span class="line">    defineReactive</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Vue.set = set</span><br><span class="line">  Vue.delete = del</span><br><span class="line">  Vue.nextTick = nextTick</span><br><span class="line"></span><br><span class="line">  Vue.options = Object.create(null)</span><br><span class="line">  ASSET_TYPES.forEach(type =&gt; &#123;</span><br><span class="line">    Vue.options[type + &#x27;s&#x27;] = Object.create(null)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  Vue.options._base = Vue</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>vue全局的一些方法定义入口的地方，例如set，delete，nextTick等</p>
-<h3 id="vue一些api实现"><a href="#vue一些api实现" class="headerlink" title="vue一些api实现"></a>vue一些api实现</h3><h4 id="Virtual-DOM"><a href="#Virtual-DOM" class="headerlink" title="Virtual DOM"></a>Virtual DOM</h4><p>浏览器中的真实dom非常庞大，操作它会影响性能。vue中使用Virtual DOM代替真实dom来执行计算和操作。计算和操作完成之后才会把虚拟dom转化成真实dom。</p>
-<p>虚拟dom定义在src&#x2F;core&#x2F;vdom&#x2F;vnode.js文件中,使用一个Class类去描述</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">export default class VNode &#123;</span><br><span class="line">  tag: string | void;</span><br><span class="line">  data: VNodeData | void;</span><br><span class="line">    ...</span><br><span class="line">  constructor (</span><br><span class="line">    tag?: string,</span><br><span class="line">    data?: VNodeData</span><br><span class="line">  ) &#123;</span><br><span class="line">    this.tag = tag</span><br><span class="line">    this.data = data</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  get child (): Component | void &#123;</span><br><span class="line">    return this.componentInstance</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="生命周期钩子"><a href="#生命周期钩子" class="headerlink" title="生命周期钩子"></a>生命周期钩子</h4><p>从上面vue初始化定义的地方有执行initMixin()方法，这个方法定义的文件如下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// src/core/instance/init.js</span><br><span class="line">export function initMixin (Vue: Class&lt;Component&gt;) &#123;</span><br><span class="line">    Vue.prototype._init = function (options?: Object) &#123;</span><br><span class="line">        //...</span><br><span class="line">        initLifecycle(vm)</span><br><span class="line">        initEvents(vm)</span><br><span class="line">        initRender(vm)</span><br><span class="line">        callHook(vm, &#x27;beforeCreate&#x27;)</span><br><span class="line">        initInjections(vm)</span><br><span class="line">        initState(vm)</span><br><span class="line">        initProvide(vm)</span><br><span class="line">        callHook(vm, &#x27;created&#x27;)</span><br><span class="line">        // ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>从上面可以看到往Vue原型上增加了_init方法，在new Vue()实例化的时候，会执行this._init(options)初始化。可以看到这时候会执行两个callHook，分别是beforeCreate、created两个钩子函数。</p>
-<p>callHook定义在src&#x2F;core&#x2F;instance&#x2F;lifecycle中,如下所示</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">export function callHook (vm: Component, hook: string) &#123;</span><br><span class="line">  const handlers = vm.$options[hook]</span><br><span class="line">  if (handlers) &#123;</span><br><span class="line">    for (let i = 0, j = handlers.length; i &lt; j; i++) &#123;</span><br><span class="line">      try &#123;</span><br><span class="line">        handlers[i].call(vm)</span><br><span class="line">      &#125; catch (e) &#123;</span><br><span class="line">        handleError(e, vm, `$&#123;hook&#125; hook`)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  if (vm._hasHookEvent) &#123;</span><br><span class="line">    vm.$emit(&#x27;hook:&#x27; + hook)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>vm.$options中保存着我们通常写在组件中的data、computed、created、mounted等函数和对象。上面的init中callHook就会调用组件中的钩子。</p>
-<p>可以去看到几点：</p>
-<ol>
-<li>在beforeCreate之后才执行initState()</li>
-<li>inject的初始化在initState()之前，provide的初始化在initState()之后。说明先先接收到值，之后才会往下传递</li>
-</ol>
-<h4 id="nextTick的定义"><a href="#nextTick的定义" class="headerlink" title="nextTick的定义"></a>nextTick的定义</h4><p>js执行是单线程的，它是基于事件循环的，他只有一个主线程，通过异步模拟多线程工作，每个异步结果都是通过任务队列来调度。队列中存放着一个个task，主要分为两类，分别为macro task 和 micro task，并且每个 macro task 结束后，都要清空所有的 micro task。</p>
-<p>在浏览器环境中，</p>
-<ul>
-<li>常见的 macro task 有 setTimeout、MessageChannel、postMessage、setImmediate；</li>
-<li>常见的 micro task 有 MutationObsever 和 Promise.then。</li>
-</ul>
-<p>nextTick就是做这一块的整合。</p>
-<p>nextTick的实现在src&#x2F;core&#x2F;util&#x2F;next-tick.js中。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">import &#123; noop &#125; from &#x27;shared/util&#x27;</span><br><span class="line">import &#123; handleError &#125; from &#x27;./error&#x27;</span><br><span class="line">import &#123; isIOS, isNative &#125; from &#x27;./env&#x27;</span><br><span class="line"></span><br><span class="line">const callbacks = []</span><br><span class="line">let pending = false</span><br><span class="line"></span><br><span class="line">function flushCallbacks () &#123;</span><br><span class="line">  pending = false</span><br><span class="line">  const copies = callbacks.slice(0)</span><br><span class="line">  callbacks.length = 0</span><br><span class="line">  for (let i = 0; i &lt; copies.length; i++) &#123;</span><br><span class="line">    copies[i]()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let microTimerFunc</span><br><span class="line">let macroTimerFunc</span><br><span class="line">let useMacroTask = false</span><br><span class="line"></span><br><span class="line">if (typeof setImmediate !== &#x27;undefined&#x27; &amp;&amp; isNative(setImmediate)) &#123;</span><br><span class="line">  macroTimerFunc = () =&gt; &#123;</span><br><span class="line">    setImmediate(flushCallbacks)</span><br><span class="line">  &#125;</span><br><span class="line">&#125; else if (typeof MessageChannel !== &#x27;undefined&#x27; &amp;&amp; (</span><br><span class="line">  isNative(MessageChannel) ||</span><br><span class="line">  // PhantomJS</span><br><span class="line">  MessageChannel.toString() === &#x27;[object MessageChannelConstructor]&#x27;</span><br><span class="line">)) &#123;</span><br><span class="line">  const channel = new MessageChannel()</span><br><span class="line">  const port = channel.port2</span><br><span class="line">  channel.port1.onmessage = flushCallbacks</span><br><span class="line">  macroTimerFunc = () =&gt; &#123;</span><br><span class="line">    port.postMessage(1)</span><br><span class="line">  &#125;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  /* istanbul ignore next */</span><br><span class="line">  macroTimerFunc = () =&gt; &#123;</span><br><span class="line">    setTimeout(flushCallbacks, 0)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (typeof Promise !== &#x27;undefined&#x27; &amp;&amp; isNative(Promise)) &#123;</span><br><span class="line">  const p = Promise.resolve()</span><br><span class="line">  microTimerFunc = () =&gt; &#123;</span><br><span class="line">    p.then(flushCallbacks)</span><br><span class="line">    if (isIOS) setTimeout(noop)</span><br><span class="line">  &#125;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  // fallback to macro</span><br><span class="line">  microTimerFunc = macroTimerFunc</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export function withMacroTask (fn: Function): Function &#123;</span><br><span class="line">  return fn._withTask || (fn._withTask = function () &#123;</span><br><span class="line">    useMacroTask = true</span><br><span class="line">    const res = fn.apply(null, arguments)</span><br><span class="line">    useMacroTask = false</span><br><span class="line">    return res</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export function nextTick (cb?: Function, ctx?: Object) &#123;</span><br><span class="line">  let _resolve</span><br><span class="line">  callbacks.push(() =&gt; &#123;</span><br><span class="line">    if (cb) &#123;</span><br><span class="line">      try &#123;</span><br><span class="line">        cb.call(ctx)</span><br><span class="line">      &#125; catch (e) &#123;</span><br><span class="line">        handleError(e, ctx, &#x27;nextTick&#x27;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; else if (_resolve) &#123;</span><br><span class="line">      _resolve(ctx)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  if (!pending) &#123;</span><br><span class="line">    pending = true</span><br><span class="line">    if (useMacroTask) &#123;</span><br><span class="line">      macroTimerFunc()</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      microTimerFunc()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  // $flow-disable-line</span><br><span class="line">  if (!cb &amp;&amp; typeof Promise !== &#x27;undefined&#x27;) &#123;</span><br><span class="line">    return new Promise(resolve =&gt; &#123;</span><br><span class="line">      _resolve = resolve</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>从上面代码可以看到，首先定义两个变量microTimerFunc、macroTimerFunc，分别对应micro task 的函数和 macro task 的函数。</p>
-<ul>
-<li>对于macro task，按优先级依次检测setImmediate、MessageChannel是否支持，都不支持就使用setTimeout 0来实现。</li>
-<li>对于micro task ，则检测是否支持Promise，不支持则指向macro task的实现，使用macro来代替</li>
-</ul>
-<p>从上面flushCallbacks函数可以看到，会遍历callbacks，并且同步执行。说明nextTick会把一个tick内的任务，在一个同步任务内执行完，不会分多次异步去执行。</p>
-<p>最以可以看到函数的最后提供了一个Promise化的调用，在不传cb的时候，可以使用promise的方式使用nextTick。</p>
-<p>vue提供了两种调nextTick的方式，一种是全局的，上面initGlobalAPI中的定义Vue.nextTick。另一种是实例上的vm.$nextTick,定义在renderMixin()方法中，在vue定义的文件位置。两种方法最后调用的都是上面定义的nextTick方法。</p>
-<h4 id="响应式的原理"><a href="#响应式的原理" class="headerlink" title="响应式的原理"></a>响应式的原理</h4><p>vue2.x的响应式的核心主要使用了ES5的Object.defineProperty方法。</p>
-<p><strong>Object.defineProperty()</strong> 的作用是直接在一个对象上定义一个新属性，或者修改一个已经存在的属性</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Object.defineProperty(obj, prop, desc)</span><br><span class="line">1. obj 需要定义属性的当前对象</span><br><span class="line">2. prop 当前需要定义的属性名</span><br><span class="line">3. desc 属性描述符</span><br><span class="line"></span><br><span class="line">栗子：</span><br><span class="line">let a = &#123;&#125;</span><br><span class="line">a.b = xxx</span><br><span class="line"></span><br><span class="line">// 相当于下面</span><br><span class="line">Object.defineProperty(a, b, &#123;</span><br><span class="line">    value: xxx,</span><br><span class="line">    ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-
-<p>这个方法里的desc属性描述符中包含了get和set以及其它的一些可选键值。</p>
-<ul>
-<li>get 相当于给对象的这个属性添加了getter方法，访问这个值的时候，会触发getter方法。</li>
-<li>set相当于给对象的这个属性添加了setter方法，修改这个属性的时候会触发这个方法</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Object.defineProperty(a, b, &#123;</span><br><span class="line">    value: xxx,</span><br><span class="line">    set () &#123;...&#125;,</span><br><span class="line">    get () &#123;...&#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-
-<p>这样就相当于将vue中的对象变成响应式了，每次改变都会触发一些方法。</p>
-<h4 id="某些对象变化vue监听不到的解决方式"><a href="#某些对象变化vue监听不到的解决方式" class="headerlink" title="某些对象变化vue监听不到的解决方式"></a>某些对象变化vue监听不到的解决方式</h4><ul>
-<li>使用 Object.defineProperty 实现响应式的对象，当我们去给这个对象添加一个新的属性的时候，是不能够触发它的 setter 的。如下</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">  data:&#123;</span><br><span class="line">    a:1</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">// vm.b 是非响应的</span><br><span class="line">vm.b = 2</span><br></pre></td></tr></table></figure>
-
-
-
-<p>这时候vue提供了里的Vue.set的方法，</p>
-<p>定义在src&#x2F;core&#x2F;observer&#x2F;index.js中</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">export function set (target: Array&lt;any&gt; | Object, key: any, val: any): any &#123;</span><br><span class="line">...</span><br><span class="line">  defineReactive(ob.value, key, val)</span><br><span class="line">  ob.dep.notify()</span><br><span class="line">  return val</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>可以看到最终调用了defineReactive,这个方法就是上面添加响应式对象的封装方法。最后notify再手动触发通知。</p>
-<ul>
-<li>数组的也存在修改数组长度或者直接根据索引修改一个值不响应的情况。</li>
-</ul>
-<p>在src&#x2F;core&#x2F;observer&#x2F;array.js中</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import &#123; def &#125; from &#x27;../util/index&#x27;</span><br><span class="line"></span><br><span class="line">const arrayProto = Array.prototype</span><br><span class="line">export const arrayMethods = Object.create(arrayProto)</span><br><span class="line"></span><br><span class="line">;[</span><br><span class="line">  &#x27;push&#x27;,</span><br><span class="line">  &#x27;pop&#x27;,</span><br><span class="line">  &#x27;shift&#x27;,</span><br><span class="line">  &#x27;unshift&#x27;,</span><br><span class="line">  &#x27;splice&#x27;,</span><br><span class="line">  &#x27;sort&#x27;,</span><br><span class="line">  &#x27;reverse&#x27;</span><br><span class="line">]</span><br><span class="line">.forEach(function (method) &#123;</span><br><span class="line">  // cache original method</span><br><span class="line">  const original = arrayProto[method]</span><br><span class="line">  def(arrayMethods, method, function mutator (...args) &#123;</span><br><span class="line">    const result = original.apply(this, args)</span><br><span class="line">    const ob = this.__ob__</span><br><span class="line">    let inserted</span><br><span class="line">    switch (method) &#123;</span><br><span class="line">      case &#x27;push&#x27;:</span><br><span class="line">      case &#x27;unshift&#x27;:</span><br><span class="line">        inserted = args</span><br><span class="line">        break</span><br><span class="line">      case &#x27;splice&#x27;:</span><br><span class="line">        inserted = args.slice(2)</span><br><span class="line">        break</span><br><span class="line">    &#125;</span><br><span class="line">    if (inserted) ob.observeArray(inserted)</span><br><span class="line">    // notify change</span><br><span class="line">    ob.dep.notify()</span><br><span class="line">    return result</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-
-<p>可以看到vue对上述数组方法进行了重写，先执行原有的数组方法，然后加入新加的逻辑。新加的逻辑主要是将改变的数组项变成响应式，同时手动通知数据变化。</p>
-<p>数组只要使用上述数组方法就可以出发响应变化</p>
-<h4 id="vm-on、vm-off、vm-once、vm-emit的实现"><a href="#vm-on、vm-off、vm-once、vm-emit的实现" class="headerlink" title="vm.$on、vm.$off、vm.$once、vm.$emit的实现"></a>vm.$on、vm.$off、vm.$once、vm.$emit的实现</h4><p>这几个api初始化是在初始化vue的时候eventsMixin(Vue)中，文件定义在src\core\instance\events.js中</p>
-<h5 id="vm-on"><a href="#vm-on" class="headerlink" title="vm.$on"></a>vm.$on</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const hookRE = /^hook:/</span><br><span class="line">Vue.prototype.$on = function (event: string | Array&lt;string&gt;, fn: Function): Component &#123;</span><br><span class="line">const vm: Component = this</span><br><span class="line">    if (Array.isArray(event)) &#123;</span><br><span class="line">      for (let i = 0, l = event.length; i &lt; l; i++) &#123;</span><br><span class="line">        this.$on(event[i], fn)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      (vm._events[event] || (vm._events[event] = [])).push(fn)</span><br><span class="line">      if (hookRE.test(event)) &#123;</span><br><span class="line">        vm._hasHookEvent = true</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return vm</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>从上面可以看到，事件名是个string的时候，会将定义的函数push进vm._events[event]中。事件名是个数组的时候会经过for循环递归调用自身，也会像上面string的方式处理。</p>
-<h5 id="vm-off"><a href="#vm-off" class="headerlink" title="vm.$off"></a>vm.$off</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">Vue.prototype.$off = function (event?: string | Array&lt;string&gt;, fn?: Function): Component &#123;</span><br><span class="line">    const vm: Component = this</span><br><span class="line">    // all</span><br><span class="line">    if (!arguments.length) &#123;</span><br><span class="line">      vm._events = Object.create(null)</span><br><span class="line">      return vm</span><br><span class="line">    &#125;</span><br><span class="line">    // array of events</span><br><span class="line">    if (Array.isArray(event)) &#123;</span><br><span class="line">      for (let i = 0, l = event.length; i &lt; l; i++) &#123;</span><br><span class="line">        this.$off(event[i], fn)</span><br><span class="line">      &#125;</span><br><span class="line">      return vm</span><br><span class="line">    &#125;</span><br><span class="line">    // specific event</span><br><span class="line">    const cbs = vm._events[event]</span><br><span class="line">    if (!cbs) &#123;</span><br><span class="line">      return vm</span><br><span class="line">    &#125;</span><br><span class="line">    if (arguments.length === 1) &#123;</span><br><span class="line">      vm._events[event] = null</span><br><span class="line">      return vm</span><br><span class="line">    &#125;</span><br><span class="line">    if (fn) &#123;</span><br><span class="line">      // specific handler</span><br><span class="line">      let cb</span><br><span class="line">      let i = cbs.length</span><br><span class="line">      while (i--) &#123;</span><br><span class="line">        cb = cbs[i]</span><br><span class="line">        if (cb === fn || cb.fn === fn) &#123;</span><br><span class="line">          cbs.splice(i, 1)</span><br><span class="line">          break</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return vm</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>从上面可以看到，如果arguments.length &#x3D;&#x3D;&#x3D; 1,则会执行vm._events[event] &#x3D; null,相当于移除所有的event。如果提供fn，则会遍历event的数组去splice对应的event数组里的函数。如果传入的事件名是个数组，则会for循环递归调用自身，执行和string相同的操作。</p>
-<h5 id="vm-once"><a href="#vm-once" class="headerlink" title="vm.$once"></a>vm.$once</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Vue.prototype.$once = function (event: string, fn: Function): Component &#123;</span><br><span class="line">    const vm: Component = this</span><br><span class="line">    function on () &#123;</span><br><span class="line">      vm.$off(event, on)</span><br><span class="line">      fn.apply(vm, arguments)</span><br><span class="line">    &#125;</span><br><span class="line">    on.fn = fn</span><br><span class="line">    vm.$on(event, on)</span><br><span class="line">    return vm</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>可以看到，使用$once添加事件的时候，会调用$on,并且执行事件的时候会调用$off，移除事件。</p>
-<h5 id="vm-emit"><a href="#vm-emit" class="headerlink" title="vm.$emit"></a>vm.$emit</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Vue.prototype.$emit = function (event: string): Component &#123;</span><br><span class="line">    const vm: Component = this</span><br><span class="line">    let cbs = vm._events[event]</span><br><span class="line">    if (cbs) &#123;</span><br><span class="line">      cbs = cbs.length &gt; 1 ? toArray(cbs) : cbs</span><br><span class="line">      const args = toArray(arguments, 1)</span><br><span class="line">      for (let i = 0, l = cbs.length; i &lt; l; i++) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">          cbs[i].apply(vm, args)</span><br><span class="line">        &#125; catch (e) &#123;</span><br><span class="line">          handleError(e, vm, `event handler for &quot;$&#123;event&#125;&quot;`)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return vm</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>从上面可以看到，emit调用的时候，先会去vm._events[event]中查看有无定义这个事件，有的话会去遍历这个event的数组并且执行每一项的方法。从上面off可知，off之后的event会是一个空数组，这里for循环就不会走了。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/06/30/vue/%E6%BA%90%E7%A0%81/" data-id="cl1eaywy3000cgwvn5fcr9hhz" data-title="node" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-vue/Proxy 介绍" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/06/30/vue/Proxy%20%E4%BB%8B%E7%BB%8D/" class="article-date">
-  <time class="dt-published" datetime="2020-06-30T07:03:18.000Z" itemprop="datePublished">2020-06-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/06/30/vue/Proxy%20%E4%BB%8B%E7%BB%8D/">node</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="Proxy-介绍"><a href="#Proxy-介绍" class="headerlink" title="Proxy 介绍"></a>Proxy 介绍</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let p = new Proxy(target, handler);</span><br><span class="line"></span><br><span class="line">参数：</span><br><span class="line">	-1. target 用Proxy包装的目标对象（可以是任何类型的对象，包括原生数组，函数，甚至另一个代理）</span><br><span class="line">  -2. handler 一个对象，其属性是当执行一个操作时定义代理的行为的函数。</span><br><span class="line">  </span><br><span class="line">注意：</span><br><span class="line">	要想Proxy生效， 必须针对Proxy实例进行操作，而不是对原对象target</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="Proxy-Demo"><a href="#Proxy-Demo" class="headerlink" title="Proxy Demo"></a>Proxy Demo</h3><p>下面是一个来自MDN的demo:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">let validator = &#123;</span><br><span class="line">	set (obj, prop, value) &#123;</span><br><span class="line">  	if (prop === &#x27;age&#x27;) &#123;</span><br><span class="line">    	if (!Number.isInteger(value)) &#123;</span><br><span class="line">      	throw new TypeError(&#x27;The age is not an interger&#x27;);</span><br><span class="line">      &#125;</span><br><span class="line">      if (value &gt; 200) &#123;</span><br><span class="line">      	throw new RangeError(&#x27;The age seems invalid&#x27;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    obj[prop] = value</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let preson = new Proxy(&#123;&#125;, validator);</span><br><span class="line">person.age = 100;</span><br><span class="line">// 100</span><br><span class="line">person.age = &#x27;young&#x27;; </span><br><span class="line">// 抛出异常: Uncaught TypeError: The age is not an integer</span><br><span class="line"></span><br><span class="line">person.age = 300; </span><br><span class="line">// 抛出异常: Uncaught RangeError: The age seems invalid</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="Proxy-和-defineProperty"><a href="#Proxy-和-defineProperty" class="headerlink" title="Proxy 和 defineProperty"></a>Proxy 和 defineProperty</h3><p>Proxy在vue3中主要是代替Object.defineProperty()实现了响应式, 下面先简单的对比一下他们的区别：</p>
-<h4 id="1-数据劫持"><a href="#1-数据劫持" class="headerlink" title="1. 数据劫持"></a>1. 数据劫持</h4><p>（通常使用Object.defineProperty劫持对象的访问器，在值变化时获取变化，并进行操作）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">const data = &#123;</span><br><span class="line">	habit: &#x27;&#x27;</span><br><span class="line">&#125;</span><br><span class="line">function play(habit) &#123;</span><br><span class="line">	if (habit === &#x27;bs&#x27;) &#123;</span><br><span class="line">  	console.log(&#x27;中国男篮使我放弃了篮球的爱好！&#x27;)</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">  	console.log(&#x27;我只爱中国女排！&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Object.keys(data).forEach(function(key) &#123;</span><br><span class="line">	Object.defineProperty(data, key, &#123;</span><br><span class="line">  	configurable: true,</span><br><span class="line">    enumerable: true,</span><br><span class="line">    get () &#123;&#125;,</span><br><span class="line">    set (val) &#123;</span><br><span class="line">    	console.log(val)</span><br><span class="line">      play(val)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 当我们对data中的habit进行赋值的时候就会触发</span><br><span class="line">data.habit = &#x27;bs&#x27;</span><br><span class="line">// bs</span><br><span class="line">// 中国男篮使我放弃了篮球的爱好！</span><br></pre></td></tr></table></figure>
-
-
-
-<p>一个完整的数据劫持基本有以下几点：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">一、利用Observer针对对象(属性)进行劫持，在属性发生变化后通知订阅者</span><br><span class="line">二、Compile解析器根据Directive进行渲染</span><br><span class="line">三、Watcher会连接Observer和Compile，使得数据变化促使视图变化</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="2-基于Object-defineProperty的双向绑定"><a href="#2-基于Object-defineProperty的双向绑定" class="headerlink" title="2. 基于Object.defineProperty的双向绑定"></a>2. 基于Object.defineProperty的双向绑定</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line">简易版：</span><br><span class="line">const ready = &#123;&#125;;</span><br><span class="line">Object.defineProperty(ready, &#x27;start&#x27;, &#123;</span><br><span class="line">	get () &#123;</span><br><span class="line">  	console.log(&#x27;This is getter&#x27;)</span><br><span class="line">  &#125;,</span><br><span class="line">  set (val) &#123;</span><br><span class="line">  	console.log(&#x27;This is setter:&#x27; + val)</span><br><span class="line">    // 这里可以用来操作DOM</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">xx.addEventListener(&#x27;keyup&#x27;, function(e) &#123;</span><br><span class="line">	ready.start = e.target.value; // 双向绑定</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">升级版：</span><br><span class="line">let uid = 0;</span><br><span class="line">----------- 负责存储订阅者和消息的分发</span><br><span class="line">class Dep &#123;</span><br><span class="line">	constructor() &#123;</span><br><span class="line">    // 设置id, 用于区分</span><br><span class="line">  	this.id = uid ++;</span><br><span class="line">    // 存储订阅事件</span><br><span class="line">    this.subs = [];</span><br><span class="line">  &#125;</span><br><span class="line">  depend() &#123;</span><br><span class="line">  	Dep.target.addDep(this)</span><br><span class="line">  &#125;</span><br><span class="line">  // 添加订阅事件</span><br><span class="line">  addSub(sub) &#123;</span><br><span class="line">    this.subs.push(sub);</span><br><span class="line">  &#125;</span><br><span class="line">  notify() &#123;</span><br><span class="line">    // 通知所有的订阅事件(Watcher)，触发订阅者的相应逻辑处理</span><br><span class="line">    this.subs.forEach(sub =&gt; sub.update());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">---------- 监听者Observer</span><br><span class="line">class Observer &#123;</span><br><span class="line">	constructor(value) &#123;</span><br><span class="line">    this.value = value;</span><br><span class="line">    this.walk(value);</span><br><span class="line">  &#125;</span><br><span class="line">  // 遍历属性值并添加监听状态</span><br><span class="line">  walk(value) &#123;</span><br><span class="line">    Object.keys(value).forEach(key =&gt; this.convert(key, value[key]));</span><br><span class="line">  &#125;</span><br><span class="line">  convert(key, val) &#123;</span><br><span class="line">    defineReactive(this.value, key, val);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function defineReactive (obj, key, val) &#123;</span><br><span class="line">  	const dep = new Dep();</span><br><span class="line">   	// 给当前属性的值添加监听</span><br><span class="line">   	let chlidOb = observe(val);</span><br><span class="line">  	Object.defineProperty(obj, key, &#123;</span><br><span class="line">    	enumerable: true,</span><br><span class="line">      configurable: true,</span><br><span class="line">      get: () =&gt; &#123;</span><br><span class="line">        // 如果Dep类存在target属性，将其添加到dep实例的subs数组中</span><br><span class="line">        // target指向一个Watcher实例，每个Watcher都是一个订阅者</span><br><span class="line">        // Watcher实例在实例化过程中，会读取data中的某个属性，从而触发当前get方法</span><br><span class="line">        if (Dep.target) &#123;</span><br><span class="line">          dep.depend();</span><br><span class="line">        &#125;</span><br><span class="line">        return val;</span><br><span class="line">      &#125;,</span><br><span class="line">      set: newVal =&gt; &#123;</span><br><span class="line">        if (val === newVal) return;</span><br><span class="line">        val = newVal;</span><br><span class="line">        // 对新值进行监听</span><br><span class="line">        chlidOb = observe(newVal);</span><br><span class="line">        // 通知所有订阅者，数值被改变了</span><br><span class="line">        dep.notify();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">function observe(value) &#123;</span><br><span class="line">  // 当值不存在，或者不是复杂数据类型时，不再需要继续深入监听</span><br><span class="line">  if (!value || typeof value !== &#x27;object&#x27;) &#123;</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line">  return new Observer(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">---------- 订阅Watcher</span><br><span class="line">class Watcher &#123;</span><br><span class="line">	constructor(vm, expOrFn, cb) &#123;</span><br><span class="line">  	this.depIds = &#123;&#125;;</span><br><span class="line">    this.vm = vm;</span><br><span class="line">    this.cb = cb;</span><br><span class="line">    this.expOrFn = expOrFn;</span><br><span class="line">    this.val = this.get()</span><br><span class="line">  &#125;</span><br><span class="line">  update () &#123;</span><br><span class="line">  	this.run();</span><br><span class="line">  &#125;</span><br><span class="line">  addDep(dep) &#123;</span><br><span class="line">  	if (!this.depIds.hasOwnProperty(dep.id)) &#123;</span><br><span class="line">      dep.addSub(this);</span><br><span class="line">      this.depIds[dep.id] = dep;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  run() &#123;</span><br><span class="line">    const val = this.get();</span><br><span class="line">    console.log(val);</span><br><span class="line">    if (val !== this.val) &#123;</span><br><span class="line">      this.val = val;</span><br><span class="line">      this.cb.call(this.vm, val);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  get() &#123;</span><br><span class="line">    // 当前订阅者(Watcher)读取被订阅数据的最新更新后的值时，通知订阅者管理员收集当前订阅者</span><br><span class="line">    Dep.target = this;</span><br><span class="line">    const val = this.vm._data[this.expOrFn];</span><br><span class="line">    // 置空，用于下一个Watcher使用</span><br><span class="line">    Dep.target = null;</span><br><span class="line">    return val;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id=""><a href="#" class="headerlink" title=""></a></h4><h4 id="3-Object-defineProperty的不足"><a href="#3-Object-defineProperty的不足" class="headerlink" title="3. Object.defineProperty的不足"></a>3. Object.defineProperty的不足</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 无法监听数组</span><br><span class="line">在Vue中只对以下八种方法做了优化push() pop() shift() unshift() splice() sort() reverse()</span><br><span class="line">2. vm.items[indexOfItem] = newVal 无效</span><br><span class="line">3. 只能劫持对象的属性，且需要层层遍历</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="4-基于Proxy的双向绑定"><a href="#4-基于Proxy的双向绑定" class="headerlink" title="4. 基于Proxy的双向绑定"></a>4. 基于Proxy的双向绑定</h4><p>Proxy可以直接监听对象而不是属性</p>
-<p>先看一个简版的demo:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">const input = document.getElementById(&#x27;input&#x27;)</span><br><span class="line">const p = document.getElementById(&#x27;p&#x27;)</span><br><span class="line">const obj = &#123;&#125;</span><br><span class="line"></span><br><span class="line">const newWay = new Proxy(obj, &#123;</span><br><span class="line">	get (target, key, rev) &#123;</span><br><span class="line">  	console.log(`U get $&#123;key&#125;!`)</span><br><span class="line">    return Reflect.get(target, key, rev)</span><br><span class="line">  &#125;,</span><br><span class="line">  set (target, key, value, rev) &#123;</span><br><span class="line">    if (key === &#x27;text&#x27;) &#123;</span><br><span class="line">      input.value = value</span><br><span class="line">      p.innerHTML = value</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(target, key, value, rev)</span><br><span class="line">    return Reflect.set(target, key, value, rev)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">// 这里可以直接监听一个obj对象</span><br><span class="line"></span><br><span class="line">input.addEventListener(&#x27;keyup&#x27;, function(e) &#123;</span><br><span class="line"> newObj.text = e.target.value</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="5-Proxy的优点"><a href="#5-Proxy的优点" class="headerlink" title="5. Proxy的优点"></a>5. Proxy的优点</h4><p>Proxy可以直接监听数组的变化，且包含（apply、ownKeys、deleteProperty、has）等Object.defineProperty不具备的方法</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const arr = [1, 2, 3, 4]</span><br><span class="line"></span><br><span class="line">const newArr = new Proxy(arr, &#123;</span><br><span class="line">	get (target, key, rev) &#123;</span><br><span class="line">  	console.log(key)</span><br><span class="line">    return Reflect.get(target, key, rev)</span><br><span class="line">  &#125;,</span><br><span class="line">  // </span><br><span class="line">  set (target, key, value, rev) &#123;</span><br><span class="line">  	if (key !== &#x27;length&#x27;) &#123;</span><br><span class="line">    	// 执行改变</span><br><span class="line">    &#125;</span><br><span class="line">    return Reflect.set(target, key, value, rev)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">newArr.push(6)</span><br></pre></td></tr></table></figure>
-
-
-
-<p>这样一来，在vue3中，由于数据相应发生了变化，$set将不再会被频繁的使用到了。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/06/30/vue/Proxy%20%E4%BB%8B%E7%BB%8D/" data-id="cl1eb1mt5000dgwvn8mnncbju" data-title="node" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2022/03/30/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/30/vue/vue2/">node</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/30/vue/1%E3%80%81for%E5%BE%AA%E7%8E%AF%E3%80%81while%E3%80%81do%20while%20%EF%BC%88%E6%95%B0%E7%BB%84%EF%BC%89/">node</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/30/vue/Axios%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/">node</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/30/vue/props%20$emit/">node</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2022 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
-</body>
-</html>
+二、 NodeJs的异步IOlibuv库：（相当于一个线程池、可以看作几种不同的异步IO实现方式的封装层）​        当我们在node中运行了一段js代码后，最终会走到libu ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">冯啸</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/fengxiao1998"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:fengxiao19980913@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/30/hello-world/" title="Hello World">Hello World</a><time datetime="2022-03-30T06:59:22.591Z" title="发表于 2022-03-30 14:59:22">2022-03-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2020/06/30/vue/1%E3%80%81for%E5%BE%AA%E7%8E%AF%E3%80%81while%E3%80%81do%20while%20%EF%BC%88%E6%95%B0%E7%BB%84%EF%BC%89/" title="关于JS循环">关于JS循环</a><time datetime="2020-06-30T07:03:18.000Z" title="发表于 2020-06-30 15:03:18">2020-06-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2020/06/30/vue/Proxy%20%E4%BB%8B%E7%BB%8D/" title="proxy">proxy</a><time datetime="2020-06-30T07:03:18.000Z" title="发表于 2020-06-30 15:03:18">2020-06-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2020/06/30/vue/Axios%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" title="关于Axios">关于Axios</a><time datetime="2020-06-30T07:03:18.000Z" title="发表于 2020-06-30 15:03:18">2020-06-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2020/06/30/vue/call/" title="call">call</a><time datetime="2020-06-30T07:03:18.000Z" title="发表于 2020-06-30 15:03:18">2020-06-30</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/vue/" style="font-size: 1.1em; color: #999">vue</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/03/"><span class="card-archive-list-date">三月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/06/"><span class="card-archive-list-date">六月 2020</span><span class="card-archive-list-count">15</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">16</div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2022-05-05T08:33:42.924Z"></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By 冯啸</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"></div></div></body></html>
