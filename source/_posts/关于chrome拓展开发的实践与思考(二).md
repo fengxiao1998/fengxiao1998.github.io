@@ -2,6 +2,7 @@
 title: 关于chrome拓展开发的实践与思考(二)
 date: 2022-05-9 09:03:18
 tags: [chrome插件,chrome拓展]
+cover: https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/cover.png
 ---
 
 ## 前言：

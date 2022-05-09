@@ -111,26 +111,26 @@ category_per_img:
 
 cover:
   # display the cover or not (是否顯示文章封面)
-  index_enable: false
-  aside_enable: false
-  archives_enable: false
+  index_enable: true
+  aside_enable: true
+  archives_enable: true
   # the position of cover in home page (封面顯示的位置)
   # left/right/both
   position: both
   # When cover is not set, the default cover is displayed (當沒有設置cover時，默認的封面顯示)
-  default_cover:
-    # - https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg
+  default_cover:  
+  - https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/cover.png
+  - https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-exhausted-man-in-front-of-a-computer-with-his-head-69-original.png
 
-# Replace Broken Images (替換無法顯示的圖片)
 error_img:
   flink: /img/friend_404.gif
   post_page: /img/404.jpg
 
 # A simple 404 page
 error_404:
-  enable: false
+  enable: true
   subtitle: 'Page Not Found'
-  background: https://i.loli.net/2020/05/19/aKOcLiyPl2JQdFD.png
+  background:  https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/404.jpg
 
 post_meta:
   page: # Home Page
@@ -254,99 +254,18 @@ addtoany:
 comments:
   # Up to two comments system, the first will be shown as default
   # Choose: Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo/Giscus
-  use: # Valine,Disqus
+  use:  Livere
   text: true # Display the comment name next to the button
   # lazyload: The comment system will be load when comment element enters the browser's viewport.
   # If you set it to true, the comment count will be invalid
-  lazyload: false
+  lazyload: true
   count: false # Display comment count in post's top_img
   card_post_count: false # Display comment count in Home Page
-
-# disqus
-# https://disqus.com/
-disqus:
-  shortname:
-  apikey: # For newest comments widget
-
-# Alternative Disqus - Render comments with Disqus API
-# DisqusJS 評論系統，可以實現在網路審查地區載入 Disqus 評論列表，兼容原版
-# https://github.com/SukkaW/DisqusJS
-disqusjs:
-  shortname:
-  apikey:
-  option:
 
 # livere (來必力)
 # https://www.livere.com/
 livere:
-  uid:
-
-# gitalk
-# https://github.com/gitalk/gitalk
-gitalk:
-  client_id:
-  client_secret:
-  repo:
-  owner:
-  admin:
-  option:
-
-# valine
-# https://valine.js.org
-valine:
-  appId: # leancloud application app id
-  appKey: # leancloud application app key
-  avatar: monsterid # gravatar style https://valine.js.org/#/avatar
-  serverURLs: # This configuration is suitable for domestic custom domain name users, overseas version will be automatically detected (no need to manually fill in)
-  bg: # valine background
-  visitor: false
-  option:
-
-# waline - A simple comment system with backend support fork from Valine
-# https://waline.js.org/
-waline:
-  serverURL: # Waline server address url
-  bg: # waline background
-  visitor: false
-  option:
-
-# utterances
-# https://utteranc.es/
-utterances:
-  repo:
-  # Issue Mapping: pathname/url/title/og:title
-  issue_term: pathname
-  # Theme: github-light/github-dark/github-dark-orange/icy-dark/dark-blue/photon-dark
-  light_theme: github-light
-  dark_theme: photon-dark``
-
-# Facebook Comments Plugin
-# https://developers.facebook.com/docs/plugins/comments/
-facebook_comments:
-  app_id:
-  user_id: # optional
-  pageSize: 10 # The number of comments to show
-  order_by: social # social/time/reverse_time
-  lang: en_US # Language en_US/zh_CN/zh_TW and so on
-
-# Twikoo
-# https://github.com/imaegoo/twikoo
-twikoo:
-  envId:
-  region:
-  visitor: false
-  option:
-
-# Giscus
-# https://giscus.app/
-giscus:
-  repo:
-  repo_id:
-  category_id:
-  theme:
-    light: light
-    dark: dark
-  option:
+  uid: MTAyMC81NjM1NC8zMjgxNw==
 
 # Chat Services
 # --------------------------------------
@@ -424,12 +343,12 @@ microsoft_clarity:
 # --------------------------------------
 
 # Google Adsense (谷歌廣告)
-google_adsense:
-  enable: false
-  auto_ads: false
-  js: https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js
-  client:
-  enable_page_level_ads: false
+# google_adsense:
+#   enable: false
+#   auto_ads: false
+#   js: https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js
+#   client:
+#   enable_page_level_ads: false
 
 # Insert ads manually (手動插入廣告)
 # ad:
@@ -464,7 +383,7 @@ theme_color:
   hr_color: "#A4D8FA"
   code_foreground: "#F47466"
   code_background: "rgba(27, 31, 35, .05)"
-  toc_color: "#93ca76"
+  toc_color: "#93ca76" #目录滚动色
   blockquote_padding_color: "#49b1f5"
   blockquote_background_color: "#fddea5"
   scrollbar_color: "#a8c97f"
@@ -488,7 +407,7 @@ tag_ui: # 留空或 index
 background:
 
 # Footer Background
-footer_bg: false
+footer_bg: rgb(168,191,147)
 
 # the position of bottom right button/default unit: px (右下角按鈕距離底部的距離/默認單位為px)
 rightside-bottom:
@@ -502,11 +421,11 @@ enter_transitions: true
 # canvas_ribbon (靜止彩帶背景)
 # See: https://github.com/hustcc/ribbon.js
 canvas_ribbon:
-  enable: false
+  enable: true
   size: 150
   alpha: 0.6
   zIndex: -1
-  click_to_change: false
+  click_to_change: true
   mobile: false
 
 # Fluttering Ribbon (動態彩帶)
@@ -527,7 +446,7 @@ canvas_nest:
 # Typewriter Effect (打字效果)
 # https://github.com/disjukr/activate-power-mode
 activate_power_mode:
-  enable: false
+  enable: true
   colorful: true # open particle animation (冒光特效)
   shake: true #  open shake (抖動特效)
   mobile: false
@@ -576,8 +495,8 @@ font:
 # Font settings for the site title and site subtitle
 # 左上角網站名字 主頁居中網站名字
 blog_title_font:
-  font_link: test
-  font-family: 测试2
+  font_link: 
+  font-family: 
 
 # The setting of divider icon (水平分隔線圖標設置)
 hr_icon:
@@ -603,7 +522,7 @@ subtitle:
   sub:
 
 # Loading Animation (加載動畫)
-preloader: false
+preloader: true
 
 # aside (側邊欄)
 # --------------------------------------
@@ -870,7 +789,15 @@ CDN:
 
   # background effect
   canvas_ribbon:
+    # enable: true
+    # size: 150
+    # alpha: 0.6
+    # zIndex: -1
+    # click_to_change: true  #设置是否每次点击都更换綵带
+    # mobile: false # false 手机端不显示 true 手机端显示
   canvas_fluttering_ribbon:
+    enable: true
+    mobile: false # false 手机端不显示 true 手机端显示
   canvas_nest:
 
   lazyload:
