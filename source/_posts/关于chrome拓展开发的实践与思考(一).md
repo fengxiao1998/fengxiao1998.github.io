@@ -83,11 +83,6 @@ tags: [chrome插件,chrome拓展]
 			"run_at": "document_start"
             // 代码注入的时间，可选值： "document_start", "document_end", or "document_idle"，最后一个表示页面空闲时，默认document_idle
 		},
-		// 这里仅仅是为了演示content-script可以配置多个规则
-		{
-			"matches": ["*://*/*.png", "*://*/*.jpg", "*://*/*.gif", "*://*/*.bmp"],
-			"js": ["js/show-image-content-size.js"]
-		}
 	],
     
 
