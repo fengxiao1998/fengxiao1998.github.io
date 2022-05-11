@@ -73,7 +73,7 @@ katex:
 # --------------------------------------
 
 # Favicon（網站圖標）
-favicon: /img/favicon.png
+favicon: /img/Blinky.ico
 
 # Avatar (頭像)
 avatar:
@@ -121,6 +121,10 @@ cover:
   default_cover:  
   - https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/cover.png
   - https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-exhausted-man-in-front-of-a-computer-with-his-head-69-original.png
+  - https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-desks-in-a-cool-co-working-space-with-an-office-dog-399-original.png
+  - https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-four-people-working-together-at-a-shared-desk-in-an-274-original.png
+  - https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-work-desk-with-a-computer-books-coffee-and-snacks-398-original.png
+
 
 error_img:
   flink: /img/friend_404.gif
