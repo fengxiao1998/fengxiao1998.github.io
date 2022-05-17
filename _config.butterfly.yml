@@ -84,7 +84,7 @@ avatar:
 disable_top_img: false
 
 # The banner image of home page
-index_img: https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/background.jpg
+index_img: https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/wallhaven-g7g8rd.jpg?x-oss-process=image/quality,q_30
 # If the banner of page not setting, it will show the top_img
 default_top_img:
 
