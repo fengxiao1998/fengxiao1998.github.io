@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>nginx在window环境下前端说明与实践 | Fx.blog</title><meta name="keywords" content="nginx"><meta name="author" content="冯啸"><meta name="copyright" content="冯啸"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言：本内容是基于windows前端进行的简单nginx配置，对于Linux不做过多说明。 下载与安装：nginx官方下载地址:http:&#x2F;&#x2F;nginx.org&#x2F;en&#x2F;download.html 任选其一即可。  解压后结构如下：  目录结构与说明：注意：不要用点击nginx.exe的方式启动nginx，后果是无法通过指令关闭或重启nginx，会让你怀疑是不是哪里出了问题，改了配置却没生效。如果你">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx在window环境下前端说明与实践">
+<meta property="og:url" content="http://example.com/2022/05/20/nginx%E5%9C%A8window%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%89%8D%E7%AB%AF%E7%9A%84%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="Fx.blog">
+<meta property="og:description" content="前言：本内容是基于windows前端进行的简单nginx配置，对于Linux不做过多说明。 下载与安装：nginx官方下载地址:http:&#x2F;&#x2F;nginx.org&#x2F;en&#x2F;download.html 任选其一即可。  解压后结构如下：  目录结构与说明：注意：不要用点击nginx.exe的方式启动nginx，后果是无法通过指令关闭或重启nginx，会让你怀疑是不是哪里出了问题，改了配置却没生效。如果你">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-desks-in-a-cool-co-working-space-with-an-office-dog-399-original.png">
+<meta property="article:published_time" content="2022-05-20T07:03:18.000Z">
+<meta property="article:modified_time" content="2022-05-23T02:16:50.528Z">
+<meta property="article:author" content="冯啸">
+<meta property="article:tag" content="nginx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-desks-in-a-cool-co-working-space-with-an-office-dog-399-original.png"><link rel="shortcut icon" href="/img/Blinky.ico"><link rel="canonical" href="http://example.com/2022/05/20/nginx%E5%9C%A8window%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%89%8D%E7%AB%AF%E7%9A%84%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'nginx在window环境下前端说明与实践',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-05-23 10:16:50'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.1.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-desks-in-a-cool-co-working-space-with-an-office-dog-399-original.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Fx.blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">nginx在window环境下前端说明与实践</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-20T07:03:18.000Z" title="发表于 2022-05-20 15:03:18">2022-05-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-23T02:16:50.528Z" title="更新于 2022-05-23 10:16:50">2022-05-23</time></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>本内容是基于<strong>windows前端</strong>进行的简单nginx配置，对于Linux不做过多说明。</p>
+<h2 id="下载与安装："><a href="#下载与安装：" class="headerlink" title="下载与安装："></a>下载与安装：</h2><p>nginx官方下载地址:<a target="_blank" rel="noopener" href="http://nginx.org/en/download.html">http://nginx.org/en/download.html</a></p>
+<p>任选其一即可。</p>
+<p><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/image-20220520163809216.png" alt="image-20220520163809216"></p>
+<p>解压后结构如下：</p>
+<p><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/image-20220520163945687.png" alt="image-20220520163945687"></p>
+<h2 id="目录结构与说明："><a href="#目录结构与说明：" class="headerlink" title="目录结构与说明："></a>目录结构与说明：</h2><p><strong>注意：</strong>不要用点击nginx.exe的方式启动nginx，后果是无法通过指令<strong>关闭或重启nginx</strong>，会让你怀疑是不是哪里出了问题，改了配置却没生效。如果你眼疾手快已经点开了，不妨在任务管理器中手动kill掉。</p>
+<p><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/image-20220520164302319.png" alt="image-20220520164302319"></p>
+<p>接下来看下整个目录，其实目前不需要在意太多东西，只打开conf下的nginx.conf文件即可。浏览整个文件结构，不难看出是多层嵌套的格式，结构解释如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">...              #全局块</span><br><span class="line">events &#123;         #events块</span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br><span class="line">http      #http块</span><br><span class="line">&#123;</span><br><span class="line">    ...   #http全局块</span><br><span class="line">    server        #server块</span><br><span class="line">    &#123; </span><br><span class="line">        ...       #server全局块</span><br><span class="line">        location    #location块</span><br><span class="line">        &#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">        location </span><br><span class="line">        &#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    server</span><br><span class="line">    &#123;</span><br><span class="line">      ...</span><br><span class="line">    &#125;</span><br><span class="line">    ...     #http全局块</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>全局块</strong>：配置影响nginx全局的指令。一般有运行nginx服务器的用户组，nginx进程pid存放路径，日志存放路径，配置文件引入，允许生成worker process数等。</li>
+<li><strong>events块</strong>：配置影响nginx服务器或与用户的网络连接。有每个进程的最大连接数，选取哪种事件驱动模型处理连接请求，是否允许同时接受多个网路连接，开启多个网络连接序列化等。</li>
+<li><strong>http块</strong>：可以嵌套多个server，配置代理，缓存，日志定义等绝大多数功能和第三方模块的配置。如文件引入，mime-type定义，日志自定义，是否使用sendfile传输文件，连接超时时间，单连接请求数等。</li>
+<li><strong>server块</strong>：配置虚拟主机的相关参数，一个http中可以有多个server。</li>
+<li><strong>location块</strong>：配置请求的路由，以及各种页面的处理情况。</li>
+</ul>
+<h2 id="启动nginx与修改配置："><a href="#启动nginx与修改配置：" class="headerlink" title="启动nginx与修改配置："></a>启动nginx与修改配置：</h2><p>目前看着有点难懂，倒也不必在意，不妨直接动手尝试下，在你的nginx根目录下打开cmd(这个应该都会吧？就不放截图了)，在cmd中输入<code>start nginx</code>，不出意外的话你应该能看到一个黑色窗口一闪而过，说明启动成功了。浏览器url地址栏输入<code>locallhost:80</code>，理论上你就能看到你的nginx页面。</p>
+<p><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/image-20220520171816873.png" alt="image-20220520171816873"></p>
+<p>再试试输入locallhost:80&#x2F;50x.html，理论上会看到这个页面。</p>
+<p><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/image-20220520171908183.png" alt="image-20220520171908183"></p>
+<p>如果你页面成功显示出来了，说明至少目前是一切顺利的，接下来我们就要进行我们自己的配置，让我们把目光直接放在nginx.conf文件下的server代码块，其他的无需改动与关注，默认的server模块大致是这样子的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">     listen       80;#监听端口</span><br><span class="line">     server_name  localhost;#监听地址</span><br><span class="line">     </span><br><span class="line">     location / &#123;</span><br><span class="line">       	root   html;</span><br><span class="line">     	index  index.html index.htm;</span><br><span class="line">     &#125;</span><br><span class="line">     </span><br><span class="line">     error_page   500 502 503 504  /50x.html;</span><br><span class="line">     location = /50x.html &#123;</span><br><span class="line">         root   html;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>看到上面的代码，即使对参数配置一窍不通，你大概也能看到我们刚才输入的url地址在代码中有所出现，监听地址和端口不做说明，root你可以理解为你要展示的页面所在位置，index自然就是首页对应的html文件，顺着这个思路我们可以发现nginx根目录有个html文件夹，文件夹中50x.html和index.html文件就躺在那里。server内的简单结构我们目前就知道了。</p>
+<p>不知道大家在vsCode中有没有Live Server这个拓展，没有的话可以在拓展市场安装一个，稍后会用到，接下来你可以将你的root地址换成你自己的html所在位置看看，笔者用的是自己博客的地址 C:\Users\fx\Desktop\myblog;然后输入cmd中输入<code>nginx -s reload</code>，刷新页面理论上你就能看到属于你自己的页面。</p>
+<p>接下来我们试试其他玩法，随意找个html文件用vscode打开，按下alt+L+O，这是live Server的快捷键，你会看到你的页面被端口为localhost:5500的地址打开了，这是live Server的功劳接下来我们对server模块换个写法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">     listen       8080;</span><br><span class="line">     server_name  localhost;</span><br><span class="line">     charset utf-8;</span><br><span class="line">     location / &#123;</span><br><span class="line">      proxy_pass   http://localhost:5500/;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后输入cmd中输入<code>nginx -s reload</code>，url地址输入localhost:8080，你会看到展示内容与localhost:5500一致，此时如果你销毁localhost:5500(比如关闭你用live Sever跑的VScode),nginx代理的页面也会随之无法使用。</p>
+<p><strong>附</strong>：我在很多文章下面看很多人在配置server_name时总会更改为xxxx.com诸如此类，但如果你实际尝试是无法生效的，因为这个的前提是你需要在window的host文件下写入你的网站对应ip地址，这就好比你输入localhost:8080会自动帮你转跳到你的实际ip地址，因为这是需要提前配置的，所以如果你更改了server_name 没生效也不要担心。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">冯啸</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/05/20/nginx%E5%9C%A8window%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%89%8D%E7%AB%AF%E7%9A%84%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/">http://example.com/2022/05/20/nginx%E5%9C%A8window%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%89%8D%E7%AB%AF%E7%9A%84%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Fx.blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/nginx/">nginx</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/05/12/JavaScript%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8BSet()/"><img class="next-cover" src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-work-desk-with-a-computer-books-coffee-and-snacks-398-original.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">JavaScript性能优化之Set()</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="lv-container" data-id="city" data-uid="MTAyMC81NjM1NC8zMjgxNw=="></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">冯啸</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/fengxiao1998"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:fengxiao19980913@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">前言：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">下载与安装：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E4%B8%8E%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">目录结构与说明：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8nginx%E4%B8%8E%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">启动nginx与修改配置：</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/05/20/nginx%E5%9C%A8window%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%89%8D%E7%AB%AF%E7%9A%84%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/" title="nginx在window环境下前端说明与实践"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-desks-in-a-cool-co-working-space-with-an-office-dog-399-original.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nginx在window环境下前端说明与实践"/></a><div class="content"><a class="title" href="/2022/05/20/nginx%E5%9C%A8window%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%89%8D%E7%AB%AF%E7%9A%84%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/" title="nginx在window环境下前端说明与实践">nginx在window环境下前端说明与实践</a><time datetime="2022-05-20T07:03:18.000Z" title="发表于 2022-05-20 15:03:18">2022-05-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/12/JavaScript%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8BSet()/" title="JavaScript性能优化之Set()"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-work-desk-with-a-computer-books-coffee-and-snacks-398-original.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JavaScript性能优化之Set()"/></a><div class="content"><a class="title" href="/2022/05/12/JavaScript%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8BSet()/" title="JavaScript性能优化之Set()">JavaScript性能优化之Set()</a><time datetime="2022-05-12T07:03:18.000Z" title="发表于 2022-05-12 15:03:18">2022-05-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/12/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%BA%94)/" title="关于chrome拓展开发的实践与思考(五)"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于chrome拓展开发的实践与思考(五)"/></a><div class="content"><a class="title" href="/2022/05/12/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%BA%94)/" title="关于chrome拓展开发的实践与思考(五)">关于chrome拓展开发的实践与思考(五)</a><time datetime="2022-05-12T01:40:18.000Z" title="发表于 2022-05-12 09:40:18">2022-05-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/10/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E5%9B%9B)/" title="关于chrome拓展开发的实践与思考(四)"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-four-people-working-together-at-a-shared-desk-in-an-274-original.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于chrome拓展开发的实践与思考(四)"/></a><div class="content"><a class="title" href="/2022/05/10/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E5%9B%9B)/" title="关于chrome拓展开发的实践与思考(四)">关于chrome拓展开发的实践与思考(四)</a><time datetime="2022-05-10T06:40:18.000Z" title="发表于 2022-05-10 14:40:18">2022-05-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/10/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%B8%89)/" title="关于chrome拓展开发的实践与思考(三)"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于chrome拓展开发的实践与思考(三)"/></a><div class="content"><a class="title" href="/2022/05/10/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%B8%89)/" title="关于chrome拓展开发的实践与思考(三)">关于chrome拓展开发的实践与思考(三)</a><time datetime="2022-05-10T03:08:18.000Z" title="发表于 2022-05-10 11:08:18">2022-05-10</time></div></div></div></div></div></div></main><footer id="footer" style="background: rgb(168,191,147)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By 冯啸</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"><script>function loadLivere () {
+  if (typeof LivereTower === 'object') {
+    window.LivereTower.init()
+  }
+  else {
+    (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  }
+}
+
+if ('Livere' === 'Livere' || !true) {
+  if (true) btf.loadComment(document.getElementById('lv-container'), loadLivere)
+  else loadLivere()
+}
+else {
+  function loadOtherComment () {
+    loadLivere()
+  }
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script></div></body></html>
