@@ -1,0 +1,211 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>关于chrome拓展开发的实践与思考(二) | Fx.blog</title><meta name="keywords" content="chrome插件,chrome拓展"><meta name="author" content="冯啸"><meta name="copyright" content="冯啸"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言：上文中，我们已经基于最小的功能实现了chrome拓展插件。接下来我们再为这个插件添加点更复杂的功能。 实践：如图，我们想实现该功能，放置一个button，点击后数字0开始自动加一  html文件： 1234567891011121314151617181920212223&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;  &lt;meta chars">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于chrome拓展开发的实践与思考(二)">
+<meta property="og:url" content="http://example.com/2022/05/09/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%BA%8C)/index.html">
+<meta property="og:site_name" content="Fx.blog">
+<meta property="og:description" content="前言：上文中，我们已经基于最小的功能实现了chrome拓展插件。接下来我们再为这个插件添加点更复杂的功能。 实践：如图，我们想实现该功能，放置一个button，点击后数字0开始自动加一  html文件： 1234567891011121314151617181920212223&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;  &lt;meta chars">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-four-people-working-together-at-a-shared-desk-in-an-274-original.png">
+<meta property="article:published_time" content="2022-05-09T09:05:18.000Z">
+<meta property="article:modified_time" content="2022-05-26T02:39:17.244Z">
+<meta property="article:author" content="冯啸">
+<meta property="article:tag" content="chrome插件">
+<meta property="article:tag" content="chrome拓展">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-four-people-working-together-at-a-shared-desk-in-an-274-original.png"><link rel="shortcut icon" href="/img/Blinky.ico"><link rel="canonical" href="http://example.com/2022/05/09/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%BA%8C)/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '关于chrome拓展开发的实践与思考(二)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-05-26 10:39:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.1.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-four-people-working-together-at-a-shared-desk-in-an-274-original.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Fx.blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">关于chrome拓展开发的实践与思考(二)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-09T09:05:18.000Z" title="发表于 2022-05-09 17:05:18">2022-05-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-26T02:39:17.244Z" title="更新于 2022-05-26 10:39:17">2022-05-26</time></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>上文中，我们已经基于最小的功能实现了chrome拓展插件。接下来我们再为这个插件添加点更复杂的功能。</p>
+<h2 id="实践："><a href="#实践：" class="headerlink" title="实践："></a>实践：</h2><p>如图，我们想实现该功能，放置一个button，点击后数字0开始自动加一</p>
+<p><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/image-20220509093847559.png" alt="image-20220509093847559"></p>
+<p>html文件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;styles/popup.css&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">main</span> <span class="attr">class</span>=<span class="string">&quot;popup-main&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;popup-avatar&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">&quot;popup-image&quot;</span> <span class="attr">src</span>=<span class="string">&quot;image/avatar.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;popup-information&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;popup-text&quot;</span>&gt;</span>0<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;popup-button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;popup-button&quot;</span>&gt;</span>点击后数量加一<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;js/popup.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>js文件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> number = <span class="number">0</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">clickMyButton</span>(<span class="params"></span>)&#123;</span><br><span class="line">  number++</span><br><span class="line">  <span class="keyword">const</span> popupButton = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.popup-text&quot;</span>)</span><br><span class="line">  popupButton.<span class="property">innerHTML</span> = number</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;我数量加了1&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;popup-button&quot;</span>).<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, clickMyButton);</span><br></pre></td></tr></table></figure>
+
+<p><strong>tips:</strong></p>
+<ol>
+<li>对于js代码，需要以引入的形式注入，如果直接以script标签包裹js放置到html文件中，会无法运行。感兴趣的可以自己尝试一下。</li>
+<li>对于事件绑定，给button标签直接加onclick事件绑定函数也无法正常运行，需要用addEventListener的形式绑定。</li>
+</ol>
+<hr>
+<p>​        完成以上步骤后，我们更新拓展，并单击右键选择检查将拓展的控制台打开，多次点击按钮，发现数量每次加一，并在控制台出现了打印信息。再次重申，该控制台非按下F12出现的控制台，而是右键单击你的拓展插件在【检查】选项中出现的控制台。</p>
+<p><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/image-20220509103437659.png" alt="image-20220509103437659"></p>
+<pre><code>     如果你细心观察，你会发现每次拓展关闭重启后(指再次点击右上角拓展icon)，数字总是回到了0，并且你的拓展控制台也消失掉了。这就是笔者要引入的下一个内容，生命周期与background.js。
+</code></pre>
+<p><strong>生命周期：</strong>拓展弹出的界面的完整周期只有它展示在界面的那段时间(有点废话)，也就是说，拓展在关闭重新打开后，它的函数也跟着重新刷新，页面也重新渲染，这也就是重新打开后数字变回了0以及控制台自动消失的原因，对于这点你也可以类比我们的chrome浏览器。当浏览器关闭时，控制台也会随之消失。那有没有即使插件关闭了，数字依旧不归0的方法？有的，background.js。</p>
+<p>**background.js:**你可以理解为会一直常驻的后台JS或后台页面，它的生命周期与拓展的【default_popup】(即拓展弹出页面)不同，只有当浏览器彻底关闭时，它的生命周期才会结束，我们可以利用该特性完成我们的需求。</p>
+<hr>
+<p>manifest：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;manifest_version&quot;</span><span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;FxExtensions&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;it is a description&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;icons&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;16&quot;</span><span class="punctuation">:</span><span class="string">&quot;image/icon.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;48&quot;</span><span class="punctuation">:</span><span class="string">&quot;image/icon.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;128&quot;</span><span class="punctuation">:</span><span class="string">&quot;image/icon.png&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;browser_action&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;default_icon&quot;</span><span class="punctuation">:</span> <span class="string">&quot;image/icon.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;default_popup&quot;</span><span class="punctuation">:</span> <span class="string">&quot;popup.html&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;default_title&quot;</span><span class="punctuation">:</span> <span class="string">&quot;鼠标悬浮展示内容&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;background&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;js/background.js&quot;</span><span class="punctuation">]</span><span class="comment">//注意引用路径</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>在background.js中，写入</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>在popup.js中，写入</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//chrome提供的api，该api功能为获取background.js的window</span></span><br><span class="line"><span class="keyword">const</span> bg = chrome.<span class="property">extension</span>.<span class="title function_">getBackgroundPage</span>();</span><br><span class="line"><span class="comment">// 点击事件</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">clickMyButton</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(bg)</span><br><span class="line">  <span class="keyword">const</span> popupButton = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.popup-text&quot;</span>)</span><br><span class="line">  bg.<span class="property">a</span> = bg.<span class="property">a</span> + <span class="number">1</span></span><br><span class="line">  popupButton.<span class="property">innerHTML</span> = bg.<span class="property">a</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;popup-button&quot;</span>).<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>, clickMyButton);</span><br></pre></td></tr></table></figure>
+
+<p>**tips:**笔者在函数中的console.log(bg)并非毫无意识，感兴趣的可以在控制台查看这个【bg】到底是何内容，打印后会发现是window对象，并且我们的a变量也在其中。</p>
+<p><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/image-20220509110000681.png" alt="image-20220509110000681"></p>
+<p>不妨再将background.js的var替换成let，再次打印查看window。</p>
+<p><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/image-20220509110146598.png" alt="image-20220509110146598"></p>
+<p>​        你会发现window下并没有a变量。当然这是顶层对象和全局变量的知识，与本内容并无太大关系。笔者只是想提醒读者注意变量生命方式避免出现无法获取到变量的低级错误。</p>
+<p>​        至此，我们的功能已经完成，不妨来试一试看看是否成功。我们点击按钮将数量变为3，随后刷新浏览器页面，再次打开拓展，发现数字还是0，但只点击一次按钮，会发现数字直接变成了4，这是因为我们是在html文件中给p标签内容填充为0，点击按钮时才会将a的值赋给p标签，这也从侧面验证了html文件的生命周期background.js的生命周期是不同的。关闭浏览器再次打开，会发现一切回到了起点，数字又从1开始进行了，这也验证了background的生命周期。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">冯啸</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/05/09/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%BA%8C)/">http://example.com/2022/05/09/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%BA%8C)/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Fx.blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/chrome%E6%8F%92%E4%BB%B6/">chrome插件</a><a class="post-meta__tags" href="/tags/chrome%E6%8B%93%E5%B1%95/">chrome拓展</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/05/10/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%B8%89)/"><img class="prev-cover" src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-four-people-working-together-at-a-shared-desk-in-an-274-original.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">关于chrome拓展开发的实践与思考(三)</div></div></a></div><div class="next-post pull-right"><a href="/2022/05/06/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%B8%80)/"><img class="next-cover" src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-work-desk-with-a-computer-books-coffee-and-snacks-398-original.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">关于chrome拓展开发的实践与思考(一)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/05/06/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%B8%80)/" title="关于chrome拓展开发的实践与思考(一)"><img class="cover" src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-work-desk-with-a-computer-books-coffee-and-snacks-398-original.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-06</div><div class="title">关于chrome拓展开发的实践与思考(一)</div></div></a></div><div><a href="/2022/05/10/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%B8%89)/" title="关于chrome拓展开发的实践与思考(三)"><img class="cover" src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-four-people-working-together-at-a-shared-desk-in-an-274-original.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-10</div><div class="title">关于chrome拓展开发的实践与思考(三)</div></div></a></div><div><a href="/2022/05/12/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%BA%94)/" title="关于chrome拓展开发的实践与思考(五)"><img class="cover" src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-four-people-working-together-at-a-shared-desk-in-an-274-original.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-12</div><div class="title">关于chrome拓展开发的实践与思考(五)</div></div></a></div><div><a href="/2022/05/10/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E5%9B%9B)/" title="关于chrome拓展开发的实践与思考(四)"><img class="cover" src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-exhausted-man-in-front-of-a-computer-with-his-head-69-original.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-10</div><div class="title">关于chrome拓展开发的实践与思考(四)</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="lv-container" data-id="city" data-uid="MTAyMC81NjM1NC8zMjgxNw=="></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">冯啸</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/fengxiao1998"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:fengxiao19980913@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">前言：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E8%B7%B5%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">实践：</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/06/17/%E5%89%8D%E7%AB%AFnode%E8%B7%A8%E5%9F%9F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="前端node跨域解决方案cors以及jsonp"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-desks-in-a-cool-co-working-space-with-an-office-dog-399-original.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="前端node跨域解决方案cors以及jsonp"/></a><div class="content"><a class="title" href="/2022/06/17/%E5%89%8D%E7%AB%AFnode%E8%B7%A8%E5%9F%9F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="前端node跨域解决方案cors以及jsonp">前端node跨域解决方案cors以及jsonp</a><time datetime="2022-06-17T07:03:18.000Z" title="发表于 2022-06-17 15:03:18">2022-06-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/06/15/%E4%BB%8E0%E5%BC%80%E5%A7%8Bnpm%E5%8C%85%E5%8F%91%E5%B8%83%E4%B8%8E%E5%88%A0%E9%99%A4/" title="从0开始npm包发布与删除"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从0开始npm包发布与删除"/></a><div class="content"><a class="title" href="/2022/06/15/%E4%BB%8E0%E5%BC%80%E5%A7%8Bnpm%E5%8C%85%E5%8F%91%E5%B8%83%E4%B8%8E%E5%88%A0%E9%99%A4/" title="从0开始npm包发布与删除">从0开始npm包发布与删除</a><time datetime="2022-06-15T09:05:18.000Z" title="发表于 2022-06-15 17:05:18">2022-06-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/20/nginx%E5%9C%A8window%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%89%8D%E7%AB%AF%E7%9A%84%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/" title="nginx在window环境下前端说明与实践"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-four-people-working-together-at-a-shared-desk-in-an-274-original.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nginx在window环境下前端说明与实践"/></a><div class="content"><a class="title" href="/2022/05/20/nginx%E5%9C%A8window%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%89%8D%E7%AB%AF%E7%9A%84%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/" title="nginx在window环境下前端说明与实践">nginx在window环境下前端说明与实践</a><time datetime="2022-05-20T07:03:18.000Z" title="发表于 2022-05-20 15:03:18">2022-05-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/12/JavaScript%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8BSet()/" title="JavaScript性能优化之Set()"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JavaScript性能优化之Set()"/></a><div class="content"><a class="title" href="/2022/05/12/JavaScript%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8BSet()/" title="JavaScript性能优化之Set()">JavaScript性能优化之Set()</a><time datetime="2022-05-12T07:03:18.000Z" title="发表于 2022-05-12 15:03:18">2022-05-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/12/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%BA%94)/" title="关于chrome拓展开发的实践与思考(五)"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-four-people-working-together-at-a-shared-desk-in-an-274-original.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于chrome拓展开发的实践与思考(五)"/></a><div class="content"><a class="title" href="/2022/05/12/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%BA%94)/" title="关于chrome拓展开发的实践与思考(五)">关于chrome拓展开发的实践与思考(五)</a><time datetime="2022-05-12T01:40:18.000Z" title="发表于 2022-05-12 09:40:18">2022-05-12</time></div></div></div></div></div></div></main><footer id="footer" style="background: rgb(168,191,147)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By 冯啸</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"><script>function loadLivere () {
+  if (typeof LivereTower === 'object') {
+    window.LivereTower.init()
+  }
+  else {
+    (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  }
+}
+
+if ('Livere' === 'Livere' || !true) {
+  if (true) btf.loadComment(document.getElementById('lv-container'), loadLivere)
+  else loadLivere()
+}
+else {
+  function loadOtherComment () {
+    loadLivere()
+  }
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script></div></body></html>
