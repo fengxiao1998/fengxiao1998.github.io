@@ -2,6 +2,7 @@
 title: 从0开始npm包发布与删除
 date: 2022-06-15 17:05:18
 tags: [npm,node]
+description: 从0开始封装、发布、调试、删除一个npm包。
 ---
 
 ## 前言
