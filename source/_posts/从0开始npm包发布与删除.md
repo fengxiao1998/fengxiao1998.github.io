@@ -15,7 +15,7 @@ description: 从0开始封装、发布、调试、删除一个npm包。
 
 #### 方法封装
 
-本次只是想体验封装和发布的过程，因此在功能上不做深入开发，暂定包含一个**格式化时间**功能以及一个**返回数字绝对值**功能。流程如下：
+本次只是想体验封装和发布的过程，因此在功能上不做深入开发，暂定包含一个**监听浏览器关闭事件**功能以及一个**返回数字绝对值**功能。流程如下：
 
 1. 新建空文件夹，注意名字不要包含中文及特殊字符，格式最好使用中线链接，不要包含大写字母，实例：
 
@@ -32,25 +32,11 @@ description: 从0开始封装、发布、调试、删除一个npm包。
 4. 接下来开始封装函数，实现格式化时间功能和返回数字绝对值的功能，在**index.js**文件中写下代码：
 
    ```javascript
-   // 定义格式化时间的方法
-   function dateFormat(dtStr) {
-     const dt = new Date(dtStr)
-   
-     const year = dt.getFullYear()
-     const month = padZero(dt.getMonth() + 1)
-     const day = padZero(dt.getDate())
-   
-   
-     const hour = padZero(dt.getHours())
-     const minute = padZero(dt.getMinutes())
-     const second = padZero(dt.getSeconds())
-   
-     return `${year}-${month}-${day} ${hour}:${minute}:${second}`
-   }
-   
-   //定义补零函数
-   function padZero(n) {
-     return n > 9 ? n : '0' + n
+   // 定义监听浏览器关闭事件
+   function watchingUnload(fn) {
+       window.addEventListener("beforeunload", function () {
+           fn()
+       })
    }
    
    //定义返回数字绝对值
@@ -65,7 +51,13 @@ description: 从0开始封装、发布、调试、删除一个npm包。
    
    // 以上两个功能只是进行最基础的功能封装，在严谨性上有所缺陷。
    ```
-
+   
+   在此简单介绍下beforeunload事件，当浏览器整个页面关闭时，会在关闭前触发`beforeunload`事件以及`unload`事件，通常可以在`beforeunload`事件回调中加入一些你想要执行的操作，该事件的兼容性如下，（安利兼容性查看网站：https://caniuse.com/)
+   
+   **注**：手动刷新页面也会触发该事件。
+   
+   ![](https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/20230530162430.png)
+   
 5. 在README.md中写入以下内容：
 
    ~~~markdown
@@ -79,11 +71,9 @@ description: 从0开始封装、发布、调试、删除一个npm包。
    const fxTestTool = require('你包的名字')
    ```
    
-   ## 格式化时间
+   ## 监听浏览器关闭事件
    ```js
-   //调用dateFormat对时间进行格式化
-   const dateFormat = fxTestTool.dateFormat(new Date())
-   //结果 2022-06-15 12:22:21
+   fxTestTool.watchingUnload(yourFun)
    ```
    
    ## 返回数字绝对值
@@ -110,14 +100,14 @@ description: 从0开始封装、发布、调试、删除一个npm包。
 ```javascript
 const date = require('./scr/dateFormat')
 
-const returnAbsNum = require('./scr/returnAbsNum')
+const watchingUnload = require('./scr/watchingUnload')
 
 
 module.exports = {
 
  ...date,//当上面两个文件都抛出了很多方法时，解构的写法可以将所有的方法直接抛出而不是需要打点调用
 
- ...returnAbsNum
+ ...watchingUnload
 
 }
 ```
@@ -144,14 +134,12 @@ module.exports = {
 
 ## 安装自己的npm包并进行实验
 
+#### 一、纯js文件演示
+
 我们已经成功发布了自己的包，不仿反向安装一个自己的包试试我们封装的方法，新建一个名为test-my-tools的文件夹，文件夹中新建index.js文件，随后输入 `npm i 你包的名字`，注意，包的名字是你package.json文件中name属性的名字。安装完成后，在index.js中输入以下代码：
 
 ```javascript
 const fxTestTool = require('你包的名字')
-
-//测试格式化时间函数
-const nowTime = fxTestTool.dateFormat(new Date())
-console.log(nowTime)
 
 //测试返回绝对值函数
 const absNumber = fxTestTool.returnAbsNum(-18)
@@ -165,7 +153,52 @@ console.log(absNumber)
 
 实验成功。
 
+#### 二、VUE文件演示
 
+在vue页面中，通过`import`引入npm包并进行尝试，下文只写入关键性代码
+
+```javascript
+import { watchingUnload } from "heyyyyfx-tools";
+
+mounted() {
+    watchingUnload(this.testFetch)
+    // watchingUnload(this.ajaxFun)
+},
+methods: {
+	async ajaxFun() {
+	  try {
+	    const response = await axios.get('http://127.0.0.1:3000/users');
+	    console.log('查看调用结果', response)
+	  } catch (error) {
+	    console.error(error);
+	  }
+	},
+	testFetch() {
+	  fetch('http://127.0.0.1:3000/users', {
+	    method: 'GET',
+	    keepalive: true
+	  });
+	},
+  }    
+```
+
+​		可以看到，上述代码中，通过`import`引入了`watchingUnload`方法，并在`mouted`中挂载了函数，在`method`中分别写入了两种方法，二者都是通过GET请求调用同一个接口，区别为一个是通过axios请求，另一个是通过fetch请求，在此简单介绍下fetch功能：
+​	fetch是JavaScript中用于发送网络请求的API。它是一种基于Promise的API，可以用于发送各种类型的HTTP请求，包括GET、POST、PUT、DELETE等。fetch API使用起来比XMLHttpRequest更加简单，也更加灵活，可以轻松地处理JSON、文件上传等复杂的网络请求。其中有一个名为`keepalive`的属性尤为重要，keepalive属性用于页面卸载时，告诉浏览器在后台保持连接，继续发送数据。
+另外***http://127.0.0.1:3000/users***是笔者通过node在本地开启的后端服务并通过cors解决了跨域问题，当接口被调用时，会在服务端打印信息(主要作为验证使用，不开启也无妨)
+
+![](https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/20230530163008.png)
+
+准备工作完成后，开启vue服务，打开页面后关闭页面，发现接口请求成功，node端后台成功打印信息。
+
+![](https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/20230530164537.png)
+
+说明以下几点：
+
+1. 在vue中成功使用npm包。
+2. beforeunload事件成功触发。
+3. fetch成功利用keepalive属性在浏览器销毁后继续调用本地接口。
+
+感兴趣的不妨分别改动`keepalive`属性为`false`，或者在事件中选择axios为回调函数看看接口是否被成功执行。通过上述验证，间接实现了一些特定需求，例如：根据用户浏览页面时间长短对用户进行用户画像描写，判断个人喜好等等。
 
 ## npm包的删除
 
