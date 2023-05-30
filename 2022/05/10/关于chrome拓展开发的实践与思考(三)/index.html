@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>关于chrome拓展开发的实践与思考(三) | Fx.blog</title><meta name="keywords" content="chrome插件,chrome拓展"><meta name="author" content="冯啸"><meta name="copyright" content="冯啸"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="baidu-site-verification" content="code-JJNUbIxz4Z"><meta name="baidu-site-verification" content="code-JJNUbIxz4Z"><meta name="description" content="前言：上文中我们简单阐述了background和拓展的生命周期，接下来我们简单谈谈content-script content-script：你可以理解为注入浏览器页面的js或css文件，我们可设置注入的js和css适用于哪些网站，也可以设置注入的js与css的执行实际等。 css注入：借用之前看到过的文章的段子，给大家讲解下这东西的作用，说有个无礼的客户，就是不喜欢百度页面【百度一下】按钮的颜色">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于chrome拓展开发的实践与思考(三)">
+<meta property="og:url" content="http://example.com/2022/05/10/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%B8%89)/index.html">
+<meta property="og:site_name" content="Fx.blog">
+<meta property="og:description" content="前言：上文中我们简单阐述了background和拓展的生命周期，接下来我们简单谈谈content-script content-script：你可以理解为注入浏览器页面的js或css文件，我们可设置注入的js和css适用于哪些网站，也可以设置注入的js与css的执行实际等。 css注入：借用之前看到过的文章的段子，给大家讲解下这东西的作用，说有个无礼的客户，就是不喜欢百度页面【百度一下】按钮的颜色">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-four-people-working-together-at-a-shared-desk-in-an-274-original.png">
+<meta property="article:published_time" content="2022-05-10T03:08:18.000Z">
+<meta property="article:modified_time" content="2022-06-21T08:35:30.310Z">
+<meta property="article:author" content="冯啸">
+<meta property="article:tag" content="chrome插件">
+<meta property="article:tag" content="chrome拓展">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-four-people-working-together-at-a-shared-desk-in-an-274-original.png"><link rel="shortcut icon" href="/img/Blinky.ico"><link rel="canonical" href="http://example.com/2022/05/10/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%B8%89)/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '关于chrome拓展开发的实践与思考(三)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-06-21 16:35:30'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-four-people-working-together-at-a-shared-desk-in-an-274-original.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Fx.blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">关于chrome拓展开发的实践与思考(三)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-10T03:08:18.000Z" title="发表于 2022-05-10 11:08:18">2022-05-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-06-21T08:35:30.310Z" title="更新于 2022-06-21 16:35:30">2022-06-21</time></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>上文中我们简单阐述了background和拓展的生命周期，接下来我们简单谈谈content-script</p>
+<h2 id="content-script："><a href="#content-script：" class="headerlink" title="content-script："></a>content-script：</h2><p>你可以理解为注入浏览器页面的js或css文件，我们可设置注入的js和css适用于哪些网站，也可以设置注入的js与css的执行实际等。</p>
+<h4 id="css注入："><a href="#css注入：" class="headerlink" title="css注入："></a>css注入：</h4><p>借用之前看到过的文章的段子，给大家讲解下这东西的作用，说有个无礼的客户，就是不喜欢百度页面【百度一下】按钮的颜色，想把这个东西改成其他颜色。</p>
+<p><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/image-20220510111419279.png" alt="image-20220510111419279"></p>
+<p>但是这玩意是百度的网站啊，研发总不能托人找关系给百度产品打电话说：你们要不换个颜色？</p>
+<p><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fq_70%2Cc_zoom%2Cw_640%2Fimages%2F20200115%2F06c65502495849619a85851c00ba2ab9.jpeg&refer=http%3A%2F%2F5b0988e595225.cdn.sohucs.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1654744507&t=1134c5c3b3ab843914bfce4d7c33c465" alt="img"></p>
+<p>这时候有个大哥就想出了用chrome拓展插件完成这个需求，用的就是”content_scripts”注入。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;content_scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">  <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;matches&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;&lt;all_urls&gt;&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">     <span class="comment">//匹配地址，指注入js或css的匹配字段，&lt;all_urls&gt;指全匹配，支持正则。</span></span><br><span class="line">    <span class="attr">&quot;js&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;js/content-script.js&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">     <span class="comment">//往页面注入的js，注意，注入的js与原页面自带的js是相互隔离的，两个js文件不会相互影响</span></span><br><span class="line">    <span class="attr">&quot;css&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;/styles/content-script.css&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">     <span class="comment">//往页面注入的css，注意，css文件是会相互影响的，所以一定要小心使用。</span></span><br><span class="line">    <span class="attr">&quot;run_at&quot;</span><span class="punctuation">:</span> <span class="string">&quot;document_start&quot;</span></span><br><span class="line">     <span class="comment">//注入的js和css的执行时机，可选择参数：&quot;document_start&quot;, &quot;document_end&quot;,&quot;document_idle&quot;，最后一个表示页面空闲时，默认document_idle。</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+
+<p>接下来我们替“大哥”完成这个离谱的需求，在style文件夹新建content-script.css文件。来到baidu.com。打开元素审查，发现按钮颜色是input标签的background-color。</p>
+<p><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/image-20220510132015976.png" alt="image-20220510132015976"></p>
+<p>上文已经说过，css的注入会相互影响，我们将利用这个特性，在css文件中写入</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#head_wrapper</span> <span class="selector-class">.s_btn</span>&#123;</span><br><span class="line">  <span class="attribute">background-color</span>: red<span class="meta">!important</span>; <span class="comment">/*防止颜色优先级不高，加个!important，反正也是图一乐*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>更新插件并刷新页面后就可以看到，客户的需求完成了。</p>
+<p><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/image-20220510132402361.png" alt="image-20220510132402361"></p>
+<p>这就是简单的css注入，那我们再来看看js的注入。</p>
+<h4 id="js注入："><a href="#js注入：" class="headerlink" title="js注入："></a>js注入：</h4><p>还是以百度为例，来实现个简单的需求，按下【百度一下】按钮时，弹出alert内容，并在localStorage中存入些信息。</p>
+<p>content-script.js代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> inputButton = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#head_wrapper .s_btn&#x27;</span>)</span><br><span class="line">inputButton.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">window</span>.<span class="property">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;baidu&#x27;</span>,<span class="string">&#x27;clickButton&#x27;</span>)</span><br><span class="line">  <span class="title function_">alert</span>(<span class="string">&#x27;我按下了按钮&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(inputButton)</span><br></pre></td></tr></table></figure>
+
+<p>理论上，现在点击按钮时，此时我们会弹出alert，并在localStorage中看到我们的存储信息。但如果读者真正实践时，你会发现功能并没生效，并在控制台发现以下信息：</p>
+<p><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/image-20220510141934358.png" alt="image-20220510141934358"></p>
+<p>如果仔细查看报错信息，你会发现该段报错表示大致的是【不能将addEventListener绑定在空内容】。有经验的笔者会知道造成该报错的原因是没找到dom元素，这是为何？不妨回头看看我们的manifest文件中content_scripts的run_at选项，是document_start。相信此时你已经明白了为何，该参数表示js文件加载在dom生成之前执行，自然就无法获取到dom节点，所以我们只需将document_start更改为document_end。再次实验，发现点击按钮后弹出alert，查看localStorage，存储的信息也放在其中，至此，我们的功能完成了。</p>
+<p><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/image-20220510142900595.png" alt="image-20220510142900595"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">冯啸</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/05/10/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%B8%89)/">http://example.com/2022/05/10/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%B8%89)/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Fx.blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/chrome%E6%8F%92%E4%BB%B6/">chrome插件</a><a class="post-meta__tags" href="/tags/chrome%E6%8B%93%E5%B1%95/">chrome拓展</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/05/10/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E5%9B%9B)/"><img class="prev-cover" src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-work-desk-with-a-computer-books-coffee-and-snacks-398-original.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">关于chrome拓展开发的实践与思考(四)</div></div></a></div><div class="next-post pull-right"><a href="/2022/05/09/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%BA%8C)/"><img class="next-cover" src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-desks-in-a-cool-co-working-space-with-an-office-dog-399-original.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">关于chrome拓展开发的实践与思考(二)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/05/06/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%B8%80)/" title="关于chrome拓展开发的实践与思考(一)"><img class="cover" src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-desks-in-a-cool-co-working-space-with-an-office-dog-399-original.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-06</div><div class="title">关于chrome拓展开发的实践与思考(一)</div></div></a></div><div><a href="/2022/05/09/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%BA%8C)/" title="关于chrome拓展开发的实践与思考(二)"><img class="cover" src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-desks-in-a-cool-co-working-space-with-an-office-dog-399-original.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-09</div><div class="title">关于chrome拓展开发的实践与思考(二)</div></div></a></div><div><a href="/2022/05/12/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E4%BA%94)/" title="关于chrome拓展开发的实践与思考(五)"><img class="cover" src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-four-people-working-together-at-a-shared-desk-in-an-274-original.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-12</div><div class="title">关于chrome拓展开发的实践与思考(五)</div></div></a></div><div><a href="/2022/05/10/%E5%85%B3%E4%BA%8Echrome%E6%8B%93%E5%B1%95%E5%BC%80%E5%8F%91%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B8%8E%E6%80%9D%E8%80%83(%E5%9B%9B)/" title="关于chrome拓展开发的实践与思考(四)"><img class="cover" src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-work-desk-with-a-computer-books-coffee-and-snacks-398-original.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-10</div><div class="title">关于chrome拓展开发的实践与思考(四)</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="lv-container" data-id="city" data-uid="MTAyMC81NjM1NC8zMjgxNw=="></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">冯啸</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/fengxiao1998"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:fengxiao19980913@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">前言：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#content-script%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">content-script：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#css%E6%B3%A8%E5%85%A5%EF%BC%9A"><span class="toc-number">2.0.1.</span> <span class="toc-text">css注入：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#js%E6%B3%A8%E5%85%A5%EF%BC%9A"><span class="toc-number">2.0.2.</span> <span class="toc-text">js注入：</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/07/05/%E5%89%8D%E7%AB%AF%E5%9F%BA%E4%BA%8Enode%E7%9A%84session%E5%92%8CJWT%E9%89%B4%E6%9D%83/" title="前端基于node的Session和JWT鉴权"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-desks-in-a-cool-co-working-space-with-an-office-dog-399-original.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="前端基于node的Session和JWT鉴权"/></a><div class="content"><a class="title" href="/2022/07/05/%E5%89%8D%E7%AB%AF%E5%9F%BA%E4%BA%8Enode%E7%9A%84session%E5%92%8CJWT%E9%89%B4%E6%9D%83/" title="前端基于node的Session和JWT鉴权">前端基于node的Session和JWT鉴权</a><time datetime="2022-07-05T07:03:18.000Z" title="发表于 2022-07-05 15:03:18">2022-07-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/06/21/%E5%89%8D%E7%AB%AFnode+MySQL%E7%9A%84%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/" title="前端node + MySQL的基础数据增删改查"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="前端node + MySQL的基础数据增删改查"/></a><div class="content"><a class="title" href="/2022/06/21/%E5%89%8D%E7%AB%AFnode+MySQL%E7%9A%84%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/" title="前端node + MySQL的基础数据增删改查">前端node + MySQL的基础数据增删改查</a><time datetime="2022-06-21T07:03:18.000Z" title="发表于 2022-06-21 15:03:18">2022-06-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/06/17/%E5%89%8D%E7%AB%AFnode%E8%B7%A8%E5%9F%9F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="前端node跨域解决方案cors以及jsonp"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="前端node跨域解决方案cors以及jsonp"/></a><div class="content"><a class="title" href="/2022/06/17/%E5%89%8D%E7%AB%AFnode%E8%B7%A8%E5%9F%9F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="前端node跨域解决方案cors以及jsonp">前端node跨域解决方案cors以及jsonp</a><time datetime="2022-06-17T07:03:18.000Z" title="发表于 2022-06-17 15:03:18">2022-06-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/06/15/%E4%BB%8E0%E5%BC%80%E5%A7%8Bnpm%E5%8C%85%E5%8F%91%E5%B8%83%E4%B8%8E%E5%88%A0%E9%99%A4/" title="从0开始npm包发布与删除"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-exhausted-man-in-front-of-a-computer-with-his-head-69-original.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从0开始npm包发布与删除"/></a><div class="content"><a class="title" href="/2022/06/15/%E4%BB%8E0%E5%BC%80%E5%A7%8Bnpm%E5%8C%85%E5%8F%91%E5%B8%83%E4%B8%8E%E5%88%A0%E9%99%A4/" title="从0开始npm包发布与删除">从0开始npm包发布与删除</a><time datetime="2022-06-15T09:05:18.000Z" title="发表于 2022-06-15 17:05:18">2022-06-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/20/nginx%E5%9C%A8window%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%89%8D%E7%AB%AF%E7%9A%84%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/" title="nginx在window环境下前端说明与实践"><img src="https://heyyyfx.oss-cn-hangzhou.aliyuncs.com/img/blog/mixkit-work-desk-with-a-computer-books-coffee-and-snacks-398-original.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nginx在window环境下前端说明与实践"/></a><div class="content"><a class="title" href="/2022/05/20/nginx%E5%9C%A8window%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%89%8D%E7%AB%AF%E7%9A%84%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/" title="nginx在window环境下前端说明与实践">nginx在window环境下前端说明与实践</a><time datetime="2022-05-20T07:03:18.000Z" title="发表于 2022-05-20 15:03:18">2022-05-20</time></div></div></div></div></div></div></main><footer id="footer" style="background: rgb(168,191,147)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 冯啸</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"><script>function loadLivere () {
+  if (typeof LivereTower === 'object') {
+    window.LivereTower.init()
+  }
+  else {
+    (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  }
+}
+
+if ('Livere' === 'Livere' || !true) {
+  if (true) btf.loadComment(document.getElementById('lv-container'), loadLivere)
+  else loadLivere()
+}
+else {
+  function loadOtherComment () {
+    loadLivere()
+  }
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script></div></body></html>
